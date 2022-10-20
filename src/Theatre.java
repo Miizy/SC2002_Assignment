@@ -11,7 +11,6 @@ public class Theatre {
 	Theatre(int theatreID, FileWriter writer) throws IOException{
 		writer.write("Theatre " + theatreID + "\n");
 		this.setTheatreID(theatreID);
-		this.setSeats(new char[24][16][9]);
 		this.setNumOftimeSlot(0);
 		writer.write("End Theatre " + theatreID + "\n");
 	}
@@ -42,13 +41,5 @@ public class Theatre {
 
 	public void setNumOftimeSlot(int numOftimeSlot) {
 		this.numOftimeSlot = numOftimeSlot;
-	}
-
-	public char [][][] getSeats() {
-		return seats;
-	}
-
-	public void setSeats(char [][][] seats) {
-		this.seats = seats;
 	}
 }

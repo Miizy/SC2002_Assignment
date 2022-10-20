@@ -11,7 +11,7 @@ public class Cinema {
 		writer.write("Cinema " + ID + "\n");
 		setCinemaID(ID);
 		setListOfTheatre(numOfTheatre, writer);
-		writer.write("End Cinema" + ID + "\n");
+		writer.write("End Cinema " + ID + "\n");
 	}
 
 	public ArrayList<Theatre> getListOfTheatre() {

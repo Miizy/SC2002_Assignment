@@ -9,15 +9,18 @@ public class AppInterface {
 	public static void main(String args[]) throws IOException {
 		Scanner sc = new Scanner(System.in);
 		Cineplex cineplex = null;
-		File file = new File ("cineplex");
-		if(file.exists()) {
-			Scanner fileReader = new Scanner(file);
+		File folder = new File("Cineplex");
+		File [] allFiles = folder.listFiles();
+		if(allFiles.length > 0) {
+			//TODO: Read the cinema files and use it to create the cineplex object
 		}
 		else {
-			FileWriter writer = new FileWriter(file + ".txt");
-			int [] numOfTheatre = {5,5,5};
-			cineplex = new Cineplex(numOfTheatre, writer);
-			writer.close();
+			cineplex = new Cineplex();
+			for(int i=0; i<3; i++) {
+				FileWriter writer = new FileWriter(new File(folder, "Cinema"+ i + ".txt"));
+				cineplex.addCinema(i, 5, writer);
+				writer.close();
+			}
 		}
 		int choice;
 		do {
