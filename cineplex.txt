@@ -1,0 +1,38 @@
+Cineplex 
+Cinema 0
+Theatre 0
+End Theatre 0
+Theatre 1
+End Theatre 1
+Theatre 2
+End Theatre 2
+Theatre 3
+End Theatre 3
+Theatre 4
+End Theatre 4
+End Cinema0
+Cinema 1
+Theatre 0
+End Theatre 0
+Theatre 1
+End Theatre 1
+Theatre 2
+End Theatre 2
+Theatre 3
+End Theatre 3
+Theatre 4
+End Theatre 4
+End Cinema1
+Cinema 2
+Theatre 0
+End Theatre 0
+Theatre 1
+End Theatre 1
+Theatre 2
+End Theatre 2
+Theatre 3
+End Theatre 3
+Theatre 4
+End Theatre 4
+End Cinema2
+End Cineplex 
