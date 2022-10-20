@@ -9,7 +9,7 @@ public class AppInterface {
 	public static void main(String args[]) throws IOException {
 		Scanner sc = new Scanner(System.in);
 		Cineplex cineplex = null;
-		File file = new File ("cineplex");
+		File file = new File ("uj");
 		if(file.exists()) {
 			Scanner fileReader = new Scanner(file);
 		}
