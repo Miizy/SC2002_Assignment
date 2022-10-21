@@ -12,6 +12,6 @@ public class Cineplex {
 	}
 	
 	public void addCinema(int cinemaID, int numOfTheatre, FileWriter writer) throws IOException{
-		listOfCinema.add(new Cinema(cinemaID, numOfTheatre, writer));
+		listOfCinema.add(new Cinema(cinemaID, numOfTheatre, CinemaClass.dolb, writer));
 	}
 }

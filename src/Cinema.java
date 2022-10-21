@@ -5,11 +5,13 @@ import java.util.ArrayList;
 public class Cinema {
 	private ArrayList<Theatre> listOfTheatre = new ArrayList<Theatre>();
 	private int cinemaID;
+	private CinemaClass cinemaClass;
 	private ArrayList<Movie> listOfMovie = new ArrayList<Movie>();
 	
-	Cinema(int ID, int numOfTheatre, FileWriter writer) throws IOException {
+	Cinema(int ID, int numOfTheatre, CinemaClass cinemaClass, FileWriter writer) throws IOException {
 		writer.write("Cinema " + ID + "\n");
 		setCinemaID(ID);
+		setCinemaClass(cinemaClass);
 		setListOfTheatre(numOfTheatre, writer);
 		writer.write("End Cinema " + ID + "\n");
 	}
@@ -38,6 +40,14 @@ public class Cinema {
 	
 	public void addListOfMovie(Movie movie) {
 		this.listOfMovie.add(movie);
+	}
+
+	public CinemaClass getCinemaClass() {
+		return cinemaClass;
+	}
+
+	public void setCinemaClass(CinemaClass cinemaClass) {
+		this.cinemaClass = cinemaClass;
 	}
 	
 }
