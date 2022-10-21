@@ -1,8 +1,9 @@
 
 public enum CinemaClass {
-	d3("3D"),
-	bb("BlockBuster"),
-	reg("Regular");
+	plat("Platinum Movie Suites"),
+	ulti("Ultima"),
+	dolb("Dolby Atmos"),
+	elit("Elite Club");
 
 	private String cinemaClass;
 	
