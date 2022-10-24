@@ -4,7 +4,6 @@ public class StaffUse {
 	public static void StaffChoice(Cineplex cineplex) {
 		StaffLogin();
 		StaffCinema(cineplex);
-		StaffOptions();
 	}
 	
 	private static void StaffLogin(){
@@ -29,17 +28,25 @@ public class StaffUse {
 	
 	private static void StaffCinema(Cineplex cineplex){
 		Scanner sc = new Scanner(System.in);
-		int choice;
-		do {
-			for(int i=0; i<cineplex.getListOfCinema().size(); i++) {
-				
+		int choice = Integer.MAX_VALUE;
+		System.out.println("Select Cinema");
+		for(int i=0; i<cineplex.getListOfCinema().size(); i++) {
+			System.out.print((i+1) + ". Cinema ID " + cineplex.getCinema(i).getCinemaID());
+			if(cineplex.getCinema(i).getCinemaName() != "") {
+				System.out.print(", " + cineplex.getCinema(i).getCinemaName());
+			}
+			System.out.println();
+		}
+		while(choice > cineplex.getListOfCinema().size() || choice <= 0) {
+			if(choice != Integer.MAX_VALUE) {
+				System.out.println("Invalid choice, please try again.");
 			}
 			choice = sc.nextInt();
-			
-		}while(choice >3);
+		}
+		StaffOptions(cineplex.getCinema(choice));
 	}
 	
-	private static void StaffOptions() {
+	private static void StaffOptions(Cinema cinema) {
 		Scanner sc = new Scanner(System.in);
 		int choice;
 		do {
@@ -47,10 +54,10 @@ public class StaffUse {
 			choice = sc.nextInt();
 			switch(choice) {
 			case 1:
-				MovieListing();
+				MovieListing(cinema);
 				break;
 			case 2:
-				CinemaShowtimes();
+				CinemaShowtimes(cinema);
 				break;
 			case 3:
 				break;
@@ -64,7 +71,7 @@ public class StaffUse {
 		}while(choice>4);
 	}
 	
-	private static void MovieListing(){ //Movie listing is a list of movies showing now and coming soon
+	private static void MovieListing(Cinema cinema){ //Movie listing is a list of movies showing now and coming soon
 		Scanner sc = new Scanner(System.in);
 		int choice;
 		do {
@@ -72,10 +79,8 @@ public class StaffUse {
 			choice = sc.nextInt();
 			switch(choice) {
 			case 1:
-				MovieListing();
 				break;
 			case 2:
-				CinemaShowtimes();
 				break;
 			case 3:
 				break;
@@ -89,7 +94,7 @@ public class StaffUse {
 		}while(choice>4);
 	}
 	
-	private static void CinemaShowtimes() {
+	private static void CinemaShowtimes(Cinema cinema) {
 		
 	}
 }

@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -11,7 +10,20 @@ public class Cineplex implements Serializable {
 		return listOfCinema;
 	}
 	
-	public void addCinema(int cinemaID, int numOfTheatre) throws IOException{
+	public Cinema getCinema(int index) {
+		return listOfCinema.get(index);
+	}
+	
+	public void addCinema(int cinemaID, int numOfTheatre){
 		listOfCinema.add(new Cinema(cinemaID, numOfTheatre));
+	}
+	
+	public void setCinema(int cinemaID, Cinema cinema) {
+		for(int i=0; i<listOfCinema.size(); i++) {
+			if(listOfCinema.get(i).getCinemaID() == cinemaID) {
+				listOfCinema.set(i, cinema);
+				break;
+			}
+		}
 	}
 }

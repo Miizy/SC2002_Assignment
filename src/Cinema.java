@@ -4,6 +4,7 @@ import java.util.ArrayList;
 public class Cinema implements Serializable{
 	private ArrayList<Theatre> listOfTheatre = new ArrayList<Theatre>();
 	private int cinemaID;
+	private String cinemaName = "";
 	private ArrayList<Movie> listOfMovie = new ArrayList<Movie>();
 	
 	Cinema(int ID, int numOfTheatre) {
@@ -35,6 +36,14 @@ public class Cinema implements Serializable{
 	
 	public void addListOfMovie(Movie movie) {
 		this.listOfMovie.add(movie);
+	}
+
+	public String getCinemaName() {
+		return cinemaName;
+	}
+
+	public void setCinemaName(String cinemaName) {
+		this.cinemaName = cinemaName;
 	}
 	
 }
