@@ -26,7 +26,6 @@ public class Theatre {
 	}
 	
 	public boolean addTimeslot(TimeSlot timeslot) {
-		//TODO: check if timeslot clash 
 		//iterate through each timeslot for the movies in the arr
 		int slotSize= this.timeslotarr.size();
 		for(int i =0; i<slotSize; i++){
