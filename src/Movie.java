@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Movie {
+public class Movie implements Serializable{
 	private String movieTitle;
 	private ShowStatus showStatus;
 	private String synopsis;

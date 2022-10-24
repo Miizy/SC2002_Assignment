@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class Seats {
+public class Seats implements Serializable{
 	private char [][] seats;
 	
 	Seats(int row, int col){

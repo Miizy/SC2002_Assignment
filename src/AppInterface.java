@@ -1,27 +1,31 @@
 import java.util.Scanner;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.Writer;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public class AppInterface {
-	public static void main(String args[]) throws IOException {
+	public static void main(String args[]) throws IOException, ClassNotFoundException {
 		Scanner sc = new Scanner(System.in);
 		Cineplex cineplex = null;
-		File folder = new File("Cineplex");
-		File [] allFiles = folder.listFiles();
-		if(allFiles.length > 0) {
-			//TODO: Read the cinema files and use it to create the cineplex object
-		}
-		else {
-			cineplex = new Cineplex();
-			for(int i=0; i<3; i++) {
-				FileWriter writer = new FileWriter(new File(folder, "Cinema"+ i + ".txt"));
-				cineplex.addCinema(i, 5, writer);
-				writer.close();
-			}
-		}
+		String fileName = "Cineplex.ser";
+        File temp = new File(fileName);
+        if(temp.exists()) { //If Serialized Cineplex exist, read the file and copy to cineplex object
+        	FileInputStream file = new FileInputStream(fileName);
+            ObjectInputStream in = new ObjectInputStream(file);
+            cineplex = (Cineplex)in.readObject();
+            in.close();
+            file.close();
+        }
+        else { //else create a new cineplex object with default values
+    		cineplex = new Cineplex();
+    		for(int i=0; i<3; i++) {
+    			cineplex.addCinema(i, 5);
+    		}
+    	}
+        
 		int choice;
 		do {
 			System.out.println("Type of User: \n1. Staff\n2. Movie Goer");
@@ -31,16 +35,20 @@ public class AppInterface {
 				StaffUse.StaffChoice(cineplex);
 				break;
 			case 2:
-				
+				cineplex.addCinema(3, 2);
 				break;
 			default:
 				System.out.println("Invalid input. Please Try Again");
 			}
 		} while(choice >2);
 		sc.close();
+		
+		//save the cineplex object as a serialized file for future use
+		FileOutputStream file = new FileOutputStream(fileName);
+		ObjectOutputStream out = new ObjectOutputStream(file);
+		out.writeObject(cineplex);
+		out.close();
+		file.close();
 	}
 	
-	public static void MovieGoerOptions() {
-		
-	}
 }

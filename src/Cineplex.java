@@ -1,8 +1,8 @@
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Cineplex {
+public class Cineplex implements Serializable {
 	private ArrayList<Cinema> listOfCinema = new ArrayList<Cinema>();
 	
 	public Cineplex() {}
@@ -11,7 +11,7 @@ public class Cineplex {
 		return listOfCinema;
 	}
 	
-	public void addCinema(int cinemaID, int numOfTheatre, FileWriter writer) throws IOException{
-		listOfCinema.add(new Cinema(cinemaID, numOfTheatre, CinemaClass.dolb, writer));
+	public void addCinema(int cinemaID, int numOfTheatre) throws IOException{
+		listOfCinema.add(new Cinema(cinemaID, numOfTheatre));
 	}
 }
