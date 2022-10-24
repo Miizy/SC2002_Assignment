@@ -10,7 +10,7 @@ public class Movie implements Serializable{
 	private float overallRating;
 	private ArrayList<String> pastReview = new ArrayList<String>();
 	
-	public Movie(String movieTitle, ShowStatus showStatus, String synopsis, String director) {
+	public Movie(String movieTitle, int showStatus, String synopsis, String director) {
 		setMovieTitle(movieTitle);
 		setShowStatus(showStatus);
 		setSynopsis(synopsis);
@@ -29,8 +29,19 @@ public class Movie implements Serializable{
 		return showStatus;
 	}
 
-	public void setShowStatus(ShowStatus showStatus) {
-		this.showStatus = showStatus;
+	public void setShowStatus(int showStatus) {
+		if(showStatus == 1) {
+			this.showStatus = ShowStatus.cs;
+		}
+		else if(showStatus == 2) {
+			this.showStatus = ShowStatus.pr;
+		}
+		else if(showStatus == 3) {
+			this.showStatus = ShowStatus.ns;
+		}
+		else if(showStatus == 4) {
+			this.showStatus = ShowStatus.na;
+		}
 	}
 
 	public String getSynopsis() {
@@ -53,10 +64,6 @@ public class Movie implements Serializable{
 		return cast;
 	}
 
-	public void addCast(ArrayList <String> cast) {
-		cast.forEach((castname) -> this.cast.add(castname));
-	}
-	
 	public void addCast(String cast) {
 		this.cast.add(cast);
 	}

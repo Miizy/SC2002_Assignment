@@ -1,9 +1,10 @@
 import java.util.Scanner;
 
 public class StaffUse {
-	public static void StaffChoice(Cineplex cineplex) {
-		StaffLogin();
-		StaffCinema(cineplex);
+	public static Cineplex StaffChoice(Cineplex cineplex) {
+		//StaffLogin();
+		cineplex = StaffCinema(cineplex);
+		return cineplex;
 	}
 	
 	private static void StaffLogin(){
@@ -26,7 +27,7 @@ public class StaffUse {
 		} while(!username.toLowerCase().contains("staff"));
 	}
 	
-	private static void StaffCinema(Cineplex cineplex){
+	private static Cineplex StaffCinema(Cineplex cineplex){
 		Scanner sc = new Scanner(System.in);
 		int choice = Integer.MAX_VALUE;
 		System.out.println("Select Cinema");
@@ -43,10 +44,12 @@ public class StaffUse {
 			}
 			choice = sc.nextInt();
 		}
-		StaffOptions(cineplex.getCinema(choice));
+		Cinema cinema = StaffOptions(cineplex.getCinema(choice));
+		cineplex.setCinema(cinema.getCinemaID(), cinema);
+		return cineplex;
 	}
 	
-	private static void StaffOptions(Cinema cinema) {
+	private static Cinema StaffOptions(Cinema cinema) {
 		Scanner sc = new Scanner(System.in);
 		int choice;
 		do {
@@ -54,7 +57,7 @@ public class StaffUse {
 			choice = sc.nextInt();
 			switch(choice) {
 			case 1:
-				MovieListing(cinema);
+				cinema = MovieListing(cinema);
 				break;
 			case 2:
 				CinemaShowtimes(cinema);
@@ -69,16 +72,37 @@ public class StaffUse {
 				break;
 			}
 		}while(choice>4);
+		return cinema;
 	}
 	
-	private static void MovieListing(Cinema cinema){ //Movie listing is a list of movies showing now and coming soon
+	private static Cinema MovieListing(Cinema cinema){ //Movie listing is a list of movies showing now and coming soon
 		Scanner sc = new Scanner(System.in);
 		int choice;
 		do {
 			System.out.println("1. Create Movie Listing\n2. Edit Movie Listing\n3. Delete Movie Listing");
 			choice = sc.nextInt();
+			sc.nextLine();	//Scanner buffer not cleared i dk how to get ard it except reading it agn
 			switch(choice) {
 			case 1:
+				System.out.println("Enter movie title: ");
+				String movieTitle = sc.nextLine();
+				System.out.println("Enter show status:\n1. Coming Soon\n2. Preview\n3. Now Showing\n4. Not Available");
+				int showStatus = sc.nextInt();
+				sc.nextLine(); //Scanner buffer not cleared i dk how to get ard it except reading it agn
+				System.out.println("Enter Synopsis: ");
+				String synopsis = sc.nextLine();
+				System.out.println("Enter name of director: ");
+				String director = sc.nextLine();
+				Movie movie = new Movie(movieTitle, showStatus, synopsis, director);
+				System.out.println("Enter number of cast: ");
+				int numOfCast = sc.nextInt();
+				sc.nextLine(); //Scanner buffer not cleared i dk how to get ard it except reading it agn
+				for(int i=0; i<numOfCast; i++) {
+					System.out.println("Enter name of cast " + (i+1) + ": ");
+					String castname = sc.nextLine();
+					movie.addCast(castname);
+				}
+				cinema.addMovie(movie);
 				break;
 			case 2:
 				break;
@@ -92,6 +116,7 @@ public class StaffUse {
 				break;
 			}
 		}while(choice>4);
+		return cinema;
 	}
 	
 	private static void CinemaShowtimes(Cinema cinema) {

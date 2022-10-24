@@ -34,7 +34,7 @@ public class Cinema implements Serializable{
 		return this.listOfMovie;
 	}
 	
-	public void addListOfMovie(Movie movie) {
+	public void addMovie(Movie movie) {
 		this.listOfMovie.add(movie);
 	}
 

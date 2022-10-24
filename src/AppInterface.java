@@ -32,10 +32,9 @@ public class AppInterface {
 			choice = sc.nextInt();
 			switch(choice) {
 			case 1:
-				StaffUse.StaffChoice(cineplex);
+				cineplex = StaffUse.StaffChoice(cineplex);
 				break;
 			case 2:
-				cineplex.addCinema(3, 2);
 				break;
 			default:
 				System.out.println("Invalid input. Please Try Again");
