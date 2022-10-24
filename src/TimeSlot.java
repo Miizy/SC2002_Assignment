@@ -1,4 +1,6 @@
-public class TimeSlot {
+import java.io.Serializable;
+
+public class TimeSlot implements Serializable{
 	private Time24Hr [] timeslot = new Time24Hr [2];
 	private String movieTitle;
 	
