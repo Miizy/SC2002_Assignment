@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -7,7 +8,7 @@ public class Cinema implements Serializable{
 	private String cinemaName = "";
 	private ArrayList<Movie> listOfMovie = new ArrayList<Movie>();
 	
-	Cinema(int ID, int numOfTheatre) {
+	Cinema(int ID, int numOfTheatre) throws IOException {
 		setCinemaID(ID);
 		setListOfTheatre(numOfTheatre);
 	}
@@ -16,9 +17,9 @@ public class Cinema implements Serializable{
 		return listOfTheatre;
 	}
 
-	public void setListOfTheatre(int numOfTheatre){
+	public void setListOfTheatre(int numOfTheatre) throws IOException{
 		for(int i=0; i<numOfTheatre; i++) {
-			listOfTheatre.add(new Theatre(i,TheatreClass.dolb));
+			listOfTheatre.add(new Theatre(i,3));
 		}
 	}
 

@@ -1,16 +1,16 @@
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Theatre {
+public class Theatre implements Serializable{
 	private Seats [] seats;
 	private int theatreID;
+	private TheatreClass theatreClass;
 	private ArrayList<TimeSlot> timeslotarr = new ArrayList<TimeSlot>();
 	
-	Theatre(int theatreID, FileWriter writer) throws IOException{
-		writer.write("Theatre " + theatreID + "\n");
+	Theatre(int theatreID, int theatreClass) throws IOException{
 		this.setTheatreID(theatreID);
-		writer.write("End Theatre " + theatreID + "\n");
+		this.setTheatreClass(theatreClass);
 	}
 
 	public int getTheatreID() {
@@ -42,7 +42,20 @@ public class Theatre {
 		//if no crash
 		this.timeslotarr.add(timeslot);
 		return true;
-		
-		
+	}
+	
+	public void setTheatreClass(int theatreClass) {
+		if(theatreClass == 1)
+			this.theatreClass = TheatreClass.plat;
+		else if(theatreClass == 2)
+			this.theatreClass = TheatreClass.ulti;
+		else if(theatreClass == 3)
+			this.theatreClass = TheatreClass.dolb;
+		else if(theatreClass == 4)
+			this.theatreClass = TheatreClass.elit;
+	}
+	
+	public TheatreClass getTheatreClass() {
+		return this.theatreClass;
 	}
 }
