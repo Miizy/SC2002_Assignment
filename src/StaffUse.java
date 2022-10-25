@@ -44,7 +44,7 @@ public class StaffUse {
 			}
 			choice = sc.nextInt();
 		}
-		Cinema cinema = StaffOptions(cineplex.getCinema(choice));
+		Cinema cinema = StaffOptions(cineplex.getCinema(choice-1));
 		cineplex.setCinema(cinema.getCinemaID(), cinema);
 		return cineplex;
 	}
