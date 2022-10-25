@@ -3,10 +3,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Theatre implements Serializable{
-	private Seats [] seats;
+	private Seats [][] allseats;
 	private int theatreID;
 	private TheatreClass theatreClass;
 	private ArrayList<TimeSlot> timeslotarr = new ArrayList<TimeSlot>();
+	private final static int NCOLS = 13;
+	private final static int NROWS = 10;
+	private final static int SCOLS = 7;
+	private final static int SROWS = 4;
+
+	
 	
 	Theatre(int theatreID, TheatreClass theatreClass) throws IOException{
 		this.setTheatreID(theatreID);
@@ -23,6 +29,10 @@ public class Theatre implements Serializable{
 
 	public ArrayList<TimeSlot> getTimeslot() {
 		return timeslotarr;
+	}
+
+	public Seats[][] getAllSeats(){
+		return this.allseats;
 	}
 	
 	public boolean addTimeslot(TimeSlot timeslot) {
@@ -53,4 +63,64 @@ public class Theatre implements Serializable{
 	public void setTheatreClass(TheatreClass theatreClass) {
 		this.theatreClass = theatreClass;
 	}
+
+	public Seats getSeatAt(int col, int row){
+		return allseats[row-1][col-1];
+	}
+
+	public void initializeSeats(){
+
+		//more normal theater 
+		//making the couple seats
+		for(int col=0; col<NCOLS; col++){
+			//gap for mid entry
+			if(col==6){
+				continue;
+			}
+			for(int row=0; row<2; row++){
+				allseats[row][col]= new Seats(row+1, col+1, SeatStatus.ac);
+			}
+		}
+
+
+		//making the normal seats full length
+		for(int col=0; col<NCOLS; col++){
+			//gap for mid entry
+			if(col==6){
+				continue;
+			}
+			for(int row=3; row<NROWS-2; row++){
+				allseats[row][col]= new Seats(row+1, col+1, SeatStatus.an);
+			}
+		}
+
+		//making the normal seats but reduce cols
+		for(int col=2; col<NCOLS-2; col++){
+			//gap for mid entry
+			if(col==6){
+				continue;
+			}
+			
+			for(int row=8; row<NROWS; row++){
+				allseats[row][col]= new Seats(row+1, col+1, SeatStatus.an);
+			}
+		}
+	}
+
+	public void showSeats(){
+		for(int col=0; col<NCOLS; col++){
+			for(int row=0; row<2; row++){
+				//not initialized therefore creates a space for passage
+				if(allseats[row][col]==null){
+					System.out.print("   ");
+				}
+
+				else{
+					allseats[row][col].display();
+				}
+			}
+		System.out.print("\n");
+		}
+	}
+		
 }
