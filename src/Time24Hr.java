@@ -1,6 +1,4 @@
-import java.io.Serializable;
-
-public class Time24Hr implements Serializable{
+public class Time24Hr {
 	private int hour;
 	private int min;
 	public Time24Hr(int time) {
