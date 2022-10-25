@@ -19,7 +19,7 @@ public class Cinema implements Serializable{
 
 	public void setListOfTheatre(int numOfTheatre) throws IOException{
 		for(int i=0; i<numOfTheatre; i++) {
-			listOfTheatre.add(new Theatre(i,TheatreClass.dolb));
+			listOfTheatre.add(new Theatre(i,3));
 		}
 	}
 

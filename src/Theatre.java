@@ -14,7 +14,7 @@ public class Theatre implements Serializable{
 
 	
 	
-	Theatre(int theatreID, TheatreClass theatreClass) throws IOException{
+	Theatre(int theatreID, int theatreClass) throws IOException{
 		this.setTheatreID(theatreID);
 		this.setTheatreClass(theatreClass);
 	}
@@ -52,16 +52,21 @@ public class Theatre implements Serializable{
 		//if no crash
 		this.timeslotarr.add(timeslot);
 		return true;
-		
-		
 	}
-
+	
+	public void setTheatreClass(int theatreClass) {
+		if(theatreClass == 1)
+			this.theatreClass = TheatreClass.plat;
+		else if(theatreClass == 2)
+			this.theatreClass = TheatreClass.ulti;
+		else if(theatreClass == 3)
+			this.theatreClass = TheatreClass.dolb;
+		else if(theatreClass == 4)
+			this.theatreClass = TheatreClass.elit;
+	}
+	
 	public TheatreClass getTheatreClass() {
-		return theatreClass;
-	}
-
-	public void setTheatreClass(TheatreClass theatreClass) {
-		this.theatreClass = theatreClass;
+		return this.theatreClass;
 	}
 
 	public Seats getSeatAt(int col, int row){
