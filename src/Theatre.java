@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Theatre implements Serializable{
 	private Seats [][] allseats;
-	private int theatreID;
+	private String theatreID;
 	private TheatreClass theatreClass;
 	private ArrayList<TimeSlot> timeslotarr = new ArrayList<TimeSlot>();
 	private final static int NCOLS = 13;
@@ -19,12 +19,12 @@ public class Theatre implements Serializable{
 		this.setTheatreClass(theatreClass);
 	}
 
-	public int getTheatreID() {
+	public String getTheatreID() {
 		return theatreID;
 	}
 
 	public void setTheatreID(int theatreID) {
-		this.theatreID = theatreID;
+		this.theatreID = convertIntToCode(theatreID);
 	}
 
 	public ArrayList<TimeSlot> getTimeslot() {
@@ -128,4 +128,14 @@ public class Theatre implements Serializable{
 		}
 	}
 		
+	private String convertIntToCode(int i) {
+		int quot = i/26;
+	    int rem = i%26;
+	    char letter = (char)((int)'A' + rem);
+	    if( quot == 0 ) {
+	        return ""+letter;
+	    } else {
+	        return convertIntToCode(quot-1) + letter;
+	    }
+	}
 }

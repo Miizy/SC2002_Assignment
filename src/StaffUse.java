@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class StaffUse {
 	public static Cineplex StaffChoice(Cineplex cineplex) {
-		//StaffLogin();
+		StaffLogin();
 		cineplex = StaffCinema(cineplex);
 		return cineplex;
 	}

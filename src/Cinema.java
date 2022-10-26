@@ -28,6 +28,7 @@ public class Cinema implements Serializable{
 	}
 
 	private void setCinemaID(int cinemaID) {
+		
 		this.cinemaID = cinemaID;
 	}
 	

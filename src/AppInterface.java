@@ -35,6 +35,7 @@ public class AppInterface {
 				cineplex = StaffUse.StaffChoice(cineplex);
 				break;
 			case 2:
+				//cineplex = MovieGoerUse.MovieGoerChoice(cineplex);
 				break;
 			default:
 				System.out.println("Invalid input. Please Try Again");
