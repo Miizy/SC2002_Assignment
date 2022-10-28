@@ -77,6 +77,7 @@ public class StaffUse {
 	
 	private static Cinema MovieListing(Cinema cinema){ //Movie listing is a list of movies showing now and coming soon
 		Scanner sc = new Scanner(System.in);
+		boolean BlockBuster, Sneakpreview;
 		int choice;
 		do {
 			System.out.println("1. Create Movie Listing\n2. Edit Movie Listing\n3. Delete Movie Listing");
@@ -93,7 +94,23 @@ public class StaffUse {
 				String synopsis = sc.nextLine();
 				System.out.println("Enter name of director: ");
 				String director = sc.nextLine();
-				Movie movie = new Movie(movieTitle, showStatus, synopsis, director);
+				System.out.println("BlockBuster movie(Y/N)?");
+				String ans = sc.next();
+				if(ans.toLowerCase() == "y") {
+					BlockBuster = true;
+				}
+				else {
+					BlockBuster = false;
+				}
+				System.out.println("Sneak Preview (Y/N)?");
+				ans = sc.next();
+				if(ans.toLowerCase() == "y") {
+					Sneakpreview = true;
+				}
+				else {
+					Sneakpreview = false;
+				}
+				Movie movie = new Movie(movieTitle, showStatus, synopsis, director, BlockBuster, Sneakpreview);
 				System.out.println("Enter number of cast: ");
 				int numOfCast = sc.nextInt();
 				sc.nextLine(); //Scanner buffer not cleared i dk how to get ard it except reading it agn

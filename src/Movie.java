@@ -9,14 +9,28 @@ public class Movie implements Serializable{
 	private ArrayList<String> cast = new ArrayList<String>();
 	private float overallRating;
 	private ArrayList<String> pastReview = new ArrayList<String>();
-	
-	public Movie(String movieTitle, int showStatus, String synopsis, String director) {
+	private boolean BlockBuster;
+	private boolean Sneakpreview;
+	public Movie(String movieTitle, int showStatus, String synopsis, String director, boolean BlockBuster, boolean Sneakpreview) {
 		setMovieTitle(movieTitle);
 		setShowStatus(showStatus);
 		setSynopsis(synopsis);
 		setDirector(director);
+		setBlockBuster(BlockBuster);
+		setSneakPreview(Sneakpreview);
 	}
-
+	public void setBlockBuster(boolean BlockBuster) {
+		this.BlockBuster = BlockBuster;
+	}
+	public boolean getBlockBuster() {
+		return BlockBuster;
+	}
+	public void setSneakPreview(boolean Sneakpreview) {
+		this.Sneakpreview = Sneakpreview;
+	}
+	public boolean getSneakpreview() {
+		return Sneakpreview;
+	}
 	public String getMovieTitle() {
 		return movieTitle;
 	}
