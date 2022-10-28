@@ -13,6 +13,7 @@ public class Cinema implements Serializable{
 		setListOfTheatre(numOfTheatre);
 	}
 
+
 	public ArrayList<Theatre> getListOfTheatre() {
 		return listOfTheatre;
 	}
@@ -34,6 +35,10 @@ public class Cinema implements Serializable{
 	
 	public ArrayList<Movie> getListOfMovie(){
 		return this.listOfMovie;
+	}
+
+	public Movie getMovie(int index){
+		return this.listOfMovie.get(index);
 	}
 	
 	public void addMovie(Movie movie) {

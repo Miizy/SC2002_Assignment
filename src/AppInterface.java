@@ -3,11 +3,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class AppInterface {
-	public static void main(String args[]) throws IOException, ClassNotFoundException {
+	public static void main(String args[]) throws IOException, ClassNotFoundException, InvalidClassException {
 		Scanner sc = new Scanner(System.in);
 		Cineplex cineplex = null;
 		String fileName = "Cineplex.ser";
@@ -35,7 +36,7 @@ public class AppInterface {
 				cineplex = StaffUse.StaffChoice(cineplex);
 				break;
 			case 2:
-				//cineplex = MovieGoerUse.MovieGoerChoice(cineplex);
+				cineplex = MovieGoerUse.MovieGoerChoice(cineplex);
 				break;
 			default:
 				System.out.println("Invalid input. Please Try Again");
