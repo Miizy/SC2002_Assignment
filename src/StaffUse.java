@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class StaffUse {
 	public static Cineplex StaffChoice(Cineplex cineplex) {
@@ -63,6 +64,7 @@ public class StaffUse {
 				CinemaShowtimes(cinema);
 				break;
 			case 3:
+				
 				break;
 			case 4:
 				//Stop the program
@@ -80,7 +82,7 @@ public class StaffUse {
 		boolean BlockBuster, Sneakpreview;
 		int choice;
 		do {
-			System.out.println("1. Create Movie Listing\n2. Edit Movie Listing\n3. Delete Movie Listing");
+			System.out.println("1. Create Movie Listing\n2. Display Movie Listing\n3. Edit Movie Listing\n4. Delete Movie Listing");
 			choice = sc.nextInt();
 			sc.nextLine();	//Scanner buffer not cleared i dk how to get ard it except reading it agn
 			switch(choice) {
@@ -122,10 +124,16 @@ public class StaffUse {
 				cinema.addMovie(movie);
 				break;
 			case 2:
+				displayMovie(cinema);
 				break;
 			case 3:
+				displayMovie(cinema);
+				editMovie(cinema);
 				break;
 			case 4:
+				//delete movie
+				break;
+			case 5:
 				//Stop the program
 				break;
 			default:
@@ -138,5 +146,104 @@ public class StaffUse {
 	
 	private static void CinemaShowtimes(Cinema cinema) {
 		
+	}
+	
+	private static void displayMovie(Cinema cinema) {
+		System.out.println("Lists of Movies:");
+		for(int i=0;i<cinema.getListOfMovie().size();i++) {
+			int ind = i+1;
+			System.out.println(ind + ". " + cinema.getListOfMovie().get(i));
+		}
+	}
+	
+	private static void editMovie(Cinema cinema) {
+		int movieSelect = -1;
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Select a movie to edit");
+		movieSelect = sc.nextInt() - 1;
+		while(movieSelect < 0 || movieSelect >= cinema.getListOfMovie().size()) {
+			System.out.println("Please select an available movie");
+			movieSelect = sc.nextInt() - 1;
+		}
+		Movie movieChange = cinema.getMovie(movieSelect);
+		
+		int choice = 1;
+		do {
+			System.out.println("Select movie details to adjust");
+			System.out.println("1. Movie Title\n2. Movie Status\n3. Synopsis\n4. Director\n5. Blockbuster Status\n6. Sneak Preview Status\n 7. Exit");
+			choice = sc.nextInt();
+			switch(choice) {
+			case(1):
+				System.out.println("Current Movie Title: "+movieChange.getMovieTitle());
+				System.out.println("Enter new movie title:");
+				String movieTitle = sc.nextLine();
+				movieChange.setMovieTitle(movieTitle);
+				break;
+			case(2):
+				System.out.println("Current Movie Status:");
+				movieChange.getShowStatus();
+				System.out.println("Enter new movie status:\n1. Coming Soon\n2. Preview\n3. Now Showing\n4. Not Available");
+				int showStatus = sc.nextInt();
+				movieChange.setShowStatus(showStatus);
+				break;
+			case(3):
+				System.out.println("Current Synopsis: "+movieChange.getSynopsis());
+				System.out.println("Enter new synopsis:");
+				String synopsis = sc.nextLine();
+				movieChange.setSynopsis(synopsis);
+				break;
+			case(4):
+				System.out.println("Current Director: "+movieChange.getDirector());
+				System.out.println("Enter new director:");
+				String director = sc.nextLine();
+				movieChange.setDirector(director);
+				break;
+			case(5):
+				String block;
+				boolean buster;
+				if(movieChange.getBlockBuster()==true) {
+					block = "Yes";
+				} else {
+					block = "No";
+				}
+				System.out.println("Current Blockbuster Status: "+block);
+				System.out.println("Change blockbuster status (Y/N)?");
+				String ans = sc.next();
+				if(ans.toLowerCase() == "y") {
+					buster = true;
+				}
+				else {
+					buster = false;
+				}
+				movieChange.setBlockBuster(buster);
+				break;
+			case(6):
+				String sneak;
+				boolean previewStatus;
+				if(movieChange.getSneakpreview()==true) {
+					sneak = "Yes";
+				} else {
+					sneak = "No";
+				}
+				System.out.println("Current Sneak Preview Status: "+sneak);
+				System.out.println("Change sneak preview status (Y/N)?");
+				String sneakStatus = sc.next();
+				if(sneakStatus.toLowerCase() == "y") {
+					previewStatus = true;
+				}
+				else {
+					previewStatus = false;
+				}
+				movieChange.setSneakPreview(previewStatus);
+				break;
+			case(7):
+				choice = -1;
+				break;
+			default:
+				System.out.println("Invalid input. Please try again");
+				choice = 1;
+				break;
+			}
+		}while(choice > 0 && choice < 8 );
 	}
 }
