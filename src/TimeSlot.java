@@ -1,18 +1,26 @@
+import java.util.Date;
+import java.util.Calendar;
+
 public class TimeSlot {
-	private Time24Hr [] timeslot = new Time24Hr [2];
-	private String movieTitle;
+	private Date strtTime;
+	private Date endTime;
+	private Movie movieSpec;
 	
-	public TimeSlot(int start, int end, String movieTitle) {
-		timeslot[0] = new Time24Hr(start);
-		timeslot[1] = new Time24Hr(end);
-		this.movieTitle = movieTitle;
+	public TimeSlot(Date start, Date end, Movie mov) {
+		this.strtTime= start;
+		this.endTime=end;
+		this.movieSpec = mov;
 	}
 	
-	Time24Hr getStartTime() {
-		return timeslot[0];
+	public Date getStartTime() {
+		return this.strtTime;
 	}
 	
-	Time24Hr getEndTime() {
-		return timeslot[1];
+	public Date getEndTime() {
+		return this.endTime;
+	}
+
+	public Movie getMovie(){
+		return this.movieSpec;
 	}
 }

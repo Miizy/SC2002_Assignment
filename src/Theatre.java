@@ -6,7 +6,7 @@ public class Theatre implements Serializable{
 	private Seats [][] allseats;
 	private String theatreID;
 	private TheatreClass theatreClass;
-	private ArrayList<TimeSlot> timeslotarr = new ArrayList<TimeSlot>();
+	private Schedule showTime= new Schedule();
 	private final static int NCOLS = 13;
 	private final static int NROWS = 10;
 	private final static int SCOLS = 7;
@@ -28,7 +28,7 @@ public class Theatre implements Serializable{
 	}
 
 	public ArrayList<TimeSlot> getTimeslot() {
-		return timeslotarr;
+		return showTime.getList();
 	}
 
 	public Seats[][] getAllSeats(){
@@ -36,32 +36,13 @@ public class Theatre implements Serializable{
 	}
 	
 	public boolean addTimeslot(TimeSlot timeslot) {
-		//iterate through each timeslot for the movies in the arr
-		int slotSize= this.timeslotarr.size();
-		for(int i =0; i<slotSize; i++){
-			//if the current added slot's start time between some other movie's slot then dont allow
-			if(this.timeslotarr.get(i).getStartTime().getTime()< timeslot.getStartTime().getTime() && this.timeslotarr.get(i).getEndTime().getTime()> timeslot.getStartTime().getTime()){
-				return false;
-			}
-			//if the current added slot's end time between some other movie's slot then dont allow
-			else if(this.timeslotarr.get(i).getStartTime().getTime()< timeslot.getEndTime().getTime() && this.timeslotarr.get(i).getEndTime().getTime()> timeslot.getEndTime().getTime()){
-				return false;
-			}
-		}
-
-		//if no crash
-		this.timeslotarr.add(timeslot);
-		return true;
+		return showTime.add(timeslot);
 	}
 	
 	public void setTheatreClass(int theatreClass) {
 		if(theatreClass == 1)
 			this.theatreClass = TheatreClass.plat;
-		else if(theatreClass == 2)
-			this.theatreClass = TheatreClass.ulti;
-		else if(theatreClass == 3)
-			this.theatreClass = TheatreClass.dolb;
-		else if(theatreClass == 4)
+		else
 			this.theatreClass = TheatreClass.elit;
 	}
 	
