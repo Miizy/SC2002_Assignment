@@ -54,7 +54,7 @@ public class StaffUse {
 		Scanner sc = new Scanner(System.in);
 		int choice;
 		do {
-			System.out.println("1. Movie Listing\n2. Cinema Showtimes\n3. Configure System Settings");
+			System.out.println("1. Movie Listing\n2. Cinema Showtimes\n3. Current Top 5 Ranking Movies\n4. Configure System Settings");
 			choice = sc.nextInt();
 			switch(choice) {
 			case 1:
@@ -64,7 +64,7 @@ public class StaffUse {
 				CinemaShowtimes(cinema);
 				break;
 			case 3:
-				
+				//list top 5 ranking movies
 				break;
 			case 4:
 				//Stop the program
@@ -92,6 +92,9 @@ public class StaffUse {
 				System.out.println("Enter show status:\n1. Coming Soon\n2. Preview\n3. Now Showing\n4. Not Available");
 				int showStatus = sc.nextInt();
 				sc.nextLine(); //Scanner buffer not cleared i dk how to get ard it except reading it agn
+				System.out.println("Enter movie rating:\n1. PG\n2. PG-13\n3. R\n4. NC-17\n5. G");
+				int movieRating = sc.nextInt();
+				sc.nextLine();
 				System.out.println("Enter Synopsis: ");
 				String synopsis = sc.nextLine();
 				System.out.println("Enter name of director: ");
@@ -112,7 +115,7 @@ public class StaffUse {
 				else {
 					Sneakpreview = false;
 				}
-				Movie movie = new Movie(movieTitle, showStatus, synopsis, director, BlockBuster, Sneakpreview);
+				Movie movie = new Movie(movieTitle, showStatus, movieRating,synopsis, director, BlockBuster, Sneakpreview);
 				System.out.println("Enter number of cast: ");
 				int numOfCast = sc.nextInt();
 				sc.nextLine(); //Scanner buffer not cleared i dk how to get ard it except reading it agn
@@ -127,11 +130,10 @@ public class StaffUse {
 				displayMovie(cinema);
 				break;
 			case 3:
-				displayMovie(cinema);
 				editMovie(cinema);
 				break;
 			case 4:
-				//delete movie
+				deleteMovie(cinema);
 				break;
 			case 5:
 				//Stop the program
@@ -140,7 +142,7 @@ public class StaffUse {
 				System.out.println("Invalid input. Please try again");
 				break;
 			}
-		}while(choice>4);
+		}while(choice>5);
 		return cinema;
 	}
 	
@@ -156,9 +158,11 @@ public class StaffUse {
 		}
 	}
 	
-	private static void editMovie(Cinema cinema) {
+	private static Movie selectMovie(Cinema cinema) {
 		int movieSelect = -1;
 		Scanner sc = new Scanner(System.in);
+		displayMovie(cinema);
+		
 		System.out.println("Select a movie to edit");
 		movieSelect = sc.nextInt() - 1;
 		while(movieSelect < 0 || movieSelect >= cinema.getListOfMovie().size()) {
@@ -166,11 +170,17 @@ public class StaffUse {
 			movieSelect = sc.nextInt() - 1;
 		}
 		Movie movieChange = cinema.getMovie(movieSelect);
+		return movieChange;
+	}
+	
+	private static void editMovie(Cinema cinema) {
+		Scanner sc = new Scanner(System.in);
+		Movie movieChange = selectMovie(cinema);
 		
 		int choice = 1;
 		do {
 			System.out.println("Select movie details to adjust");
-			System.out.println("1. Movie Title\n2. Movie Status\n3. Synopsis\n4. Director\n5. Blockbuster Status\n6. Sneak Preview Status\n 7. Exit");
+			System.out.println("1. Movie Title\n2. Movie Status\n3. Movie Rating\n4. Synopsis\n5. Director\n6. Blockbuster Status\n7. Sneak Preview Status\n 8. Exit");
 			choice = sc.nextInt();
 			switch(choice) {
 			case(1):
@@ -187,18 +197,25 @@ public class StaffUse {
 				movieChange.setShowStatus(showStatus);
 				break;
 			case(3):
+				System.out.println("Current Movie Rating:");
+				movieChange.getMovieRating();
+				System.out.println("Enter movie rating:\n1. PG\n2. PG-13\n3. R\n4. NC-17\n5. G");
+				int movieRating = sc.nextInt();
+				movieChange.setMovieRating(movieRating);
+				break;
+			case(4):
 				System.out.println("Current Synopsis: "+movieChange.getSynopsis());
 				System.out.println("Enter new synopsis:");
 				String synopsis = sc.nextLine();
 				movieChange.setSynopsis(synopsis);
 				break;
-			case(4):
+			case(5):
 				System.out.println("Current Director: "+movieChange.getDirector());
 				System.out.println("Enter new director:");
 				String director = sc.nextLine();
 				movieChange.setDirector(director);
 				break;
-			case(5):
+			case(6):
 				String block;
 				boolean buster;
 				if(movieChange.getBlockBuster()==true) {
@@ -217,7 +234,7 @@ public class StaffUse {
 				}
 				movieChange.setBlockBuster(buster);
 				break;
-			case(6):
+			case(7):
 				String sneak;
 				boolean previewStatus;
 				if(movieChange.getSneakpreview()==true) {
@@ -236,7 +253,7 @@ public class StaffUse {
 				}
 				movieChange.setSneakPreview(previewStatus);
 				break;
-			case(7):
+			case(8):
 				choice = -1;
 				break;
 			default:
@@ -244,6 +261,13 @@ public class StaffUse {
 				choice = 1;
 				break;
 			}
-		}while(choice > 0 && choice < 8 );
+		}while(choice > 0 && choice < 9 );
+	}
+	
+	private static void deleteMovie(Cinema cinema) {
+		Scanner sc = new Scanner(System.in);
+		Movie movieChange = selectMovie(cinema);
+		
+		movieChange.setShowStatus(4);
 	}
 }

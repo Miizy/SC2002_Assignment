@@ -4,6 +4,7 @@ import java.util.ArrayList;
 public class Movie implements Serializable{
 	private String movieTitle;
 	private ShowStatus showStatus;
+	private MovieRating movieRating;
 	private String synopsis;
 	private String director;
 	private ArrayList<String> cast = new ArrayList<String>();
@@ -11,9 +12,10 @@ public class Movie implements Serializable{
 	private ArrayList<String> pastReview = new ArrayList<String>();
 	private boolean BlockBuster;
 	private boolean Sneakpreview;
-	public Movie(String movieTitle, int showStatus, String synopsis, String director, boolean BlockBuster, boolean Sneakpreview) {
+	public Movie(String movieTitle, int showStatus, int movieRating, String synopsis, String director, boolean BlockBuster, boolean Sneakpreview) {
 		setMovieTitle(movieTitle);
 		setShowStatus(showStatus);
+		setMovieRating(movieRating);
 		setSynopsis(synopsis);
 		setDirector(director);
 		setBlockBuster(BlockBuster);
@@ -55,6 +57,28 @@ public class Movie implements Serializable{
 		}
 		else if(showStatus == 4) {
 			this.showStatus = ShowStatus.na;
+		}
+	}
+	
+	public MovieRating getMovieRating() {
+		return movieRating;
+	}
+
+	public void setMovieRating(int movieRating) {
+		if(movieRating == 1) {
+			this.movieRating = MovieRating.pg;
+		}
+		else if(movieRating == 2) {
+			this.movieRating = MovieRating.pgt;
+		}
+		else if(movieRating == 3) {
+			this.movieRating = MovieRating.r;
+		}
+		else if(movieRating == 4) {
+			this.movieRating = MovieRating.nc;
+		}
+		else {
+			this.movieRating = MovieRating.g;
 		}
 	}
 
