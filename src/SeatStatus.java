@@ -2,12 +2,7 @@ public enum SeatStatus {
 	an("normal"),
 	ac("couple"),
 	ae("elite"),
-	au("ultima"),
-	un("unavailable normal"),
-	uc("unavailable couple"),
-	ue("unavailable elite"),
-	uu("unavailable ultima"),
-	;
+	ap("passage");
 	
 	private String SeatStatus;
 	

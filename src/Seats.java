@@ -16,20 +16,16 @@ public class Seats implements Serializable{
 
 	public void bookseat(){
 		if(this.type==SeatStatus.an){
-			this.type= SeatStatus.un;
 			this.booked=true;
 		}
 		else if(this.type==SeatStatus.ac){
-			this.type= SeatStatus.uc;
 			this.booked=true;
 		}
 		else if(this.type==SeatStatus.ae){
-			this.type= SeatStatus.ue;
 			this.booked=true;
 		}
-		else if(this.type==SeatStatus.au){
-			this.type= SeatStatus.uu;
-			this.booked=true;
+		else if(this.type==SeatStatus.ap){
+			System.out.println("It's a passage.");
 		}
 
 		else{
@@ -51,23 +47,27 @@ public class Seats implements Serializable{
 
 	//used to display each seat based on their seattype and their status
 	public void display(){
-		if(this.type==SeatStatus.an){
+		if(this.type==SeatStatus.an && this.getbook()==false){
 			System.out.print("[ ]");
 		}
-		else if(this.type==SeatStatus.ac){
+		else if(this.type==SeatStatus.ac && this.getbook()==false){
 			System.out.print("[    ]");
 		}
-		else if(this.type==SeatStatus.uc){
+		else if(this.type==SeatStatus.uc && this.getbook()==true){
 			System.out.print("[*  *]");
 		}
-		else if(this.type==SeatStatus.ae || this.type==SeatStatus.au){
+		else if(this.type==SeatStatus.ae && this.getbook()==false){
 			System.out.print("{ }");
 		}
-		else if(this.type==SeatStatus.ue || this.type==SeatStatus.uu){
+		else if(this.type==SeatStatus.ue && this.getbook()==true){
 			System.out.print("{*}");
 		}
-		else if(this.type==SeatStatus.un){
+		else if(this.type==SeatStatus.un && this.getbook()==true){
 			System.out.print("[*]");
+		}
+
+		else if(this.type==SeatStatus.ap){
+			System.out.print("   ");
 		}
 
 	}
