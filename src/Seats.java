@@ -53,16 +53,16 @@ public class Seats implements Serializable{
 		else if(this.type==SeatStatus.ac && this.getbook()==false){
 			System.out.print("[    ]");
 		}
-		else if(this.type==SeatStatus.uc && this.getbook()==true){
+		else if(this.type==SeatStatus.ac && this.getbook()==true){
 			System.out.print("[*  *]");
 		}
 		else if(this.type==SeatStatus.ae && this.getbook()==false){
 			System.out.print("{ }");
 		}
-		else if(this.type==SeatStatus.ue && this.getbook()==true){
+		else if(this.type==SeatStatus.ae && this.getbook()==true){
 			System.out.print("{*}");
 		}
-		else if(this.type==SeatStatus.un && this.getbook()==true){
+		else if(this.type==SeatStatus.an && this.getbook()==true){
 			System.out.print("[*]");
 		}
 
