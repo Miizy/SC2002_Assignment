@@ -222,7 +222,7 @@ public class MovieGoerUse {
 			System.out.println("BlockBuster Movie" + ": ");
 		}
 		if(cinema.getMovie(movieChoice-1).getSneakpreview() == true) {
-			System.out.println("BlockBuster Movie" + ": ");
+			System.out.println("Sneak Preview Movie" + ": ");
 		}
 		System.out.println("*************************");
 		return cinema;
