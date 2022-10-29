@@ -1,7 +1,8 @@
 
 public enum MovieType {
 	RD("Regular & Digital"),
-	TD("3D");
+	TD("3D"),
+	EM("Empty"),;
 
 	private String MovieType;
 	MovieType(String Movie){

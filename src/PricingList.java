@@ -34,12 +34,12 @@ public class PricingList {
 		System.out.println("\n\nTickets for movies denoted as 'BlockBuster' will be charged at $1 more than the prevailing rate");
 		System.out.println("---------------------------------------------------------------------------------------------------");
 	}
-	public double getPrice(TicketType Ticket, MovieType Movie, boolean Blockbuster, boolean Sneak) {
+	public double getPrice(Tickets ticket) {
 		double price = 0.00;
-		boolean yn = Blockbuster;
-		boolean Sneakpreview = Sneak;
-		MovieType Type = Movie;
-		switch(Ticket) {
+		boolean yn = ticket.getBB();
+		boolean Sneakpreview = ticket.getSneak();
+		MovieType Type = ticket.getMovieType();
+		switch(ticket.getTicketType()) {
 		case SC:
 			price = 4.00;
 			break;
@@ -53,7 +53,7 @@ public class PricingList {
 			break;
 		case MW:
 			if(Type == MovieType.RD) {
-				if(Sneak) {
+				if(Sneakpreview) {
 					price = 9.50;
 				}
 				else{
