@@ -76,10 +76,10 @@ public class StaffUse {
 		}while(choice>4);
 		return cinema;
 	}
+
 	
 	private static Cinema MovieListing(Cinema cinema){ //Movie listing is a list of movies showing now and coming soon
 		Scanner sc = new Scanner(System.in);
-		boolean BlockBuster, Sneakpreview;
 		int choice;
 		do {
 			System.out.println("1. Create Movie Listing\n2. Display Movie Listing\n3. Edit Movie Listing\n4. Delete Movie Listing");
@@ -87,53 +87,16 @@ public class StaffUse {
 			sc.nextLine();	//Scanner buffer not cleared i dk how to get ard it except reading it agn
 			switch(choice) {
 			case 1:
-				System.out.println("Enter movie title: ");
-				String movieTitle = sc.nextLine();
-				System.out.println("Enter show status:\n1. Coming Soon\n2. Preview\n3. Now Showing\n4. Not Available");
-				int showStatus = sc.nextInt();
-				sc.nextLine(); //Scanner buffer not cleared i dk how to get ard it except reading it agn
-				System.out.println("Enter movie rating:\n1. PG\n2. PG-13\n3. R\n4. NC-17\n5. G");
-				int movieRating = sc.nextInt();
-				sc.nextLine();
-				System.out.println("Enter Synopsis: ");
-				String synopsis = sc.nextLine();
-				System.out.println("Enter name of director: ");
-				String director = sc.nextLine();
-				System.out.println("BlockBuster movie(Y/N)?");
-				String ans = sc.next();
-				if(ans.toLowerCase() == "y") {
-					BlockBuster = true;
-				}
-				else {
-					BlockBuster = false;
-				}
-				System.out.println("Sneak Preview (Y/N)?");
-				ans = sc.next();
-				if(ans.toLowerCase() == "y") {
-					Sneakpreview = true;
-				}
-				else {
-					Sneakpreview = false;
-				}
-				Movie movie = new Movie(movieTitle, showStatus, movieRating,synopsis, director, BlockBuster, Sneakpreview);
-				System.out.println("Enter number of cast: ");
-				int numOfCast = sc.nextInt();
-				sc.nextLine(); //Scanner buffer not cleared i dk how to get ard it except reading it agn
-				for(int i=0; i<numOfCast; i++) {
-					System.out.println("Enter name of cast " + (i+1) + ": ");
-					String castname = sc.nextLine();
-					movie.addCast(castname);
-				}
-				cinema.addMovie(movie);
+				cinema = CreateMovieListing(cinema);
 				break;
 			case 2:
 				displayMovie(cinema);
 				break;
 			case 3:
-				editMovie(cinema);
+				cinema = editMovie(cinema);
 				break;
 			case 4:
-				deleteMovie(cinema);
+				cinema = deleteMovie(cinema);
 				break;
 			case 5:
 				//Stop the program
@@ -143,6 +106,50 @@ public class StaffUse {
 				break;
 			}
 		}while(choice>5);
+		return cinema;
+	}
+	
+	private static Cinema CreateMovieListing(Cinema cinema) {
+		Scanner sc = new Scanner(System.in);
+		boolean BlockBuster, Sneakpreview;
+		System.out.println("Enter movie title: ");
+		String movieTitle = sc.nextLine();
+		System.out.println("Enter show status:\n1. Coming Soon\n2. Preview\n3. Now Showing\n4. Not Available");
+		int showStatus = sc.nextInt();
+		sc.nextLine(); //Scanner buffer not cleared i dk how to get ard it except reading it agn
+		System.out.println("Enter movie rating:\n1. PG\n2. PG-13\n3. R\n4. NC-17\n5. G");
+		int movieRating = sc.nextInt();
+		sc.nextLine();
+		System.out.println("Enter Synopsis: ");
+		String synopsis = sc.nextLine();
+		System.out.println("Enter name of director: ");
+		String director = sc.nextLine();
+		System.out.println("BlockBuster movie(Y/N)?");
+		String ans = sc.next();
+		if(ans.toLowerCase() == "y") {
+			BlockBuster = true;
+		}
+		else {
+			BlockBuster = false;
+		}
+		System.out.println("Sneak Preview (Y/N)?");
+		ans = sc.next();
+		if(ans.toLowerCase() == "y") {
+			Sneakpreview = true;
+		}
+		else {
+			Sneakpreview = false;
+		}
+		Movie movie = new Movie(movieTitle, showStatus, movieRating,synopsis, director, BlockBuster, Sneakpreview);
+		System.out.println("Enter number of cast: ");
+		int numOfCast = sc.nextInt();
+		sc.nextLine(); //Scanner buffer not cleared i dk how to get ard it except reading it agn
+		for(int i=0; i<numOfCast; i++) {
+			System.out.println("Enter name of cast " + (i+1) + ": ");
+			String castname = sc.nextLine();
+			movie.addCast(castname);
+		}
+		cinema.addMovie(movie);
 		return cinema;
 	}
 	
@@ -158,7 +165,7 @@ public class StaffUse {
 		}
 	}
 	
-	private static Movie selectMovie(Cinema cinema) {
+	private static int selectMovie(Cinema cinema) {
 		int movieSelect = -1;
 		Scanner sc = new Scanner(System.in);
 		displayMovie(cinema);
@@ -169,13 +176,13 @@ public class StaffUse {
 			System.out.println("Please select an available movie");
 			movieSelect = sc.nextInt() - 1;
 		}
-		Movie movieChange = cinema.getMovie(movieSelect);
-		return movieChange;
+		return movieSelect;
 	}
 	
-	private static void editMovie(Cinema cinema) {
+	private static Cinema editMovie(Cinema cinema) {
 		Scanner sc = new Scanner(System.in);
-		Movie movieChange = selectMovie(cinema);
+		int movieIndex = selectMovie(cinema);
+		Movie movieChange = cinema.getMovie(movieIndex);
 		
 		int choice = 1;
 		do {
@@ -262,12 +269,18 @@ public class StaffUse {
 				break;
 			}
 		}while(choice > 0 && choice < 9 );
+		cinema.replaceMovie(movieIndex, movieChange);
+		return cinema;
 	}
 	
-	private static void deleteMovie(Cinema cinema) {
+	private static Cinema deleteMovie(Cinema cinema) {
 		Scanner sc = new Scanner(System.in);
-		Movie movieChange = selectMovie(cinema);
-		
+		int movieIndex = selectMovie(cinema);
+		Movie movieChange = cinema.getMovie(movieIndex);
+
 		movieChange.setShowStatus(4);
+		cinema.replaceMovie(movieIndex, movieChange);
+		return cinema;
 	}
+
 }

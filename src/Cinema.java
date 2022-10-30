@@ -44,6 +44,10 @@ public class Cinema implements Serializable{
 	public void addMovie(Movie movie) {
 		this.listOfMovie.add(movie);
 	}
+	
+	public void replaceMovie(int index, Movie movie) {
+		this.listOfMovie.set(index, movie);
+	}
 
 	public String getCinemaName() {
 		return cinemaName;
