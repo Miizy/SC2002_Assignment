@@ -4,6 +4,7 @@ import java.util.Objects;
 public class MovieGoerUse {
 
 	public static int GoerID;
+	public static String GoerName;
 
 	public static Cineplex MovieGoerChoice(Cineplex cineplex) {
 		Scanner sc = new Scanner (System.in);
@@ -32,7 +33,7 @@ public class MovieGoerUse {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("---------Sign Up-------------");
 		System.out.println("Enter Your name: ");
-		String name = sc.nextLine();
+		String name = enterName(cineplex);
 		System.out.println("Enter Your Phone number: ");
 		int hpNumber = enterNumber();
 		System.out.println("Enter Your Email Address: ");
@@ -45,6 +46,7 @@ public class MovieGoerUse {
 		System.out.println();
 		cineplex.addGoer(GoerID ,name, hpNumber, emailAddr);
 		System.out.println("Welcome, "+ name + "!");
+		GoerName = name;
 		return cineplex;
 	}
 
@@ -74,6 +76,7 @@ public class MovieGoerUse {
 				if(number==cineplex.getGoer(GoerID).getMobileNumber()){
 					loginSuccess = true;
 					System.out.println("Welcome, " + cineplex.getGoer(GoerID).getName());
+					GoerName = cineplex.getGoer(GoerID).getName();
 				}else{
 					System.out.println("Phone number does not correspond to your email. Try Again!");
 				}
@@ -82,7 +85,7 @@ public class MovieGoerUse {
 				System.out.println("User does not exist. Try Again!");
 			}
 		}while(loginSuccess==false);
-		
+
 
 		return cineplex;
 	}
@@ -125,7 +128,6 @@ public class MovieGoerUse {
 						printListofMovies(cinema);
 					}else{
 						System.out.println("No Movies Available. Sorry.");
-						break;
 					}
 					int movieChoice = sc.nextInt();
 					if(movieChoice<=cinema.getListOfMovie().size()){
@@ -140,7 +142,6 @@ public class MovieGoerUse {
 						printListofMovies(cinema);
 					}else{
 						System.out.println("No Movies Available. Sorry.");
-						break;
 					}
 					break;
 				case 4://Book and purchase tickets
@@ -180,15 +181,56 @@ public class MovieGoerUse {
 					break;
 				case 6://List top 5
 					break;
-				case 7://Exit 
+				case 7://Add or View reviews
+					if(!cinema.getListOfMovie().isEmpty()){
+						System.out.println("Select Movie to review: ");
+						printListofMovies(cinema);
+					}else{
+						System.out.println("No Movies to review. Sorry.");
+						break;
+					}
+					int mvChoice = sc.nextInt();
+					if(mvChoice<=cinema.getListOfMovie().size()){
+						writeReview(cinema, mvChoice, GoerName);
+					}else{
+						System.out.println("Invalid Input!");
+					}
+					break;
+				case 8://Exit 
 					break;
 				default:
 					break;
 			}
 			 
 	
-		}while(choice<7);
+		}while(choice<8);
 		return cinema;
+	}
+
+	public static String enterName(Cineplex cineplex){
+		boolean nameExists = false;
+		String name;
+		Scanner sc = new Scanner(System.in);
+		while(true){
+			name = sc.nextLine();
+			if(!cineplex.getListofGoers().isEmpty()){
+				for(int i=0;i<cineplex.getListofGoers().size();i++){
+					if(Objects.equals(cineplex.getGoer(i).getName(), name)){
+						nameExists = true;
+						break;
+					}
+				}
+				if(!nameExists){
+					break;
+				}else{
+					System.out.println("Name already exists, try another name!");
+				}
+			}else{
+				break;
+			}
+			
+		}
+		return name;
 	}
 
 	public static int enterNumber(){
@@ -227,6 +269,46 @@ public class MovieGoerUse {
 		System.out.println();
 		return cinema;
 	}
+	
+	private static Cinema writeReview(Cinema cinema, int movieChoice, String name){
+		Scanner sc = new Scanner(System.in);
+		int rating;
+		String review;
+		if(!cinema.getMovie(movieChoice-1).getPastReview().isEmpty()){
+			for(int i=0;i<cinema.getMovie(movieChoice-1).getNamesOfPastReviewers().size();i++){
+				if(cinema.getMovie(movieChoice-1).getNameofReviewer(i)==name){
+					System.out.println("Only one review per user allowed per movie!");
+					return cinema;
+				}
+			}
+			printPastReviews(cinema, movieChoice);
+			System.out.println();
+		}
+		System.out.println("Enter your ratings for " + cinema.getMovie(movieChoice-1).getMovieTitle()+ " (0 to 5):  ");
+		while(true){
+			rating = sc.nextInt();
+			if(rating>=0&&rating<=5){
+				break;
+			}else{
+				System.out.println("Invalid Entry. Try Again. Only ratings from 0 to 5 are allowed!");
+			}
+		}
+		sc.nextLine();
+		System.out.println("Enter your review for " + cinema.getMovie(movieChoice-1).getMovieTitle()+ ":  ");
+		review = sc.nextLine();
+		cinema.getMovie(movieChoice-1).addReview(review, rating, name);	
+		return cinema;
+	}
+
+	private static void printPastReviews(Cinema cinema, int movieChoice){
+		System.out.println("Rating: " + cinema.getMovie(movieChoice-1).getOverallRating() + "* ");
+		System.out.println("-------------------------------------------------------------");
+		for(int i = 0; i<cinema.getMovie(movieChoice-1).getNamesOfPastReviewers().size();i++){
+			System.out.println(cinema.getMovie(movieChoice-1).getNameofReviewer(i));
+			System.out.println(cinema.getMovie(movieChoice-1).getReview(i));
+			System.out.println("-------------------------------------------------------------");
+		}
+	}
 
 	private static Cinema printDetailsofMovie(Cinema cinema, int movieChoice){
 		System.out.println("*************************");
@@ -240,6 +322,7 @@ public class MovieGoerUse {
 		if(cinema.getMovie(movieChoice-1).getSneakpreview() == true) {
 			System.out.println("Sneak Preview Movie" + ": ");
 		}
+		printPastReviews(cinema, movieChoice);
 		System.out.println("*************************");
 		return cinema;
 	}
@@ -252,7 +335,8 @@ public class MovieGoerUse {
 		System.out.println("4. Book and purchase tickets");
 		System.out.println("5. View Boooking History");
 		System.out.println("6. List top 5");
-		System.out.println("7. Exit");
+		System.out.println("7. Review Movie");
+		System.out.println("8. Exit");
 		System.out.println("==============================");
 	}
 	
