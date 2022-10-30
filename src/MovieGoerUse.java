@@ -124,7 +124,7 @@ public class MovieGoerUse {
 					printListofMovies(cinema);
 					int movieChoice = sc.nextInt();
 					if(movieChoice<=cinema.getListOfMovie().size()){
-						printDetailsofCinema(cinema, movieChoice);
+						printDetailsofMovie(cinema, movieChoice);
 					}else{
 						System.out.println("Invalid Input!");
 					}	
@@ -212,7 +212,7 @@ public class MovieGoerUse {
 		return cinema;
 	}
 
-	private static Cinema printDetailsofCinema(Cinema cinema, int movieChoice){
+	private static Cinema printDetailsofMovie(Cinema cinema, int movieChoice){
 		System.out.println("*************************");
 		System.out.println(cinema.getMovie(movieChoice-1).getMovieTitle() + ": ");
 		System.out.println("  Director: " + cinema.getMovie(movieChoice-1).getDirector());
