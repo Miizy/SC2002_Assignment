@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="398ab0c6-aa55-47fe-8646-8297f08d1690" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/bin/AppInterface.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/AppInterface.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Booking.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Booking.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Cinema.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Cinema.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Cineplex.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Cineplex.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Movie.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Movie.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/MovieGoer.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/MovieGoer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/MovieGoerUse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/MovieGoerUse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/MovieRating.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/MovieRating.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/MovieType.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/MovieType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Payment.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Payment.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/PricingList.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/PricingList.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Review.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Review.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/SeatStatus.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/SeatStatus.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Seats.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Seats.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/ShowStatus.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ShowStatus.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/StaffUse.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/StaffUse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Testing.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Testing.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Theatre.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Theatre.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/TheatreClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/TheatreClass.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/TicketType.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/TicketType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Tickets.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Tickets.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Time24Hr.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Time24Hr.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/TimeSlot.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/TimeSlot.class" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2Gqgrn2ARcrRqHofN1sSnSatYvP" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
+  }
+}</component>
+  <component name="RunManager">
+    <configuration name="Testing" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Testing" />
+      <module name="SC2002_Assignment" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Testing" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="398ab0c6-aa55-47fe-8646-8297f08d1690" name="Changes" comment="" />
+      <created>1667121730378</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1667121730378</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
