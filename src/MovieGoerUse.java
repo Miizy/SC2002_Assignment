@@ -146,9 +146,6 @@ public class MovieGoerUse {
 				case 4://Book and purchase tickets
 					Payment Price = new Payment();
 					double total = 0;
-					
-					System.out.println("Select Movie: ");
-					printListofMovies(cinema);
 					if(!cinema.getListOfMovie().isEmpty()){
 						System.out.println("Select Movie: ");
 						printListofMovies(cinema);
