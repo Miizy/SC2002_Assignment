@@ -120,8 +120,13 @@ public class MovieGoerUse {
 					printListofMovies(cinema);
 					break;
 				case 2://View Movie Details
-					System.out.println("Select to see the details: ");
-					printListofMovies(cinema);
+					if(!cinema.getListOfMovie().isEmpty()){
+						System.out.println("Select to see the details: ");
+						printListofMovies(cinema);
+					}else{
+						System.out.println("No Movies Available. Sorry.");
+						break;
+					}
 					int movieChoice = sc.nextInt();
 					if(movieChoice<=cinema.getListOfMovie().size()){
 						printDetailsofMovie(cinema, movieChoice);
@@ -130,12 +135,26 @@ public class MovieGoerUse {
 					}	
 					break;
 				case 3://Check Seat Availabliltiy
+					if(!cinema.getListOfMovie().isEmpty()){
+						System.out.println("Select Movie: ");
+						printListofMovies(cinema);
+					}else{
+						System.out.println("No Movies Available. Sorry.");
+						break;
+					}
 					break;
 				case 4://Book and purchase tickets
 					Payment Price = new Payment();
 					double total = 0;
-					for(int i=0; i<cinema.getListOfMovie().size();i++){// search/list movies
-						System.out.println(" " + (i+1)+ ". " + cinema.getMovie(i).getMovieTitle());
+					
+					System.out.println("Select Movie: ");
+					printListofMovies(cinema);
+					if(!cinema.getListOfMovie().isEmpty()){
+						System.out.println("Select Movie: ");
+						printListofMovies(cinema);
+					}else{
+						System.out.println("No Movies Available. Sorry.");
+						break;
 					}
 					int mc = sc.nextInt();
 					System.out.println();
