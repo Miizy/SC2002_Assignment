@@ -12,6 +12,7 @@ public class Seats implements Serializable{
 		this.col= col;
 		this.booked= false;
 		this.type= seatType;
+		System.out.println("Made Seat: "+ row+ " "+ col);
 	}
 
 	public void bookseat(){
