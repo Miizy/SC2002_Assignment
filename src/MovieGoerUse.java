@@ -120,7 +120,12 @@ public class MovieGoerUse {
 			choice = sc.nextInt();
 			switch(choice){
 				case 1:// Search/List Movies
-					printListofMovies(cinema);
+					if(!cinema.getListOfMovie().isEmpty()){
+						printListofMovies(cinema);
+					}
+					else {
+						System.out.println("No Movies Available. Sorry.");
+					}
 					break;
 				case 2://View Movie Details
 					if(!cinema.getListOfMovie().isEmpty()){
