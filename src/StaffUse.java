@@ -61,19 +61,22 @@ public class StaffUse {
 				cinema = MovieListing(cinema);
 				break;
 			case 2:
-				CinemaShowtimes(cinema);
+				cinema = CinemaShowtimes(cinema);
 				break;
 			case 3:
-				//list top 5 ranking movies
+				cinema = displayTopGrossing(cinema);
 				break;
 			case 4:
+				cinema = staffConfig(cinema);
+				break;
+			case 5:
 				//Stop the program
 				break;
 			default:
 				System.out.println("Invalid input. Please try again");
 				break;
 			}
-		}while(choice>4);
+		}while(choice>5);
 		return cinema;
 	}
 
@@ -114,7 +117,7 @@ public class StaffUse {
 		boolean BlockBuster, Sneakpreview;
 		System.out.println("Enter movie title: ");
 		String movieTitle = sc.nextLine();
-		System.out.println("Enter show status:\n1. Coming Soon\n2. Preview\n3. Now Showing\n4. Not Available");
+		System.out.println("Enter show status:\n1. Coming Soon\n2. Preview\n3. Now Showing");
 		int showStatus = sc.nextInt();
 		sc.nextLine(); //Scanner buffer not cleared i dk how to get ard it except reading it agn
 		System.out.println("Enter movie rating:\n1. PG\n2. PG-13\n3. R\n4. NC-17\n5. G");
@@ -153,8 +156,53 @@ public class StaffUse {
 		return cinema;
 	}
 	
-	private static void CinemaShowtimes(Cinema cinema) {
-		
+	private static void displayShowtimes(Cinema cinema) {
+		System.out.println("Select Theatre index:");
+		for(int i=0;i<cinema.getListOfTheatre().size();i++) {
+			int ind = i+1;
+			System.out.println(ind + ". " + cinema.getListOfTheatre().get(i));
+		}
+	}
+	
+	private static Cinema CinemaShowtimes(Cinema cinema) {
+		Scanner sc = new Scanner(System.in);
+		int option = 0;
+		System.out.println("1. Display Showtimes\n2. Add Showtimes\n3. Edit Showtimes\n4. Remove Showtime");
+		option = sc.nextInt();
+		while(option < 1 || option > 4) {
+			System.out.println("Invalid input. Please try again");
+			option = sc.nextInt();
+		}
+		displayShowtimes(cinema);
+		int choiceTheatre = sc.nextInt() - 1;
+		Theatre theatreSelect = cinema.getListOfTheatre().get(choiceTheatre);
+		System.out.println("Movie Showtimes:");
+		for(int i=0;i<theatreSelect.getTimeslot().size();i++) {
+			int ind = i+1;
+			System.out.print(ind+".  "+theatreSelect.getTimeslot().get(i).getmovieTitle()+"  Start:"+theatreSelect.getTimeslot().get(i).getStartTime()+"  End:"+theatreSelect.getTimeslot().get(i).getEndTime());
+		}
+		if(option == 2) {
+			System.out.println("Key in Movie Title:");
+			String title = sc.nextLine();
+			System.out.println("Start time (24Hrs):");
+			int start = sc.nextInt();
+			System.out.println("End time (24Hrs):");
+			int end = sc.nextInt();
+			TimeSlot timeslot = new TimeSlot(start, end, title);
+			boolean result = false;
+			result = theatreSelect.addTimeslot(timeslot);
+			if(result == true) {
+				System.out.println("Movie slot added successfully");
+			} else {
+				System.out.println("Error, movie slot conflicts with existing movie slots");
+			}
+		} else if (option == 3) {
+			System.out.println("Select movie slot index:");
+			int choiceMovieslot = sc.nextInt() - 1;
+			theatreSelect.getTimeslot().remove(choiceMovieslot);
+			System.out.println("Movie slot successfully removed");
+		}
+		return cinema;
 	}
 	
 	private static void displayMovie(Cinema cinema) {
@@ -187,7 +235,7 @@ public class StaffUse {
 		int choice = 1;
 		do {
 			System.out.println("Select movie details to adjust");
-			System.out.println("1. Movie Title\n2. Movie Status\n3. Movie Rating\n4. Synopsis\n5. Director\n6. Blockbuster Status\n7. Sneak Preview Status\n 8. Exit");
+			System.out.println("1. Movie Title\n2. Movie Status\n3. Movie Rating\n4. Synopsis\n5. Director\n6. Blockbuster Status\n7. Sneak Preview Status\n 8. Cast\n9. Exit");
 			choice = sc.nextInt();
 			switch(choice) {
 			case(1):
@@ -199,7 +247,7 @@ public class StaffUse {
 			case(2):
 				System.out.println("Current Movie Status:");
 				movieChange.getShowStatus();
-				System.out.println("Enter new movie status:\n1. Coming Soon\n2. Preview\n3. Now Showing\n4. Not Available");
+				System.out.println("Enter new movie status:\n1. Coming Soon\n2. Preview\n3. Now Showing\n4. End Of Showing");
 				int showStatus = sc.nextInt();
 				movieChange.setShowStatus(showStatus);
 				break;
@@ -261,14 +309,33 @@ public class StaffUse {
 				movieChange.setSneakPreview(previewStatus);
 				break;
 			case(8):
-				choice = -1;
+				System.out.println("Current Cast:");
+				for(int i=0;i<movieChange.getCast().size();i++) {
+					int ind = i+1;
+					System.out.println(ind + ". "+movieChange.getCast().get(i));
+				}
+				System.out.println("Select on Option:");
+				System.out.println("1. Delete Cast Member\n2. Add Cast Member");
+				int castChoice = sc.nextInt();
+				if(castChoice == 1) {
+					System.out.println("Enter cast member to delete:");
+					String castDel = sc.nextLine();
+					movieChange.removeCast(castDel);
+				} else {
+					System.out.println("Enter new cast member name:");
+					String castAdd = sc.nextLine();
+					movieChange.addCast(castAdd);
+				}
+				break;
+			case(9):
+				//stop the program
 				break;
 			default:
 				System.out.println("Invalid input. Please try again");
 				choice = 1;
 				break;
 			}
-		}while(choice > 0 && choice < 9 );
+		}while(choice != 9);
 		cinema.replaceMovie(movieIndex, movieChange);
 		return cinema;
 	}
@@ -282,5 +349,16 @@ public class StaffUse {
 		cinema.replaceMovie(movieIndex, movieChange);
 		return cinema;
 	}
-
+	
+	private static Cinema staffConfig(Cinema cinema) {
+		//adjust ticket prices
+		//holidays
+		return cinema;
+	}
+	
+	private static Cinema displayTopGrossing(Cinema cinema) {
+		//display by ticket sales
+		//display by overall rating
+		return cinema;
+	}
 }

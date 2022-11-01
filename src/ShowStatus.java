@@ -2,7 +2,7 @@ public enum ShowStatus {
 	cs("Coming Soon"),
 	pr("Preview"),
 	ns("Now Showing"),
-	na("Not Available");
+	na("End Of Showing");
 	
 	private String showStatus;
 	

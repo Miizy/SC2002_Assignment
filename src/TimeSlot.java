@@ -15,4 +15,9 @@ public class TimeSlot {
 	Time24Hr getEndTime() {
 		return timeslot[1];
 	}
+	
+	String getmovieTitle() {
+		return movieTitle;
+	}
+
 }
