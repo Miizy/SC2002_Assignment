@@ -172,7 +172,9 @@ public class MovieGoerUse {
 							TicketType TT = Price.chooseTicketType();
 						Ticketarray[a] = new Tickets(MT, TT, cinema.getMovie(mc-1).getBlockBuster(), cinema.getMovie(mc-1).getSneakpreview());
 					}
-					System.out.println("Total Price = " + Price.totalPrice(Ticketarray, noTick));
+					double sum = Price.totalPrice(Ticketarray, noTick);
+					System.out.println("Total Price = " + sum);
+					cinema.getListOfMovie().get(mc-1).addSales(sum);
 					double payment = 0;
 					while(!Price.checkPaid()) {
 						System.out.println("Payment Received: ");

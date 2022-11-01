@@ -13,6 +13,7 @@ public class Movie implements Serializable{
 	private ArrayList<String> pastReview = new ArrayList<String>();
 	private boolean BlockBuster;
 	private boolean Sneakpreview;
+	private double Sales = 0.00;
 	public Movie(String movieTitle, int showStatus, int movieRating, String synopsis, String director, boolean BlockBuster, boolean Sneakpreview) {
 		setMovieTitle(movieTitle);
 		setShowStatus(showStatus);
@@ -139,5 +140,13 @@ public class Movie implements Serializable{
 		this.overallRating = (this.overallRating * this.pastReview.size() + rating) / (this.pastReview.size() + 1);
 		this.pastReview.add(review);
 		this.nameofPastReviewers.add(nameOfReviewer);
+	}
+	
+	public void addSales(double payment) {
+		Sales += payment;
+	}
+	
+	public double getSales() {
+		return Sales;
 	}
 }

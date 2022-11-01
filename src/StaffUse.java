@@ -352,13 +352,85 @@ public class StaffUse {
 	
 	private static Cinema staffConfig(Cinema cinema) {
 		//adjust ticket prices
-		//holidays
+		//holidays?
 		return cinema;
 	}
 	
 	private static Cinema displayTopGrossing(Cinema cinema) {
-		//display by ticket sales
-		//display by overall rating
+		Scanner sc = new Scanner(System.in);
+		System.out.println("1. Display Top 5 by Ticket Sales\n2. Display Top 5 by Ratings");
+		int choice = sc.nextInt();
+		do {
+			switch(choice) {
+			case(1):
+				double[][] movieSales = new double[2][cinema.getListOfMovie().size()];
+				for(int i=0;i<cinema.getListOfMovie().size();i++) {
+					movieSales[0][i] = (double)i;
+					movieSales[1][i] = cinema.getListOfMovie().get(i).getSales();
+				}
+				for(int i=1;i<cinema.getListOfMovie().size();i++) {
+					for(int k=i;k>0;k--) {
+						if(movieSales[1][k] > movieSales[1][k-1]) {
+							double tempMov, tempSale;
+							tempMov = movieSales[0][k];
+							tempSale = movieSales[1][k];
+							movieSales[0][k] = movieSales[0][k-1];
+							movieSales[1][k] = movieSales[1][k-1];
+							movieSales[0][k-1] = tempMov;
+							movieSales[1][k-1] = tempSale;
+						} else {
+							break;
+						}
+					}
+				}
+				System.out.println("Top 5 Movies by Sales:");
+				for(int j=0;j<cinema.getListOfMovie().size();j++) {
+					int movieIndex = (int)movieSales[0][j];
+					double sales = movieSales[1][j];
+					int ind = j+1;
+					System.out.println(ind + ". "+cinema.getMovie(movieIndex)+"  $"+sales);
+					if(j==4) {
+						break;
+					}
+				}
+				break;
+			case(2):
+				float[][] movieRatings = new float[2][cinema.getListOfMovie().size()];
+				for(int i=0;i<cinema.getListOfMovie().size();i++) {
+				movieRatings[0][i] = (float)i;
+				movieRatings[1][i] = cinema.getListOfMovie().get(i).getOverallRating();
+				}
+				for(int i=1;i<cinema.getListOfMovie().size();i++) {
+					for(int k=i;k>0;k--) {
+						if(movieRatings[1][k] > movieRatings[1][k-1]) {
+							float tempMov, tempRate;
+							tempMov = movieRatings[0][k];
+							tempRate = movieRatings[1][k];
+							movieRatings[0][k] = movieRatings[0][k-1];
+							movieRatings[1][k] = movieRatings[1][k-1];
+							movieRatings[0][k-1] = tempMov;
+							movieRatings[1][k-1] = tempRate;
+						} else {
+							break;
+						}
+					}
+				}
+				System.out.println("Top 5 Movies by Ratings:");
+				for(int j=0;j<cinema.getListOfMovie().size();j++) {
+					int movieIndex = (int)movieRatings[0][j];
+					float rating = movieRatings[1][j];
+					int ind = j+1;
+					System.out.println(ind + ". "+cinema.getMovie(movieIndex)+"  "+rating);
+					if(j==4) {
+						break;
+					}
+				}
+				break;
+			default:
+				System.out.println("Invalid input. Please try again");
+				choice = sc.nextInt();
+			}
+		} while(choice < 1 || choice > 2);
 		return cinema;
 	}
 }
