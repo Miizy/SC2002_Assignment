@@ -8,38 +8,40 @@ public class Schedule {
     }
 
     public boolean add(TimeSlot slot){
+
         int arrSize= this.timeslotarr.size();
+        //System.out.println("Size: " + arrSize);
+
         if (arrSize==0){
             this.timeslotarr.add(slot);
             System.out.println("Sucessfully Added");
             return true;
         }
         else{
-            //compare with sorted list check until a date with a larger magnitude appears
-            //Check if no boundary error with the later slot and before slot.
-            //insert between by shifting
+            //compare with all the things in list
+            for(int i=0; i<arrSize; i++){
+                if(slot.getStartTime().after(this.timeslotarr.get(i).getStartTime())&& 
+                slot.getStartTime().before(this.timeslotarr.get(i).getEndTime())){
+                    System.out.println("Did not add");
+                    return false;
+                }
 
-            for(int i =0; i<arrSize; i++){
-                if(this.timeslotarr.get(i).getStartTime().after(slot.getStartTime())){
-                    //check if the duration fits with after
-                    if(slot.getStartTime().before(this.timeslotarr.get(i).getStartTime()) && slot.getEndTime().before(this.timeslotarr.get(i).getStartTime())){
-                        if(i>=1){
-                            //compare the length of the movie with before too
-                            if(slot.getStartTime().after(this.timeslotarr.get(i-1).getStartTime()) && slot.getEndTime().after(this.timeslotarr.get(i-1).getStartTime())){
-                                this.timeslotarr.add(slot);
-                                this.update();
-                                System.out.println("Sucessfully Added");
-                                return true;
-                            }
-                        }
-                    }
+                if(slot.getEndTime().after(this.timeslotarr.get(i).getStartTime())&& 
+                slot.getEndTime().before(this.timeslotarr.get(i).getEndTime())){
+                    System.out.println("Did not add");
+                    return false;
                 }
             }
+
+            this.timeslotarr.add(slot);
+            System.out.println("Successfully added");
+            return true;
+
         }
 
-        return false;
 
     }
+
 
     public void update(){
         //sort
