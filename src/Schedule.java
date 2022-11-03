@@ -1,6 +1,8 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
-public class Schedule {
+
+public class Schedule implements Serializable{
 
     private ArrayList<TimeSlot> timeslotarr;
     public Schedule(){
