@@ -1,8 +1,6 @@
 
 public enum TheatreClass {
 	plat("Platinum Movie Suites"),
-	ulti("Ultima"),
-	dolb("Dolby Atmos"),
 	elit("Elite Club");
 
 	private String theatreClass;
