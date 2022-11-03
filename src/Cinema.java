@@ -18,6 +18,10 @@ public class Cinema implements Serializable{
 		return listOfTheatre;
 	}
 
+	public Theatre getTheatre(int index){
+		return listOfTheatre.get(index);
+	}
+	
 	public void setListOfTheatre(int numOfTheatre) throws IOException{
 		for(int i=0; i<numOfTheatre; i++) {
 			listOfTheatre.add(new Theatre(i,3));
