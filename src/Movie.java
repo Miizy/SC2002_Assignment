@@ -10,7 +10,7 @@ public class Movie implements Serializable{
 	private ArrayList<String> cast = new ArrayList<String>();
 	private float overallRating;
 	private ArrayList<String> nameofPastReviewers = new ArrayList<String>();
-	private ArrayList<String> pastReview = new ArrayList<String>();
+	private ArrayList<Review> pastReview = new ArrayList<Review>();
 	private boolean BlockBuster;
 	private boolean Sneakpreview;
 	private double Sales = 0.00;
@@ -120,11 +120,11 @@ public class Movie implements Serializable{
 		return overallRating;
 	}
 
-	public ArrayList<String> getPastReview() {
+	public ArrayList<Review> getPastReview() {
 		return pastReview;
 	}
 
-	public String getReview(int index){
+	public Review getReview(int index){
 		return this.pastReview.get(index);
 	}
 
@@ -136,9 +136,10 @@ public class Movie implements Serializable{
 		return this.nameofPastReviewers.get(index);
 	}
 
-	public void addReview(String review, int rating, String nameOfReviewer) {
+	public void addReview(String review, float rating, String nameOfReviewer) {
+		Review temp = new Review(review, rating);
 		this.overallRating = (this.overallRating * this.pastReview.size() + rating) / (this.pastReview.size() + 1);
-		this.pastReview.add(review);
+		this.pastReview.add(temp);
 		this.nameofPastReviewers.add(nameOfReviewer);
 	}
 	
