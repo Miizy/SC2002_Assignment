@@ -1,5 +1,5 @@
 
-public class PricingList {
+public class PricingList{
 	public void PriceList() {
 		System.out.println("Ticket Type                     Regular & Digital Movies                     3D Movies");
 		System.out.println("===================================================================================================");
@@ -38,7 +38,9 @@ public class PricingList {
 		double price = 0.00;
 		boolean yn = ticket.getBB();
 		boolean Sneakpreview = ticket.getSneak();
+		SeatStatus Seat = ticket.getSeatStatus();
 		MovieType Type = ticket.getMovieType();
+		TheatreClass TC = ticket.getTheatreClass();
 		switch(ticket.getTicketType()) {
 		case SC:
 			price = 4.00;
@@ -105,6 +107,27 @@ public class PricingList {
 		
 		if(yn) {
 			price++;
+		}
+		switch(TC) {
+		case plat:
+			break;
+		case elit:
+			price+=2;
+			break;
+		default:
+			break;
+		}
+		switch(Seat) {
+		case ac: //couple seat
+			price = (price * 2) + 3;
+			break;
+		case ae: //elite seat
+			price += 1.50;
+			break;
+		case an:
+			break;
+		default:
+			break;
 		}
 		return price;
 	}

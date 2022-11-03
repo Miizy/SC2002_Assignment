@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Calendar;
 import java.util.Objects;
 
 public class MovieGoerUse {
@@ -152,6 +153,7 @@ public class MovieGoerUse {
 				case 4://Book and purchase tickets
 					Payment Price = new Payment();
 					double total = 0;
+					SeatStatus SS = SeatStatus.ap;
 					if(!cinema.getListOfMovie().isEmpty()){
 						System.out.println("Select Movie: ");
 						printListofMovies(cinema);
@@ -159,18 +161,53 @@ public class MovieGoerUse {
 						System.out.println("No Movies Available. Sorry.");
 						break;
 					}
-					int mc = sc.nextInt();
+					int mc = sc.nextInt(); //selected the movie
 					System.out.println();
+					//check which theatre has the movie //
+					for(int t =0; t<cinema.getListOfTheatre().size(); t++) {
+						System.out.println("Theatre:"+ t);
+						for(int tslot=0; tslot<cinema.getListOfTheatre().get(t).getTimeslot().size(); tslot++) {
+							if(cinema.getListOfTheatre().get(t).getTimeslot().get(tslot).getMovie().getMovieTitle()==cinema.getMovie(mc-1).getMovieTitle()) {
+								System.out.println((tslot+1)+"Timeslot: " + cinema.getListOfTheatre().get(t).getTimeslot().get(tslot).getStartTime());					
+							}
+						}
+					}
+					System.out.println("Select Theatre ID: ");
+					int id = sc.nextInt();
+					Theatre theatre = cinema.getTheatre(id);
+					String ID = theatre.getTheatreID();
+					TheatreClass TC = theatre.getTheatreClass(); //theatreclass
+					System.out.println("Select Timeslot: ");
+					int TS = sc.nextInt();					//TS
 					Price.PriceList(); //listing out pricing list
-					MovieType MT = Price.chooseMovieType();//choose MovieType
+					MovieType MT = Price.chooseMovieType();//choose MovieType//replace in future
 					System.out.println("Select Number of Tickets:");
 					int noTick = sc.nextInt();
 					Tickets[] Ticketarray = new Tickets[noTick];
 					for(int a = 0; a<noTick;a++) {
 						/*Select & Book Seats Code here*/
+						//show seat
+						theatre.showSeats();
+						TicketType TT = Price.chooseTicketType();//choose student etc.
+						while(true) {
+							System.out.print("Select Row: ");
+							int Row = sc.nextInt();
+							System.out.print("Select Col: ");
+							int Col = sc.nextInt();
+							SS = theatre.getSeatAt(Col, Row).getSeatType();
+							if (SS != SeatStatus.ap) {
+								if(theatre.getSeatAt(Col, Row).getbook() == false) { //empty seat
+									theatre.getSeatAt(Col, Row).bookseat(); //book seat
+									break;
+								}
+								else {
+									System.out.println("Seat is already Booked!!");
+								}
+							}
+						}
+						//type of seat //save under SS
 						//======================
-							TicketType TT = Price.chooseTicketType();
-						Ticketarray[a] = new Tickets(MT, TT, cinema.getMovie(mc-1).getBlockBuster(), cinema.getMovie(mc-1).getSneakpreview());
+						Ticketarray[a] = new Tickets(MT, TT, cinema.getMovie(mc-1).getBlockBuster(), cinema.getMovie(mc-1).getSneakpreview(), TC, SS);
 					}
 					double sum = Price.totalPrice(Ticketarray, noTick);
 					System.out.println("Total Price = " + sum);
@@ -183,6 +220,7 @@ public class MovieGoerUse {
 						Price.checkPayment(total);
 					}
 					System.out.println("Change Given: " + Price.getchange());
+					System.out.println("Transaction ID: " + Price.GetTID(ID, Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_WEEK, Calendar.HOUR_OF_DAY, Calendar.MINUTE));
 						break;
 				case 5://View Boooking History 
 					break;

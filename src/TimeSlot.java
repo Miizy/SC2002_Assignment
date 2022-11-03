@@ -22,4 +22,5 @@ public class TimeSlot {
 	public Movie getMovie(){
 		return this.movieSpec;
 	}
+	//getMovietype to be added
 }
