@@ -12,10 +12,8 @@ public class Theatre implements Serializable{
 	private final static int SROWS = 6;
 	private Seats [][] allseats= new Seats[NROWS][NCOLS];
 
-
-
-	Theatre(int theatreID, int theatreClass) throws IOException{
-		this.setTheatreID(theatreID);
+	Theatre(int theatreID, int theatreClass, int cinemaID) throws IOException{
+		this.setTheatreID(theatreID, cinemaID);
 		this.setTheatreClass(theatreClass);
 	}
 
@@ -23,8 +21,8 @@ public class Theatre implements Serializable{
 		return theatreID;
 	}
 
-	public void setTheatreID(int theatreID) {
-		this.theatreID = convertIntToCode(theatreID);
+	public void setTheatreID(int theatreID, int cinemaID) {
+		this.theatreID = convertIntToCode(theatreID, cinemaID);
 	}
 
 	public ArrayList<TimeSlot> getTimeslot() {
@@ -200,14 +198,9 @@ public class Theatre implements Serializable{
 		}
 	}
 
-	private String convertIntToCode(int i) {
-		int quot = i/26;
-		int rem = i%26;
-		char letter = (char)((int)'A' + rem);
-		if( quot == 0 ) {
-			return ""+letter;
-		} else {
-			return convertIntToCode(quot-1) + letter;
-		}
+	private String convertIntToCode(int i, int j) {
+		char letter2 = (char)((int)'A' + i%26);
+		char letter = (char)((int)'A' + j%26);
+		return letter + "0" + letter2;
 	}
 }
