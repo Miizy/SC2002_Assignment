@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.util.Calendar;
+import java.text.DecimalFormat;
 
 public class Payment extends PricingList{
 	private double price = 0.00;
@@ -7,13 +8,13 @@ public class Payment extends PricingList{
 	private double change = 0.00;
 	private String TID;
 	Scanner scan = new Scanner(System.in);
-	public String GetTID(String theatreID, int year, int month, int day, int hour, int minutes) {
-		while(theatreID.length() < 3) {
-			theatreID = "0" + theatreID;
-			}
-		TID = theatreID + String.valueOf(year) + String.valueOf(month+1) + String.valueOf(day) + String.valueOf(hour) + String.valueOf(minutes);
+	public String GetTID(String theatreID, Calendar time) {
+		DecimalFormat dateFormat = new DecimalFormat("00");
+		TID = theatreID + String.valueOf(time.get(Calendar.YEAR)) + dateFormat.format(Double.valueOf(time.get(Calendar.MONTH))) + 
+				dateFormat.format(Double.valueOf(time.get(Calendar.DAY_OF_WEEK))) + dateFormat.format(Double.valueOf(time.get(Calendar.HOUR_OF_DAY))) + 
+				dateFormat.format(Double.valueOf(time.get(Calendar.MINUTE)));
 		return TID;
-		}
+	}
 	public double totalPrice(Tickets[] Ticketarray, int noTicks) {
 		price = 0.00;
 		for(int a = 0; a < noTicks; a++) {
