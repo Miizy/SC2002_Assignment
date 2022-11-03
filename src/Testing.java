@@ -3,15 +3,15 @@ import java.util.GregorianCalendar;
 import java.util.Date;
 public class Testing {
 	public static void main(String args[]) throws IOException {
-		Theatre t1 = new Theatre(1,1);
+		Theatre t1 = new Theatre(1,0);
 		GregorianCalendar gc = new GregorianCalendar(2022, 11, 2, 20, 30);
 		Date dstart= new Date(gc.getTimeInMillis());
 		GregorianCalendar gc1= new GregorianCalendar(2022, 11, 2, 23, 20);
 		Date dend= new Date(gc1.getTimeInMillis());
 		Movie m1= new Movie("Shinging", 0, 2, "SO much", "Niko", true, false);
 		TimeSlot ts1= new TimeSlot(dstart, dend, m1);
-		t1.initializeSeats();
-		t1.getSeatAt(1, 1).bookseat();
+		t1.initializeEliteSeats();
+		t1.getSeatAt(5, 1).bookseat();
 		t1.showSeats();
 		gc= new GregorianCalendar(2022, 11, 1, 20, 30);
 		gc1= new GregorianCalendar(2022, 11, 1, 23, 20);

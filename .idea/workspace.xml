@@ -2,21 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="398ab0c6-aa55-47fe-8646-8297f08d1690" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/Schedule.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/AppInterface.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/AppInterface.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Cinema.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Cinema.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/SeatStatus.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/SeatStatus.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Seats.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Seats.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Testing.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Testing.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Theatre.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Theatre.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/TimeSlot.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/TimeSlot.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Schedule.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Schedule.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Schedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Schedule.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Testing.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Testing.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Testing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Testing.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Theatre.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Theatre.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Theatre.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Theatre.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
