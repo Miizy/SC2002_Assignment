@@ -6,9 +6,10 @@ import java.io.IOException;
 import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.text.ParseException;
 
 public class AppInterface {
-	public static void main(String args[]) throws IOException, ClassNotFoundException, InvalidClassException {
+	public static void main(String args[]) throws IOException, ClassNotFoundException, InvalidClassException, ParseException {
 		Scanner sc = new Scanner(System.in);
 		Cineplex cineplex = null;
 		String fileName = "Cineplex.ser";

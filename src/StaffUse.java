@@ -1,8 +1,11 @@
 import java.util.Scanner;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class StaffUse {
-	public static Cineplex StaffChoice(Cineplex cineplex) {
+	public static Cineplex StaffChoice(Cineplex cineplex) throws ParseException {
 		staffLogin();
 		cineplex = chooseCinema(cineplex);
 		return cineplex;
@@ -28,7 +31,7 @@ public class StaffUse {
 		} while(!username.toLowerCase().contains("staff"));
 	}
 	
-	private static Cineplex chooseCinema(Cineplex cineplex){
+	private static Cineplex chooseCinema(Cineplex cineplex) throws ParseException{
 		Scanner sc = new Scanner(System.in);
 		int choice = Integer.MAX_VALUE;
 		System.out.println("Select Cinema");
@@ -50,7 +53,7 @@ public class StaffUse {
 		return cineplex;
 	}
 	
-	private static Cinema staffOptions(Cinema cinema) {
+	private static Cinema staffOptions(Cinema cinema) throws ParseException {
 		Scanner sc = new Scanner(System.in);
 		int choice;
 		do {
@@ -156,14 +159,113 @@ public class StaffUse {
 	}
 	
 	private static void displayShowtimes(Cinema cinema) {
+		ArrayList<String> order = new ArrayList<String>();
+		ArrayList<String> movie = new ArrayList<String>();
+		ArrayList<TimeSlot> timeSlot = new ArrayList<TimeSlot>();
+		for(int i=0; i<cinema.getListOfTheatre().size(); i++) {
+			timeSlot.addAll(cinema.getTheatre(i).getTimeslot());
+		}
+		for(int i=0; i<timeSlot.size(); i++) {
+			int movieIndex = order.indexOf(timeSlot.get(i).getMovie().getMovieTitle());
+			if(movieIndex == -1) { 
+				String movieTitle = timeSlot.get(i).getMovie().getMovieTitle();
+				order.add(movieTitle);
+				movie.add(movieTitle + ": " + timeSlot.get(i).getStartTime() + " - " + timeSlot.get(i).getEndTime());
+			}
+			else {
+				String temp = movie.get(movieIndex);
+				temp = temp + ", " + timeSlot.get(i).getStartTime() + " - " + timeSlot.get(i).getEndTime();
+				movie.set(movieIndex, temp);
+			}
+		}
+		System.out.println(String.join("\n", movie));
+	}
+	
+	private static void chooseTheatre(Cinema cinema) {
 		System.out.println("Select Theatre index:");
 		for(int i=0;i<cinema.getListOfTheatre().size();i++) {
 			int ind = i+1;
 			System.out.println(ind + ". " + cinema.getListOfTheatre().get(i));
 		}
 	}
+
+	private static void chooseTimeslot(Theatre theatre) {
+		for(int i=0; i<theatre.getTimeslot().size(); i++) {
+			System.out.println((i+1) + ". " + theatre.getTimeslot().get(i).getMovie().getMovieTitle() + " " + 
+					theatre.getTimeslot().get(i).getStartTime() + " - " + theatre.getTimeslot().get(i).getEndTime());
+		}
+	}
 	
-	private static Cinema cinemaShowtimes(Cinema cinema) {
+	private static Date enterTime() throws ParseException {
+		Scanner sc = new Scanner(System.in);
+		boolean isValid = false;
+		String timeString;
+		while(isValid) {
+			timeString = sc.next();
+			isValid = isValidTime(timeString);
+		}
+		Date date = new SimpleDateFormat("dd-MM-yyyy HHmm").parse(sc.next());
+		return date;
+	}
+	
+	private static boolean isValidTime(String dateStr) {
+		try {
+			new SimpleDateFormat("dd-MM-yyyy HHmm").parse(dateStr);
+			return true;
+		} catch (ParseException e) {
+			return false;
+		}
+    }
+	
+	private static Cinema addShowtimes(Cinema cinema) throws ParseException {
+		Scanner sc = new Scanner(System.in);
+		chooseTheatre(cinema);
+		int choiceTheatre = sc.nextInt() - 1;
+		Theatre theatreSelect = cinema.getTheatre(choiceTheatre);
+		int counter = 0;
+		System.out.println("Choose Movie Title:");
+		ArrayList<Movie> tempMovieList = new ArrayList<Movie>();
+		for(int i=0; i<cinema.getListOfMovie().size(); i++) {
+			if(cinema.getMovie(i).getShowStatus() == ShowStatus.ns) {
+				System.out.println(++counter + ". " + cinema.getMovie(i).getMovieTitle());
+				tempMovieList.add(cinema.getMovie(i));
+			}
+		}
+		Movie movie = tempMovieList.get(sc.nextInt());
+		
+		System.out.println("Start time in dd-MM-yyyy HHmm (24hr):");
+		Date start = enterTime();
+		System.out.println("End time in dd-MM-yyyy HHmm (24hr):");
+		Date end = enterTime();
+		
+		TimeSlot timeslot = new TimeSlot(start, end, movie);
+		boolean result = false;
+		result = theatreSelect.addTimeslot(timeslot);
+		if(result == true) {
+			System.out.println("Movie slot added successfully");
+		} else {
+			System.out.println("Error, movie slot conflicts with existing movie slots");
+		}
+		return cinema;
+	}
+	
+	private static Cinema editShowtimes(Cinema cinema) {
+		
+	}
+	
+	private static Cinema removeShowtimes(Cinema cinema) {
+		Scanner sc = new Scanner(System.in);
+		chooseTheatre(cinema);
+		Theatre theatreSelect = cinema.getTheatre(sc.nextInt()-1);
+		System.out.println("Select movie slot index:");
+		chooseTimeslot(theatreSelect);
+		int choiceMovieslot = sc.nextInt() - 1;
+		theatreSelect.getTimeslot().remove(choiceMovieslot);
+		System.out.println("Movie slot successfully removed");
+		return cinema;
+	}
+	
+	private static Cinema cinemaShowtimes(Cinema cinema) throws ParseException {
 		Scanner sc = new Scanner(System.in);
 		int option = 0;
 		System.out.println("1. Display Showtimes\n2. Add Showtimes\n3. Edit Showtimes\n4. Remove Showtime");
@@ -172,34 +274,17 @@ public class StaffUse {
 			System.out.println("Invalid input. Please try again");
 			option = sc.nextInt();
 		}
-		displayShowtimes(cinema);
-		int choiceTheatre = sc.nextInt() - 1;
-		Theatre theatreSelect = cinema.getListOfTheatre().get(choiceTheatre);
-		System.out.println("Movie Showtimes:");
-		for(int i=0;i<theatreSelect.getTimeslot().size();i++) {
-			int ind = i+1;
-			System.out.print(ind+".  "+theatreSelect.getTimeslot().get(i).getmovieTitle()+"  Start:"+theatreSelect.getTimeslot().get(i).getStartTime()+"  End:"+theatreSelect.getTimeslot().get(i).getEndTime());
-		}
-		if(option == 2) {
-			System.out.println("Key in Movie Title:");
-			String title = sc.nextLine();
-			System.out.println("Start time (24Hrs):");
-			int start = sc.nextInt();
-			System.out.println("End time (24Hrs):");
-			int end = sc.nextInt();
-			TimeSlot timeslot = new TimeSlot(start, end, title);
-			boolean result = false;
-			result = theatreSelect.addTimeslot(timeslot);
-			if(result == true) {
-				System.out.println("Movie slot added successfully");
-			} else {
-				System.out.println("Error, movie slot conflicts with existing movie slots");
-			}
-		} else if (option == 3) {
-			System.out.println("Select movie slot index:");
-			int choiceMovieslot = sc.nextInt() - 1;
-			theatreSelect.getTimeslot().remove(choiceMovieslot);
-			System.out.println("Movie slot successfully removed");
+		switch(option) {
+		case 1:
+			displayShowtimes(cinema);
+			break;
+		case 2:
+			cinema = addShowtimes(cinema);
+			break;
+		case 3:
+			cinema = editShowtimes(cinema);
+		case 4:
+			cinema = removeShowtimes(cinema);
 		}
 		return cinema;
 	}
@@ -346,6 +431,7 @@ public class StaffUse {
 
 		movieChange.setShowStatus(4);
 		cinema.replaceMovie(movieIndex, movieChange);
+		//TODO: check all theatre in cinema and remove from timeslotarr all timeslot with same movie title 
 		return cinema;
 	}
 	
