@@ -37,6 +37,7 @@ public class Schedule implements Serializable{
 
             this.timeslotarr.add(slot);
             System.out.println("Successfully added");
+            this.update();
             return true;
 
         }

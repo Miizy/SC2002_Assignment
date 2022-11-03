@@ -15,21 +15,17 @@ public class Seats implements Serializable{
 	}
 
 	public void bookseat(){
-		if(this.type==SeatStatus.an){
-			this.booked=true;
-		}
-		else if(this.type==SeatStatus.ac){
-			this.booked=true;
-		}
-		else if(this.type==SeatStatus.ae){
-			this.booked=true;
-		}
-		else if(this.type==SeatStatus.ap){
+		if(this.type==SeatStatus.ap){
 			System.out.println("It's a passage.");
+			return;
 		}
 
-		else{
+		if(this.getbook()==true){
 			System.out.println("Not available! Already booked.");
+			return;
+		}
+		else{
+			this.booked=true;
 		}
 	}
 

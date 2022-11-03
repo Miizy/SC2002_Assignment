@@ -1,25 +1,35 @@
-import java.util.Date;
+
+import java.util.GregorianCalendar;
 
 public class TimeSlot {
-	private Date strtTime;
-	private Date endTime;
+	private GregorianCalendar strtTime;
+	private GregorianCalendar endTime;
 	private Movie movieSpec;
+	private SeatLayout seatTing; 
 
-	public TimeSlot(Date start, Date end, Movie mov) {
+	public TimeSlot(GregorianCalendar start, GregorianCalendar end, Movie mov) {
 		this.strtTime= start;
 		this.endTime=end;
 		this.movieSpec = mov;
 	}
 
-	public Date getStartTime() {
+	public GregorianCalendar getStartTime() {
 		return this.strtTime;
 	}
 
-	public Date getEndTime() {
+	public GregorianCalendar getEndTime() {
 		return this.endTime;
 	}
 
 	public Movie getMovie(){
 		return this.movieSpec;
+	}
+
+	public void initializeSeatTings( TheatreClass type){
+		seatTing= new SeatLayout(type);
+	}
+
+	public SeatLayout getSeatTing(){
+		return this.seatTing;
 	}
 }

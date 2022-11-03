@@ -2,13 +2,30 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="398ab0c6-aa55-47fe-8646-8297f08d1690" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/bin/SeatLayout.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Review.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/SeatLayout.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/SeatLayout.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Cinema.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Cinema.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Cineplex.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Cineplex.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Schedule.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Schedule.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Seats.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Seats.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Testing.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Testing.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Theatre.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Theatre.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/TimeSlot.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/TimeSlot.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Movie.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Movie.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Schedule.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Schedule.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Schedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Schedule.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Seats.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Seats.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Seats.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Seats.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Testing.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Testing.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Testing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Testing.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Theatre.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Theatre.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Theatre.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Theatre.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TheatreClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/TheatreClass.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TimeSlot.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/TimeSlot.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TimeSlot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TimeSlot.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,19 +46,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "Errors"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;Errors&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Testing" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="openjdk-17" />
