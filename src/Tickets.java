@@ -5,11 +5,14 @@ public class Tickets {
 	private TicketType TT;
 	private boolean BB;
 	private boolean Sneak;
-	public Tickets(MovieType MT, TicketType TT, boolean BB, boolean Sneak) {
+	private TheatreClass TC;
+	private SeatStatus SS;
+	public Tickets(MovieType MT, TicketType TT, boolean BB, boolean Sneak, TheatreClass TheatreClass, SeatStatus SeatType) {
 		this.MT = MT;
 		this.TT = TT;
 		this.BB = BB;
 		this.Sneak = Sneak;
+		this.TC = TheatreClass;
 	}
 	public MovieType getMovieType() {
 		return MT;
@@ -22,5 +25,11 @@ public class Tickets {
 	}
 	public boolean getSneak() {
 		return Sneak;
+	}
+	public TheatreClass getTheatreClass() {
+		return TC;
+	}
+	public SeatStatus getSeatStatus() {
+		return SS;
 	}
 }

@@ -67,5 +67,7 @@ public class Seats implements Serializable{
 		}
 
 	}
-
+	public SeatStatus getSeatType() {
+		return type;
+	}
 }
