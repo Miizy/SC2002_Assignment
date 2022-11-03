@@ -3,12 +3,12 @@ import java.util.ArrayList;
 
 public class StaffUse {
 	public static Cineplex StaffChoice(Cineplex cineplex) {
-		StaffLogin();
-		cineplex = StaffCinema(cineplex);
+		staffLogin();
+		cineplex = chooseCinema(cineplex);
 		return cineplex;
 	}
 	
-	private static void StaffLogin(){
+	private static void staffLogin(){
 		Scanner sc = new Scanner(System.in);
 		String username = null;
 		do {
@@ -28,7 +28,7 @@ public class StaffUse {
 		} while(!username.toLowerCase().contains("staff"));
 	}
 	
-	private static Cineplex StaffCinema(Cineplex cineplex){
+	private static Cineplex chooseCinema(Cineplex cineplex){
 		Scanner sc = new Scanner(System.in);
 		int choice = Integer.MAX_VALUE;
 		System.out.println("Select Cinema");
@@ -45,12 +45,12 @@ public class StaffUse {
 			}
 			choice = sc.nextInt();
 		}
-		Cinema cinema = StaffOptions(cineplex.getCinema(choice-1));
+		Cinema cinema = staffOptions(cineplex.getCinema(choice-1));
 		cineplex.setCinema(cinema.getCinemaID(), cinema);
 		return cineplex;
 	}
 	
-	private static Cinema StaffOptions(Cinema cinema) {
+	private static Cinema staffOptions(Cinema cinema) {
 		Scanner sc = new Scanner(System.in);
 		int choice;
 		do {
@@ -58,10 +58,10 @@ public class StaffUse {
 			choice = sc.nextInt();
 			switch(choice) {
 			case 1:
-				cinema = MovieListing(cinema);
+				cinema = movieListing(cinema);
 				break;
 			case 2:
-				cinema = CinemaShowtimes(cinema);
+				cinema = cinemaShowtimes(cinema);
 				break;
 			case 3:
 				cinema = displayTopGrossing(cinema);
@@ -80,8 +80,7 @@ public class StaffUse {
 		return cinema;
 	}
 
-	
-	private static Cinema MovieListing(Cinema cinema){ //Movie listing is a list of movies showing now and coming soon
+	private static Cinema movieListing(Cinema cinema){ //Movie listing is a list of movies showing now and coming soon
 		Scanner sc = new Scanner(System.in);
 		int choice;
 		do {
@@ -90,7 +89,7 @@ public class StaffUse {
 			sc.nextLine();	//Scanner buffer not cleared i dk how to get ard it except reading it agn
 			switch(choice) {
 			case 1:
-				cinema = CreateMovieListing(cinema);
+				cinema = createMovieListing(cinema);
 				break;
 			case 2:
 				displayMovie(cinema);
@@ -112,7 +111,7 @@ public class StaffUse {
 		return cinema;
 	}
 	
-	private static Cinema CreateMovieListing(Cinema cinema) {
+	private static Cinema createMovieListing(Cinema cinema) {
 		Scanner sc = new Scanner(System.in);
 		boolean BlockBuster, Sneakpreview;
 		System.out.println("Enter movie title: ");
@@ -164,7 +163,7 @@ public class StaffUse {
 		}
 	}
 	
-	private static Cinema CinemaShowtimes(Cinema cinema) {
+	private static Cinema cinemaShowtimes(Cinema cinema) {
 		Scanner sc = new Scanner(System.in);
 		int option = 0;
 		System.out.println("1. Display Showtimes\n2. Add Showtimes\n3. Edit Showtimes\n4. Remove Showtime");
