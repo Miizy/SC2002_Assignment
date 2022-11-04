@@ -22,6 +22,10 @@ public class Cinema implements Serializable{
 		return listOfTheatre.get(index);
 	}
 	
+	public void replaceTheatre(int index, Theatre theatre) {
+		listOfTheatre.set(index, theatre);
+	}
+	
 	public void setListOfTheatre(int numOfTheatre) throws IOException{
 		for(int i=0; i<numOfTheatre; i++) {
 			listOfTheatre.add(new Theatre(i,3,this.cinemaID));
