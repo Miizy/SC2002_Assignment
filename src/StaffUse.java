@@ -2,7 +2,9 @@ import java.util.Scanner;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class StaffUse {
 	public static Cineplex StaffChoice(Cineplex cineplex) throws ParseException {
@@ -196,7 +198,7 @@ public class StaffUse {
 		}
 	}
 	
-	private static Date enterTime() throws ParseException {
+	private static GregorianCalendar enterTime() throws ParseException{
 		Scanner sc = new Scanner(System.in);
 		boolean isValid = false;
 		String timeString;
@@ -204,8 +206,10 @@ public class StaffUse {
 			timeString = sc.next();
 			isValid = isValidTime(timeString);
 		}
+		GregorianCalendar cal = (GregorianCalendar) GregorianCalendar.getInstance();
 		Date date = new SimpleDateFormat("dd-MM-yyyy HHmm").parse(sc.next());
-		return date;
+		cal.setTime(date);
+		return cal;
 	}
 	
 	private static boolean isValidTime(String dateStr) {
@@ -234,9 +238,9 @@ public class StaffUse {
 		Movie movie = tempMovieList.get(sc.nextInt());
 		
 		System.out.println("Start time in dd-MM-yyyy HHmm (24hr):");
-		Date start = enterTime();
+		GregorianCalendar start = enterTime();
 		System.out.println("End time in dd-MM-yyyy HHmm (24hr):");
-		Date end = enterTime();
+		GregorianCalendar end = enterTime();
 		
 		TimeSlot timeslot = new TimeSlot(start, end, movie);
 		boolean result = false;
@@ -250,7 +254,7 @@ public class StaffUse {
 	}
 	
 	private static Cinema editShowtimes(Cinema cinema) {
-		
+		//TODO: display showtimes and allow changing of info
 	}
 	
 	private static Cinema removeShowtimes(Cinema cinema) {
