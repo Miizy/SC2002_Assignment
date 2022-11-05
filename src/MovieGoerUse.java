@@ -196,10 +196,21 @@ public class MovieGoerUse {
 	
 
 	public static void getSeatAvailability(Cinema cinema){
+		int numOfMovies = cinema.getListOfMovie().size();
+		int[] movieAvil = new int[numOfMovies];
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Select Movie: ");
-		printListofMovies(cinema);
-		int mc = sc.nextInt(); //selected the movie
+		movieAvil = listofMoviesWithShowtimes(cinema);
+		int mc;
+		while(true){
+			mc = sc.nextInt(); //selected the movie
+			if(movieAvil[mc-1]==1){
+				break;
+			}else{
+				System.out.println("Movie has no TimeSlots. Enter another movie.");
+			}
+
+		}
 		System.out.println();
 		showTheaterTimeSlots(cinema, mc);
 		System.out.println("Select Theatre ID: ");
@@ -211,13 +222,24 @@ public class MovieGoerUse {
 	}
 
 	public static void paymentSeats(Cinema cinema){
+		int numOfMovies = cinema.getListOfMovie().size();
+		int[] movieAvil = new int[numOfMovies];
 		Scanner sc = new Scanner(System.in);
 		Payment Price = new Payment();
 		double total = 0;
 		SeatStatus SS = SeatStatus.ap;
 		System.out.println("Select Movie: ");
-		printListofMovies(cinema);
-		int mc = sc.nextInt(); //selected the movie
+		movieAvil = listofMoviesWithShowtimes(cinema);
+		int mc;
+		while(true){
+			mc = sc.nextInt(); //selected the movie
+			if(movieAvil[mc-1]==1){
+				break;
+			}else{
+				System.out.println("Movie has no TimeSlots. Enter another movie.");
+			}
+
+		}
 		System.out.println();
 		//check which theatre has the movie //
 		showTheaterTimeSlots(cinema, mc);
@@ -341,6 +363,28 @@ public class MovieGoerUse {
 			}
 		}
 		return email;
+	}
+
+	private static int[] listofMoviesWithShowtimes(Cinema cinema){
+		int numOfMovies = cinema.getListOfMovie().size();
+		int[] availArr = new int[numOfMovies];
+		for(int i=0; i<numOfMovies;i++){
+			int timeslotCount = 0;
+			for(int t =0; t<cinema.getListOfTheatre().size(); t++) {
+				for(int tslot=0; tslot<cinema.getListOfTheatre().get(t).getTimeslot().size(); tslot++) {
+					if(Objects.equals(cinema.getListOfTheatre().get(t).getTimeslot().get(tslot).getMovie().getMovieTitle(), cinema.getMovie(i).getMovieTitle())) {
+						timeslotCount++;					
+					}
+				}
+			}
+			if (timeslotCount>0){
+				System.out.println(" " + (i+1)+ ". " + cinema.getMovie(i).getMovieTitle());
+				availArr[i] = 1;
+			}else{
+				System.out.println(" " + (i+1)+ ". " + cinema.getMovie(i).getMovieTitle() + "   <Time Slots unavailable for this movie>");
+			}
+		}
+		return availArr;
 	}
 	
 
