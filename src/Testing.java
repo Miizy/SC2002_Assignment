@@ -2,7 +2,7 @@ import java.io.IOException;
 import java.util.GregorianCalendar;
 public class Testing {
 	public static void main(String args[]) throws IOException {
-		Theatre t1 = new Theatre(1,1);
+		Theatre t1 = new Theatre(1,1,1);
 		GregorianCalendar dstart = new GregorianCalendar(2022, 11, 2, 20, 30);
 		GregorianCalendar dend= new GregorianCalendar(2022, 11, 2, 23, 20);
 		Movie m1= new Movie("Shinging", 0, 2, "SO much", "Niko", true, false);

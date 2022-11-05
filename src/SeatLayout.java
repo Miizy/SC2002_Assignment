@@ -158,8 +158,17 @@ public class SeatLayout {
 		if(this.theatreClass== TheatreClass.elit){
 			fcol= SCOLS;
 			frow= SROWS;
+			System.out.println("      1  2  3  4     5  6  7  8 ");
 		}
+		else{
+			System.out.println("      1  2  3  4  5  6     7  8  9 10 11 12 ");
+
+		}
+
+		//print the header display for columns
 		for(int rows=0; rows<frow; rows++){
+			String sf=String.format("%4d ",rows+1);
+			System.out.print(sf);
 			for(int col=0; col<fcol; col++){
 				//not initialized therefore creates a space for passage
 				if(allseats[rows][col]==null){
