@@ -146,6 +146,22 @@ public class MovieGoerUse {
 					if(!cinema.getListOfMovie().isEmpty()){
 						System.out.println("Select Movie: ");
 						printListofMovies(cinema);
+						int mc = sc.nextInt(); //selected the movie
+						System.out.println();
+						for(int t =0; t<cinema.getListOfTheatre().size(); t++) {
+							System.out.println("Theatre:"+ cinema.getTheatre(t));
+							for(int tslot=0; tslot<cinema.getListOfTheatre().get(t).getTimeslot().size(); tslot++) {
+								if(cinema.getListOfTheatre().get(t).getTimeslot().get(tslot).getMovie().getMovieTitle()==cinema.getMovie(mc-1).getMovieTitle()) {
+									System.out.println((tslot+1)+". Timeslot: " + cinema.getListOfTheatre().get(t).getTimeslot().get(tslot).getStartTime());					
+								}
+							}
+						}
+						System.out.println("Select Theatre ID: ");
+						int id = sc.nextInt();
+						Theatre theatre = cinema.getTheatre(id);
+						System.out.println("Select Timeslot: ");
+						int TS = sc.nextInt() - 1;	
+						theatre.getTimeslot().get(TS).getSeatTing().showSeats();
 					}else{
 						System.out.println("No Movies Available. Sorry.");
 					}
