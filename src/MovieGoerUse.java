@@ -152,8 +152,8 @@ public class MovieGoerUse {
 						for(int t =0; t<cinema.getListOfTheatre().size(); t++) {
 							System.out.println((t+1)+". Theatre:"+ cinema.getListOfTheatre().get(t).getTheatreID());
 							for(int tslot=0; tslot<cinema.getListOfTheatre().get(t).getTimeslot().size(); tslot++) {
-								if(cinema.getListOfTheatre().get(t).getTimeslot().get(tslot).getMovie().getMovieTitle()==cinema.getMovie(mc-1).getMovieTitle()) {
-									System.out.println("	"+(tslot+1)+". Timeslot: " + cinema.getListOfTheatre().get(t).getTimeslot().get(tslot).getStartTime());					
+								if(Objects.equals(cinema.getListOfTheatre().get(t).getTimeslot().get(tslot).getMovie().getMovieTitle(), cinema.getMovie(mc-1).getMovieTitle())) {
+									System.out.println("	"+(tslot+1)+". Timeslot: " + cinema.getListOfTheatre().get(t).getTimeslot().get(tslot).getStartTime().getTime());					
 								}
 							}
 						}
@@ -184,8 +184,8 @@ public class MovieGoerUse {
 					for(int t =0; t<cinema.getListOfTheatre().size(); t++) {
 						System.out.println((t+1)+". Theatre:"+ cinema.getListOfTheatre().get(t).getTheatreID());
 						for(int tslot=0; tslot<cinema.getListOfTheatre().get(t).getTimeslot().size(); tslot++) {
-							if(cinema.getListOfTheatre().get(t).getTimeslot().get(tslot).getMovie().getMovieTitle()==cinema.getMovie(mc-1).getMovieTitle()) {
-								System.out.println("	" + (tslot+1) + ". Timeslot: " + cinema.getListOfTheatre().get(t).getTimeslot().get(tslot).getStartTime());					
+							if(Objects.equals(cinema.getListOfTheatre().get(t).getTimeslot().get(tslot).getMovie().getMovieTitle(), cinema.getMovie(mc-1).getMovieTitle())) {
+								System.out.println("	" + (tslot+1) + ". Timeslot: " + cinema.getListOfTheatre().get(t).getTimeslot().get(tslot).getStartTime().getTime());					
 							}
 						}
 					}
