@@ -165,10 +165,10 @@ public class MovieGoerUse {
 					System.out.println();
 					//check which theatre has the movie //
 					for(int t =0; t<cinema.getListOfTheatre().size(); t++) {
-						System.out.println("Theatre:"+ t);
+						System.out.println("Theatre:"+ cinema.getTheatre(t));
 						for(int tslot=0; tslot<cinema.getListOfTheatre().get(t).getTimeslot().size(); tslot++) {
 							if(cinema.getListOfTheatre().get(t).getTimeslot().get(tslot).getMovie().getMovieTitle()==cinema.getMovie(mc-1).getMovieTitle()) {
-								System.out.println((tslot+1)+"Timeslot: " + cinema.getListOfTheatre().get(t).getTimeslot().get(tslot).getStartTime());					
+								System.out.println((tslot+1)+". Timeslot: " + cinema.getListOfTheatre().get(t).getTimeslot().get(tslot).getStartTime());					
 							}
 						}
 					}
@@ -178,7 +178,7 @@ public class MovieGoerUse {
 					String ID = theatre.getTheatreID();
 					TheatreClass TC = theatre.getTheatreClass(); //theatreclass
 					System.out.println("Select Timeslot: ");
-					int TS = sc.nextInt();					//TS
+					int TS = sc.nextInt() - 1;					//TS index
 					Price.PriceList(); //listing out pricing list
 					MovieType MT = Price.chooseMovieType();//choose MovieType//replace in future
 					System.out.println("Select Number of Tickets:");
@@ -187,22 +187,25 @@ public class MovieGoerUse {
 					for(int a = 0; a<noTick;a++) {
 						/*Select & Book Seats Code here*/
 						//show seat
-						theatre.showSeats();
+						theatre.getTimeslot().get(TS).getSeatTing().showSeats();
 						TicketType TT = Price.chooseTicketType();//choose student etc.
 						while(true) {
 							System.out.print("Select Row: ");
 							int Row = sc.nextInt();
 							System.out.print("Select Col: ");
 							int Col = sc.nextInt();
-							SS = theatre.getSeatAt(Col, Row).getSeatType();
+							SS = theatre.getTimeslot().get(TS).getSeatTing().getSeatAt(Col, Row).getSeatType();
 							if (SS != SeatStatus.ap) {
-								if(theatre.getSeatAt(Col, Row).getbook() == false) { //empty seat
-									theatre.getSeatAt(Col, Row).bookseat(); //book seat
+								if(theatre.getTimeslot().get(TS).getSeatTing().getSeatAt(Col, Row).getbook() == false) { //empty seat
+									theatre.getTimeslot().get(TS).getSeatTing().getSeatAt(Col, Row).bookseat(); //book seat
 									break;
 								}
 								else {
 									System.out.println("Seat is already Booked!!");
 								}
+							}
+							else {
+								System.out.println("You have selected a passage, Please select a seat");
 							}
 						}
 						//type of seat //save under SS
@@ -220,7 +223,7 @@ public class MovieGoerUse {
 						Price.checkPayment(total);
 					}
 					System.out.println("Change Given: " + Price.getchange());
-					System.out.println("Transaction ID: " + Price.GetTID(ID, Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_WEEK, Calendar.HOUR_OF_DAY, Calendar.MINUTE));
+					System.out.println("Transaction ID: " + Price.GetTID(ID, Calendar.getInstance()));
 						break;
 				case 5://View Boooking History 
 					break;
