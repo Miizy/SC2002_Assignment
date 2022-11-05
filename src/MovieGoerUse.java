@@ -134,6 +134,7 @@ public class MovieGoerUse {
 						printListofMovies(cinema);
 					}else{
 						System.out.println("No Movies Available. Sorry.");
+						break;
 					}
 					int movieChoice = sc.nextInt();
 					if(movieChoice<=cinema.getListOfMovie().size()){
@@ -244,13 +245,19 @@ public class MovieGoerUse {
 				case 5://View Boooking History 
 					break;
 				case 6://List top 5
+					if(!cinema.getListOfMovie().isEmpty()){
+						System.out.println("Select Movie to review: ");
+						printListofTopMovies(cinema);
+					}else{
+						System.out.println("No Movies to review. Sorry.");
+					}
 					break;
 				case 7://Add or View reviews
 					if(!cinema.getListOfMovie().isEmpty()){
-						System.out.println("Select Movie to review: ");
+						System.out.println("Top 5 Movies: ");
 						printListofMovies(cinema);
 					}else{
-						System.out.println("No Movies to review. Sorry.");
+						System.out.println("No Movies to view. Sorry.");
 						break;
 					}
 					int mvChoice = sc.nextInt();
@@ -326,12 +333,46 @@ public class MovieGoerUse {
 		return email;
 	}
 
-	private static Cinema printListofMovies(Cinema cinema){
+	private static void printListofMovies(Cinema cinema){
 		for(int i=0; i<cinema.getListOfMovie().size();i++){
 			System.out.println(" " + (i+1)+ ". " + cinema.getMovie(i).getMovieTitle());
 		}
 		System.out.println();
-		return cinema;
+	}
+	
+	private static void printListofTopMovies(Cinema cinema){
+		int numOfMovies = cinema.getListOfMovie().size();
+		int[] movieIndex = new int[numOfMovies];
+		float[] movieRatings = new float[numOfMovies];
+		for(int i=0; i<numOfMovies;i++){
+			movieIndex[i] = i;
+			movieRatings[i] = cinema.getMovie(i).getOverallRating();
+		}
+
+		for(int i=1; i<numOfMovies; i++){
+			float k = movieRatings[i];
+			int l = movieIndex[i];
+			int j = i-1;
+			while((j>-1)&&(movieRatings[j]>k)){
+				movieRatings[j+1] = movieRatings[j];
+				movieIndex[j+1] = movieIndex[j];
+				j--;
+			}
+			movieRatings[j+1] = k;
+			movieIndex[j+1] = l;
+		}
+		int j = 1;
+		for(int i=numOfMovies-1; i>=0; i--){
+
+			if(cinema.getMovie(movieIndex[i]).getOverallRating() == 0.0){
+				System.out.println(j + ". " + cinema.getMovie(movieIndex[i]).getMovieTitle() +"   "+ "<<No ratings available>>");
+			}else{
+				System.out.println(j + ". " + cinema.getMovie(movieIndex[i]).getMovieTitle() +"   "+ cinema.getMovie(movieIndex[i]).getOverallRating() + "*");
+			}
+		
+			j++;
+			if(j>5) break;
+		}
 	}
 	
 	private static Cinema writeReview(Cinema cinema, int movieChoice, String name){
@@ -340,7 +381,7 @@ public class MovieGoerUse {
 		String review;
 		if(!cinema.getMovie(movieChoice-1).getPastReview().isEmpty()){
 			for(int i=0;i<cinema.getMovie(movieChoice-1).getNamesOfPastReviewers().size();i++){
-				if(cinema.getMovie(movieChoice-1).getNameofReviewer(i)==name){
+				if(Objects.equals(cinema.getMovie(movieChoice-1).getNameofReviewer(i), name)){
 					System.out.println("Only one review per user allowed per movie!");
 					return cinema;
 				}
@@ -348,13 +389,13 @@ public class MovieGoerUse {
 			printPastReviews(cinema, movieChoice);
 			System.out.println();
 		}
-		System.out.println("Enter your ratings for " + cinema.getMovie(movieChoice-1).getMovieTitle()+ " (0 to 5):  ");
+		System.out.println("Enter your ratings for " + cinema.getMovie(movieChoice-1).getMovieTitle()+ " (1 to 5):  ");
 		while(true){
 			rating = sc.nextInt();
-			if(rating>=0&&rating<=5){
+			if(rating>=1&&rating<=5){
 				break;
 			}else{
-				System.out.println("Invalid Entry. Try Again. Only ratings from 0 to 5 are allowed!");
+				System.out.println("Invalid Entry. Try Again. Only ratings from 1 to 5 are allowed!");
 			}
 		}
 		sc.nextLine();
