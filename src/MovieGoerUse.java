@@ -246,18 +246,18 @@ public class MovieGoerUse {
 					break;
 				case 6://List top 5
 					if(!cinema.getListOfMovie().isEmpty()){
-						System.out.println("Select Movie to review: ");
+						System.out.println("Top 5 Movies:  ");
 						printListofTopMovies(cinema);
 					}else{
-						System.out.println("No Movies to review. Sorry.");
+						System.out.println("No Movies to View: ");
 					}
 					break;
 				case 7://Add or View reviews
 					if(!cinema.getListOfMovie().isEmpty()){
-						System.out.println("Top 5 Movies: ");
+						System.out.println("Select Movie to review: ");
 						printListofMovies(cinema);
 					}else{
-						System.out.println("No Movies to view. Sorry.");
+						System.out.println("No Movies to review. Sorry.");
 						break;
 					}
 					int mvChoice = sc.nextInt();
