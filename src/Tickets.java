@@ -13,6 +13,7 @@ public class Tickets {
 		this.BB = BB;
 		this.Sneak = Sneak;
 		this.TC = TheatreClass;
+		this.SS = SeatType;
 	}
 	public MovieType getMovieType() {
 		return MT;

@@ -149,18 +149,18 @@ public class MovieGoerUse {
 						int mc = sc.nextInt(); //selected the movie
 						System.out.println();
 						for(int t =0; t<cinema.getListOfTheatre().size(); t++) {
-							System.out.println("Theatre:"+ cinema.getTheatre(t));
+							System.out.println((t+1)+". Theatre:"+ cinema.getListOfTheatre().get(t).getTheatreID());
 							for(int tslot=0; tslot<cinema.getListOfTheatre().get(t).getTimeslot().size(); tslot++) {
 								if(cinema.getListOfTheatre().get(t).getTimeslot().get(tslot).getMovie().getMovieTitle()==cinema.getMovie(mc-1).getMovieTitle()) {
-									System.out.println((tslot+1)+". Timeslot: " + cinema.getListOfTheatre().get(t).getTimeslot().get(tslot).getStartTime());					
+									System.out.println("	"+(tslot+1)+". Timeslot: " + cinema.getListOfTheatre().get(t).getTimeslot().get(tslot).getStartTime());					
 								}
 							}
 						}
 						System.out.println("Select Theatre ID: ");
 						int id = sc.nextInt();
-						Theatre theatre = cinema.getTheatre(id);
+						Theatre theatre = cinema.getTheatre(id - 1);
 						System.out.println("Select Timeslot: ");
-						int TS = sc.nextInt() - 1;	
+						int TS = (sc.nextInt() - 1);	
 						theatre.getTimeslot().get(TS).getSeatTing().showSeats();
 					}else{
 						System.out.println("No Movies Available. Sorry.");
@@ -181,16 +181,16 @@ public class MovieGoerUse {
 					System.out.println();
 					//check which theatre has the movie //
 					for(int t =0; t<cinema.getListOfTheatre().size(); t++) {
-						System.out.println("Theatre:"+ cinema.getTheatre(t));
+						System.out.println((t+1)+". Theatre:"+ cinema.getListOfTheatre().get(t).getTheatreID());
 						for(int tslot=0; tslot<cinema.getListOfTheatre().get(t).getTimeslot().size(); tslot++) {
 							if(cinema.getListOfTheatre().get(t).getTimeslot().get(tslot).getMovie().getMovieTitle()==cinema.getMovie(mc-1).getMovieTitle()) {
-								System.out.println((tslot+1)+". Timeslot: " + cinema.getListOfTheatre().get(t).getTimeslot().get(tslot).getStartTime());					
+								System.out.println("	" + (tslot+1) + ". Timeslot: " + cinema.getListOfTheatre().get(t).getTimeslot().get(tslot).getStartTime());					
 							}
 						}
 					}
 					System.out.println("Select Theatre ID: ");
 					int id = sc.nextInt();
-					Theatre theatre = cinema.getTheatre(id);
+					Theatre theatre = cinema.getTheatre(id - 1);
 					String ID = theatre.getTheatreID();
 					TheatreClass TC = theatre.getTheatreClass(); //theatreclass
 					System.out.println("Select Timeslot: ");
@@ -210,7 +210,9 @@ public class MovieGoerUse {
 							int Row = sc.nextInt();
 							System.out.print("Select Col: ");
 							int Col = sc.nextInt();
+
 							SS = theatre.getTimeslot().get(TS).getSeatTing().getSeatAt(Col, Row).getSeatType();
+
 							if (SS != SeatStatus.ap) {
 								if(theatre.getTimeslot().get(TS).getSeatTing().getSeatAt(Col, Row).getbook() == false) { //empty seat
 									theatre.getTimeslot().get(TS).getSeatTing().getSeatAt(Col, Row).bookseat(); //book seat
