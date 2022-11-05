@@ -1,4 +1,6 @@
-public class SeatLayout {
+import java.io.Serializable;
+
+public class SeatLayout implements Serializable{
     
     private final static int NCOLS = 13;
 	private final static int NROWS = 10;

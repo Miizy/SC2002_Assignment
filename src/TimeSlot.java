@@ -1,7 +1,8 @@
 
+import java.io.Serializable;
 import java.util.GregorianCalendar;
 
-public class TimeSlot {
+public class TimeSlot implements Serializable{
 	private GregorianCalendar strtTime;
 	private GregorianCalendar endTime;
 	private Movie movieSpec;
