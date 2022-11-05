@@ -353,7 +353,8 @@ public class MovieGoerUse {
 		System.out.println("-------------------------------------------------------------");
 		for(int i = 0; i<cinema.getMovie(movieChoice-1).getNamesOfPastReviewers().size();i++){
 			System.out.println(cinema.getMovie(movieChoice-1).getNameofReviewer(i));
-			System.out.println(cinema.getMovie(movieChoice-1).getReview(i));
+			System.out.println(cinema.getMovie(movieChoice-1).getReview(i).getRating() + "*");
+			System.out.println(cinema.getMovie(movieChoice-1).getReview(i).getReview());
 			System.out.println("-------------------------------------------------------------");
 		}
 	}
