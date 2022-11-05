@@ -186,7 +186,7 @@ public class StaffUse {
 		System.out.println("Select Theatre index:");
 		for(int i=0;i<cinema.getListOfTheatre().size();i++) {
 			int ind = i+1;
-			System.out.println(ind + ". " + cinema.getListOfTheatre().get(i));
+			System.out.println(ind + ". Theatre " + cinema.getListOfTheatre().get(i).getTheatreID());
 		}
 	}
 
@@ -198,15 +198,15 @@ public class StaffUse {
 	}
 	
 	private static GregorianCalendar enterTime() throws ParseException{
-		Scanner sc = new Scanner(System.in);
+		Scanner sc = new Scanner(System.in).useDelimiter("\\n");
 		boolean isValid = false;
-		String timeString;
-		while(isValid) {
+		String timeString = "";
+		while(!isValid) {
 			timeString = sc.next();
 			isValid = isValidTime(timeString);
 		}
 		GregorianCalendar cal = (GregorianCalendar) GregorianCalendar.getInstance();
-		Date date = new SimpleDateFormat("dd-MM-yyyy HHmm").parse(sc.next());
+		Date date = new SimpleDateFormat("dd-MM-yyyy HHmm").parse(timeString);
 		cal.setTime(date);
 		return cal;
 	}
@@ -234,7 +234,7 @@ public class StaffUse {
 				tempMovieList.add(cinema.getMovie(i));
 			}
 		}
-		Movie movie = tempMovieList.get(sc.nextInt());
+		Movie movie = tempMovieList.get(sc.nextInt() - 1);
 		
 		System.out.println("Start time in dd-MM-yyyy HHmm (24hr):");
 		GregorianCalendar start = enterTime();
