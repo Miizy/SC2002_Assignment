@@ -196,25 +196,10 @@ public class MovieGoerUse {
 	
 
 	public static void getSeatAvailability(Cinema cinema){
-		int numOfMovies = cinema.getListOfMovie().size();
-		int[] movieAvil = new int[numOfMovies];
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Select Movie: ");
-		movieAvil = listofMoviesWithShowtimes(cinema);
-		int mc;
-		while(true){
-			mc = sc.nextInt(); //selected the movie
-			if(movieAvil[mc-1]==1){
-				break;
-			}else{
-				System.out.println("Movie has no TimeSlots. Enter another movie.");
-			}
-
-		}
-		System.out.println();
-		showTheaterTimeSlots(cinema, mc);
-		System.out.println("Select Theatre ID: ");
-		int id = sc.nextInt();
+		int selection[] = selectMovieAndTheatre(cinema);
+		int id = selection[0];
 		Theatre theatre = cinema.getTheatre(id - 1);
 		System.out.println("Select Timeslot: ");
 		int TS = (sc.nextInt() - 1);	
@@ -222,29 +207,13 @@ public class MovieGoerUse {
 	}
 
 	public static void paymentSeats(Cinema cinema){
-		int numOfMovies = cinema.getListOfMovie().size();
-		int[] movieAvil = new int[numOfMovies];
 		Scanner sc = new Scanner(System.in);
 		Payment Price = new Payment();
 		double total = 0;
 		SeatStatus SS = SeatStatus.ap;
-		System.out.println("Select Movie: ");
-		movieAvil = listofMoviesWithShowtimes(cinema);
-		int mc;
-		while(true){
-			mc = sc.nextInt(); //selected the movie
-			if(movieAvil[mc-1]==1){
-				break;
-			}else{
-				System.out.println("Movie has no TimeSlots. Enter another movie.");
-			}
-
-		}
-		System.out.println();
-		//check which theatre has the movie //
-		showTheaterTimeSlots(cinema, mc);
-		System.out.println("Select Theatre ID: ");
-		int id = sc.nextInt();
+		int selection[] = selectMovieAndTheatre(cinema);
+		int id = selection[0];
+		int mc = selection[1];
 		Theatre theatre = cinema.getTheatre(id - 1);
 		String ID = theatre.getTheatreID();
 		TheatreClass TC = theatre.getTheatreClass(); //theatreclass
@@ -299,15 +268,64 @@ public class MovieGoerUse {
 		System.out.println("Transaction ID: " + Price.GetTID(ID, Calendar.getInstance()));
 	}
 
-	public static void showTheaterTimeSlots(Cinema cinema, int movieChoice){
-		for(int t =0; t<cinema.getListOfTheatre().size(); t++) {
-			System.out.println((t+1)+". Theatre:"+ cinema.getListOfTheatre().get(t).getTheatreID());
-			for(int tslot=0; tslot<cinema.getListOfTheatre().get(t).getTimeslot().size(); tslot++) {
-				if(Objects.equals(cinema.getListOfTheatre().get(t).getTimeslot().get(tslot).getMovie().getMovieTitle(), cinema.getMovie(movieChoice-1).getMovieTitle())) {
-					System.out.println("	"+(tslot+1)+". Timeslot: " + cinema.getListOfTheatre().get(t).getTimeslot().get(tslot).getStartTime().getTime());					
-				}
+	private static int []selectMovieAndTheatre(Cinema cinema){
+		int numOfMovies = cinema.getListOfMovie().size();
+		int numOfTheaters = cinema.getListOfTheatre().size();
+		int[] movieAvail = new int[numOfMovies];
+		int[] theatreAvail = new int[numOfTheaters];
+		int[] result = new int[2];
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Select Movie: ");
+		movieAvail = listofMoviesWithShowtimes(cinema);
+		int mc;
+		while(true){
+			mc = sc.nextInt(); //selected the movie
+			if(movieAvail[mc-1]==1){
+				break;
+			}else{
+				System.out.println("Movie has no TimeSlots. Enter another movie.");
 			}
+
 		}
+		System.out.println();
+		//check which theatre has the movie //
+		System.out.println("Select Theatre ID: ");
+		theatreAvail = listofAvaliableTheater(cinema, mc);
+		int id;
+		while(true){
+			id = sc.nextInt(); //selected the movie
+			if(theatreAvail[id-1]>0){
+				break;
+			}else{
+				System.out.println("Theatre has no TimeSlots. Enter another Theatre.");
+			}
+
+		}
+		return new int[] {id, mc};
+	}
+
+	private static int[] listofAvaliableTheater(Cinema cinema, int movieChoice){
+		int numOfTheaters = cinema.getListOfTheatre().size();
+		int[] availArr = new int[numOfTheaters];
+		
+		for(int t =0; t<numOfTheaters; t++) {
+			int timeslotCount = cinema.getListOfTheatre().get(t).getTimeslot().size();
+			if(timeslotCount>0){
+				System.out.println((t+1)+". Theatre:"+ cinema.getListOfTheatre().get(t).getTheatreID());
+				for(int tslot=0; tslot<timeslotCount; tslot++) {
+					if(Objects.equals(cinema.getListOfTheatre().get(t).getTimeslot().get(tslot).getMovie().getMovieTitle(), cinema.getMovie(movieChoice-1).getMovieTitle())) {
+						System.out.println("	"+(tslot+1)+". Timeslot: " + cinema.getListOfTheatre().get(t).getTimeslot().get(tslot).getStartTime().getTime());					
+					}
+				}
+				availArr[t] = timeslotCount;
+			}else{
+				System.out.println((t+1)+". Theatre:"+ cinema.getListOfTheatre().get(t).getTheatreID() + "  <No Movies allocated here>");
+				availArr[t] = 0;
+			}
+			
+		}
+
+		return availArr;
 	}
 
 	public static String enterName(Cineplex cineplex){
@@ -382,6 +400,7 @@ public class MovieGoerUse {
 				availArr[i] = 1;
 			}else{
 				System.out.println(" " + (i+1)+ ". " + cinema.getMovie(i).getMovieTitle() + "   <Time Slots unavailable for this movie>");
+				availArr[i] = 0;
 			}
 		}
 		return availArr;
