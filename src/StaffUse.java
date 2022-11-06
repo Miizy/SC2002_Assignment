@@ -128,18 +128,30 @@ public class StaffUse {
 		System.out.println("Enter movie title: ");
 		String movieTitle = sc.nextLine();
 		System.out.println("Enter show status:\n1. Coming Soon\n2. Preview\n3. Now Showing");
-		int showStatus = sc.nextInt();
-		sc.nextLine(); //Scanner buffer not cleared i dk how to get ard it except reading it agn
+		int showStatus = sc.nextInt(); //Scanner buffer not cleared i dk how to get ard it except reading it agn
+		sc.nextLine();
+		while(showStatus > 3 || showStatus <1) {
+			System.out.println("Error Invalid input!\nPlease select the following options only: ");
+			System.out.println("Enter show status:\n1. Coming Soon\n2. Preview\n3. Now Showing");
+			showStatus = sc.nextInt(); 
+			sc.nextLine();
+		}
 		System.out.println("Enter movie rating:\n1. PG\n2. PG-13\n3. R\n4. NC-17\n5. G");
 		int movieRating = sc.nextInt();
 		sc.nextLine();
+		while(movieRating>5 || movieRating<1) {
+			System.out.println("Error Invalid input!\nPlease select the following options only: ");
+			System.out.println("Enter movie rating:\n1. PG\n2. PG-13\n3. R\n4. NC-17\n5. G");
+			movieRating = sc.nextInt();
+			sc.nextLine();
+		}
 		System.out.println("Enter Synopsis: ");
 		String synopsis = sc.nextLine();
 		System.out.println("Enter name of director: ");
 		String director = sc.nextLine();
 		System.out.println("BlockBuster movie(Y/N)?");
 		String ans = sc.next();
-		if(ans.toLowerCase().matches("y")) { //doesnt seem to be working
+		if(ans.toLowerCase().matches("y")) {
 			BlockBuster = true;
 		}
 		else {
@@ -147,7 +159,7 @@ public class StaffUse {
 		}
 		System.out.println("Sneak Preview (Y/N)?");
 		ans = sc.next();
-		if(ans.toLowerCase().matches("y")) { //doesnt seem to be working
+		if(ans.toLowerCase().matches("y")) {
 			Sneakpreview = true;
 		}
 		else {
@@ -304,7 +316,7 @@ public class StaffUse {
 		return returnTimeslot;
 	}
 	
-	private static TimeSlot changeMovie(TimeSlot timeslot) {
+	private static TimeSlot changeMovie(TimeSlot timeslot) {//whats this part for????
 		Scanner sc = new Scanner(System.in);
 		System.out.println("New movie Name: ");
 		String newMovie = sc.nextLine();
@@ -490,7 +502,7 @@ public class StaffUse {
 		return cinema;
 	}
 	
-	private static Cinema deleteMovie(Cinema cinema) {
+	private static Cinema deleteMovie(Cinema cinema) { //not working
 		Scanner sc = new Scanner(System.in);
 		int movieIndex = selectMovie(cinema);
 		Movie movieChange = cinema.getMovie(movieIndex);

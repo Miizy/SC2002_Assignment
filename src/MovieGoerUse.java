@@ -12,6 +12,7 @@ public class MovieGoerUse {
 		boolean loginSuccess = false;
 		System.out.println("Select 1 if you are a new User.");
 		System.out.println("Select 2 if you are a current User.");
+		System.out.println("Select 3 to return.");
 		do{
 			int userChoice = sc.nextInt();
 			if(userChoice==1){
@@ -20,6 +21,8 @@ public class MovieGoerUse {
 			}else if(userChoice==2){
 				cineplex = MovieGoerLogin(cineplex);
 				loginSuccess = true;
+			}else if(userChoice == 3){
+				return cineplex;
 			}else{
 				System.out.println("Invalid Entry. Try Again!");
 				System.out.println("Select 1 if you are a new User.");
@@ -93,7 +96,8 @@ public class MovieGoerUse {
 
 	private static Cineplex GoerCinema(Cineplex cineplex){
 		Scanner sc = new Scanner(System.in);
-		int choice = Integer.MAX_VALUE;
+		while(true) {
+			int choice = Integer.MAX_VALUE;
 			System.out.println("Select Cinema");
 			for(int i=0; i<cineplex.getListOfCinema().size(); i++) {
 				System.out.print((i+1) + ". Cinema ID " + cineplex.getCinema(i).getCinemaID());
@@ -102,15 +106,20 @@ public class MovieGoerUse {
 				}
 				System.out.println();
 			}
-			while(choice > cineplex.getListOfCinema().size() || choice <= 0) {
+			System.out.println((cineplex.getListOfCinema().size() + 1) + ". Logout");
+			while(choice > cineplex.getListOfCinema().size()+1 || choice <= 0) {
 				if(choice != Integer.MAX_VALUE) {
 					System.out.println("Invalid choice, please try again.");
 				}
 				choice = sc.nextInt();
 			}
+			if(choice == cineplex.getListOfCinema().size()+1) {
+				System.out.println("Logging out...");
+				return cineplex;
+			}
 			Cinema cinema = GoerOptions(cineplex.getCinema(choice-1), cineplex);
 			cineplex.setCinema(cinema.getCinemaID(), cinema);
-			return cineplex;
+		}
 	}
 
 	private static Cinema GoerOptions(Cinema cinema, Cineplex cineplex){
@@ -363,6 +372,7 @@ public class MovieGoerUse {
 					break;
 				}else{
 					System.out.println("Name already exists, try another name!");
+					name = sc.nextLine();
 				}
 			}else{
 				break;
