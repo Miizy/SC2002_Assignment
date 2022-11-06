@@ -5,6 +5,7 @@ public class Movie implements Serializable{
 	private String movieTitle;
 	private ShowStatus showStatus;
 	private MovieRating movieRating;
+	private MovieType MovieType;
 	private String synopsis;
 	private String director;
 	private ArrayList<String> cast = new ArrayList<String>();
@@ -14,7 +15,7 @@ public class Movie implements Serializable{
 	private boolean BlockBuster = false;
 	private boolean Sneakpreview = false;
 	private double Sales = 0.00;
-	public Movie(String movieTitle, int showStatus, int movieRating, String synopsis, String director, boolean BlockBuster, boolean Sneakpreview) {
+	public Movie(String movieTitle, int showStatus, int movieRating, String synopsis, String director, boolean BlockBuster, boolean Sneakpreview, MovieType Movietype) {
 		setMovieTitle(movieTitle);
 		setShowStatus(showStatus);
 		setMovieRating(movieRating);
@@ -22,6 +23,7 @@ public class Movie implements Serializable{
 		setDirector(director);
 		setBlockBuster(BlockBuster);
 		setSneakPreview(Sneakpreview);
+		setMovieType(Movietype);
 	}
 	public void setBlockBuster(boolean BlockBuster) {
 		this.BlockBuster = BlockBuster;
@@ -46,7 +48,12 @@ public class Movie implements Serializable{
 	public ShowStatus getShowStatus() {
 		return showStatus;
 	}
-
+	public void setMovieType(MovieType Movietype) {
+		this.MovieType = Movietype;
+	}
+	public MovieType getMovieType() {
+		return MovieType;
+	}
 	public void setShowStatus(int showStatus) {
 		if(showStatus == 1) {
 			this.showStatus = ShowStatus.cs;

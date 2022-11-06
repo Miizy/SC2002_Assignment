@@ -125,6 +125,7 @@ public class StaffUse {
 	private static Cinema createMovieListing(Cinema cinema) {
 		Scanner sc = new Scanner(System.in);
 		boolean BlockBuster, Sneakpreview;
+		MovieType Movietype;
 		System.out.println("Enter movie title: ");
 		String movieTitle = sc.nextLine();
 		System.out.println("Enter show status:\n1. Coming Soon\n2. Preview\n3. Now Showing");
@@ -165,7 +166,15 @@ public class StaffUse {
 		else {
 			Sneakpreview = false;
 		}
-		Movie movie = new Movie(movieTitle, showStatus, movieRating,synopsis, director, BlockBuster, Sneakpreview);
+		System.out.println("MovieType (R/3D)?");
+		ans = sc.next();
+		if(ans.toLowerCase().matches("r")) {
+			Movietype = MovieType.RD;
+		}
+		else {
+			Movietype = MovieType.TD;
+		}
+		Movie movie = new Movie(movieTitle, showStatus, movieRating,synopsis, director, BlockBuster, Sneakpreview, Movietype);
 		System.out.println("Enter number of cast: ");
 		int numOfCast = sc.nextInt();
 		sc.nextLine(); //Scanner buffer not cleared i dk how to get ard it except reading it agn
@@ -396,7 +405,7 @@ public class StaffUse {
 		int choice = 1;
 		do {
 			System.out.println("Select movie details to adjust");
-			System.out.println("1. Movie Title\n2. Movie Status\n3. Movie Rating\n4. Synopsis\n5. Director\n6. Blockbuster Status\n7. Sneak Preview Status\n8. Cast\n9. Exit");
+			System.out.println("1. Movie Title\n2. Movie Status\n3. Movie Rating\n4. Synopsis\n5. Director\n6. Blockbuster Status\n7. Sneak Preview Status\n8. Cast\n9. Movie Type\n10. Exit");
 			choice = sc.nextInt();
 			switch(choice) {
 			case(1):
@@ -409,15 +418,29 @@ public class StaffUse {
 			case(2):
 				System.out.println("Current Movie Status:");
 				movieChange.getShowStatus();
-				System.out.println("Enter new movie status:\n1. Coming Soon\n2. Preview\n3. Now Showing\n4. End Of Showing");
+				System.out.println("Enter new movie status:\n1. Coming Soon\n2. Preview\n3. Now Showing\n4. End Of Showing\n5. Return");
 				int showStatus = sc.nextInt();
+				while(showStatus<1||showStatus>5) {
+					System.out.println("Invalid input:\nEnter new movie status:\n1. Coming Soon\n2. Preview\n3. Now Showing\n4. End Of Showing\n5. Return");
+					showStatus = sc.nextInt();
+				}
+				if(showStatus == 5) {
+					break;
+				}
 				movieChange.setShowStatus(showStatus);
 				break;
 			case(3):
 				System.out.println("Current Movie Rating:");
 				movieChange.getMovieRating();
-				System.out.println("Enter movie rating:\n1. PG\n2. PG-13\n3. R\n4. NC-17\n5. G");
+				System.out.println("Enter movie rating:\n1. PG\n2. PG-13\n3. R\n4. NC-17\n5. G\n6. Return");
 				int movieRating = sc.nextInt();
+				while( movieRating<1|| movieRating>6) {
+					System.out.println("Invalid input:\nEnter movie rating:\n1. PG\n2. PG-13\n3. R\n4. NC-17\n5. G\n6. Return");
+					movieRating = sc.nextInt();
+				}
+				if(movieRating == 6) {
+					break;
+				}
 				movieChange.setMovieRating(movieRating);
 				break;
 			case(4):
@@ -476,21 +499,39 @@ public class StaffUse {
 					int ind = i+1;
 					System.out.println(ind + ". "+movieChange.getCast().get(i));
 				}
-				System.out.println("Select on Option:");
-				System.out.println("1. Delete Cast Member\n2. Add Cast Member");
+				System.out.println("Select an Option:");
+				System.out.println("1. Delete Cast Member\n2. Add Cast Member\n 3.Return");
 				int castChoice = sc.nextInt();
+				while (castChoice<1 || castChoice>3) {
+					System.out.println("Invalid Option\n Please Select an Option:\n1. Delete Cast Member\\n2. Add Cast Member\\n 3.Return");
+					castChoice = sc.nextInt();
+				}
 				if(castChoice == 1) {
 					System.out.println("Enter cast member to delete:");
 					String castDel = sc.nextLine();
 					movieChange.removeCast(castDel);
-				} else {
+				} else if(castChoice == 2){
 					System.out.println("Enter new cast member name:");
 					String castAdd = sc.nextLine();
 					movieChange.addCast(castAdd);
 				}
 				break;
 			case(9):
-				//stop the program
+				System.out.println("Current Movie Type: " + movieChange.getMovieType());
+				System.out.println("New Movie Type:\n1. Regular/Digital Movie\n2. 3D Movie\n3. Return");
+				int MTchoice = sc.nextInt();
+				while (MTchoice<1 || MTchoice>3) {
+					System.out.println("Invalid Option\n Please Select an Option:\n1. Regular/Digital Movie\n2. 3D Movie\n3. Return");
+					castChoice = sc.nextInt();
+				}
+				if(MTchoice == 1) {
+					movieChange.setMovieType(MovieType.RD);
+				}
+				else if(MTchoice == 2) {
+					movieChange.setMovieType(MovieType.TD);
+				}
+				break;
+			case(10)://return
 				break;
 			default:
 				System.out.println("Invalid input. Please try again");

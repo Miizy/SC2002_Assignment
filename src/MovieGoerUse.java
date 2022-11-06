@@ -246,7 +246,13 @@ public class MovieGoerUse {
 		System.out.println("Select Timeslot: ");
 		int TS = sc.nextInt() - 1;					//TS index
 		Price.PriceList(); //listing out pricing list
-		MovieType MT = Price.chooseMovieType();//choose MovieType//replace in future
+		MovieType MT = theatre.getTimeslot().get(TS).getMovie().getMovieType();//choose MovieType//replace in future
+		if(MT == MovieType.RD) {
+			System.out.println("Movie Type: Regular & Digital Movies");
+		}
+		else {
+			System.out.println("Movie Type: 3D Movies");
+		}
 		System.out.println("Select Number of Tickets:");
 		int noTick = sc.nextInt();
 		Tickets[] Ticketarray = new Tickets[noTick];
@@ -272,7 +278,10 @@ public class MovieGoerUse {
 
 				if (SS != SeatStatus.ap) {
 					if(theatre.getTimeslot().get(TS).getSeatTing().getSeatAt(Col, Row).getbook() == false) { //empty seat
-						theatre.getTimeslot().get(TS).getSeatTing().getSeatAt(Col, Row).bookseat(); //book seat
+						theatre.getTimeslot().get(TS).getSeatTing().getSeatAt(Col, Row).bookseat(); //book seat}
+						if(SS == SeatStatus.ac) {
+							noTick = noTick - 1;
+						}
 						break;
 					}
 					else {
@@ -292,6 +301,7 @@ public class MovieGoerUse {
 		cinema.getListOfMovie().get(mc-1).addSales(sum);
 		double payment = 0;
 			while(!Price.checkPaid()) {
+				System.out.println("Total paid: " + payment);
 				System.out.println("Payment Received: ");
 				payment = sc.nextDouble();
 				total += payment;

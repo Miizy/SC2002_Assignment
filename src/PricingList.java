@@ -119,7 +119,7 @@ public class PricingList{
 		}
 		switch(Seat) {
 		case ac: //couple seat
-			price = (price * 2) + 3;
+			price = price*2 + 3;
 			break;
 		case ae: //elite seat
 			price += 1.50;

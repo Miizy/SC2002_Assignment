@@ -156,25 +156,4 @@ public class Payment extends PricingList{
 		}
 		return TickType;
 	}
-	public MovieType chooseMovieType() { //to be transferred into staffuse
-		MovieType MovType = MovieType.RD;
-		int select = 0;
-		while(true) {
-			System.out.println("Select Movie Type: ");
-			System.out.println("======================");
-			System.out.println("1. Regular & Digital");
-			System.out.println("2. 3D Movies");
-			System.out.println("======================");
-			select = scan.nextInt();
-			if(select == 1) {
-				MovType = MovieType.RD;
-				break;
-			}
-			else if(select == 2) {
-				MovType = MovieType.TD;
-				break;
-			}
-		}
-		return MovType;
-	}
 }
