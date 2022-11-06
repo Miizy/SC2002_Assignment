@@ -542,7 +542,7 @@ public class MovieGoerUse {
 		System.out.println("2. View Movie Details");
 		System.out.println("3. Check Seat Availabliltiy");
 		System.out.println("4. Book and purchase tickets");
-		System.out.println("5. View Boooking History");
+		System.out.println("5. View Booking History");
 		System.out.println("6. List top 5");
 		System.out.println("7. Review Movie");
 		System.out.println("8. Exit");
