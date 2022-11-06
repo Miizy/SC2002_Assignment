@@ -108,12 +108,12 @@ public class MovieGoerUse {
 				}
 				choice = sc.nextInt();
 			}
-			Cinema cinema = GoerOptions(cineplex.getCinema(choice-1));
+			Cinema cinema = GoerOptions(cineplex.getCinema(choice-1), cineplex);
 			cineplex.setCinema(cinema.getCinemaID(), cinema);
 			return cineplex;
 	}
 
-	private static Cinema GoerOptions(Cinema cinema){
+	private static Cinema GoerOptions(Cinema cinema, Cineplex cineplex){
 		Scanner sc = new Scanner(System.in);
 		int choice;
 		do{
@@ -152,12 +152,13 @@ public class MovieGoerUse {
 					break;
 				case 4://Book and purchase tickets
 					if(!cinema.getListOfMovie().isEmpty()){
-						paymentSeats(cinema);
+						paymentSeats(cinema,cineplex.getGoer(GoerID));
 					}else{
 						System.out.println("No Movies Available. Sorry.");
 					}
 					break;
-				case 5://View Boooking History 
+				case 5://View Boooking History
+					getBookingHistory(cineplex);
 					break;
 				case 6://List top 5
 					if(!cinema.getListOfMovie().isEmpty()){
@@ -193,6 +194,22 @@ public class MovieGoerUse {
 		return cinema;
 	}
 
+	public static void getBookingHistory(Cineplex cineplex){
+		System.out.println("===== Booking History =====");
+		System.out.println("Name: " + cineplex.getGoer(GoerID).getName());
+		System.out.println("Email: " + cineplex.getGoer(GoerID).getEmail());
+		System.out.println("Phone No.: " + cineplex.getGoer(GoerID).getMobileNumber());
+		System.out.println("---------------------------");
+		if(cineplex.getGoer(GoerID).getpastBooking().isEmpty()){
+			System.out.println("User has no booking history available.");
+		}else{
+			for(int i=0;i<cineplex.getGoer(GoerID).getpastBooking().size();i++){
+				System.out.println(i+1 + ".   " + cineplex.getGoer(GoerID).getpastBooking().get(i).getTransactionID());
+			}
+		}
+		System.out.println("---------------------------");
+	}
+
 	
 
 	public static void getSeatAvailability(Cinema cinema){
@@ -206,7 +223,7 @@ public class MovieGoerUse {
 		theatre.getTimeslot().get(TS).getSeatTing().showSeats();
 	}
 
-	public static void paymentSeats(Cinema cinema){
+	public static void paymentSeats(Cinema cinema, MovieGoer goer){
 		Scanner sc = new Scanner(System.in);
 		Payment Price = new Payment();
 		double total = 0;
@@ -265,7 +282,9 @@ public class MovieGoerUse {
 				Price.checkPayment(total);
 			}
 		System.out.println("Change Given: " + Price.getchange());
-		System.out.println("Transaction ID: " + Price.GetTID(ID, Calendar.getInstance()));
+		String tID = Price.GetTID(ID, Calendar.getInstance());
+		System.out.println("Transaction ID: " + tID);
+		goer.addBooking(tID);
 	}
 
 	private static int []selectMovieAndTheatre(Cinema cinema){
@@ -273,7 +292,6 @@ public class MovieGoerUse {
 		int numOfTheaters = cinema.getListOfTheatre().size();
 		int[] movieAvail = new int[numOfMovies];
 		int[] theatreAvail = new int[numOfTheaters];
-		int[] result = new int[2];
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Select Movie: ");
 		movieAvail = listofMoviesWithShowtimes(cinema);

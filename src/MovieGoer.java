@@ -44,8 +44,8 @@ public class MovieGoer implements Serializable{
 	public ArrayList<Booking> getpastBooking() {
 		return pastBooking;
 	}
-	public void addBooking(Booking booking) {
-		this.pastBooking.add(booking);
+	public void addBooking(String transactionID) {
+		this.pastBooking.add(new Booking(transactionID));
 	}
 	
 }
