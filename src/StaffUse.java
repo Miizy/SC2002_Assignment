@@ -34,8 +34,10 @@ public class StaffUse {
 	
 	private static Cineplex chooseCinema(Cineplex cineplex) throws ParseException{
 		Scanner sc = new Scanner(System.in);
+		while(true) {
 		int choice = Integer.MAX_VALUE;
 		System.out.println("Select Cinema");
+		System.out.println("=================");
 		for(int i=0; i<cineplex.getListOfCinema().size(); i++) {
 			System.out.print((i+1) + ". Cinema ID " + cineplex.getCinema(i).getCinemaID());
 			if(cineplex.getCinema(i).getCinemaName() != "") {
@@ -43,22 +45,27 @@ public class StaffUse {
 			}
 			System.out.println();
 		}
-		while(choice > cineplex.getListOfCinema().size() || choice <= 0) {
+		System.out.println((cineplex.getListOfCinema().size()+1) + ". Logout");
+		while(choice > (cineplex.getListOfCinema().size()+1) || choice <= 0) {
 			if(choice != Integer.MAX_VALUE) {
 				System.out.println("Invalid choice, please try again.");
 			}
 			choice = sc.nextInt();
 		}
+		if(choice == cineplex.getListOfCinema().size()+1) {
+			System.out.println("Logging out...");
+			return cineplex;
+		}
 		Cinema cinema = staffOptions(cineplex.getCinema(choice-1));
 		cineplex.setCinema(cinema.getCinemaID(), cinema);
-		return cineplex;
+		}
 	}
 	
 	private static Cinema staffOptions(Cinema cinema) throws ParseException {
 		Scanner sc = new Scanner(System.in);
 		int choice;
 		do {
-			System.out.println("1. Movie Listing\n2. Cinema Showtimes\n3. Current Top 5 Ranking Movies\n4. Configure System Settings");
+			System.out.println("1. Movie Listing\n2. Cinema Showtimes\n3. Current Top 5 Ranking Movies\n4. Configure System Settings\n5. Return");
 			choice = sc.nextInt();
 			switch(choice) {
 			case 1:
@@ -74,7 +81,7 @@ public class StaffUse {
 				cinema = staffConfig(cinema);
 				break;
 			case 5:
-				//Stop the program
+				//stop the program
 				break;
 			default:
 				System.out.println("Invalid input. Please try again");
@@ -88,7 +95,7 @@ public class StaffUse {
 		Scanner sc = new Scanner(System.in);
 		int choice;
 		do {
-			System.out.println("1. Create Movie Listing\n2. Display Movie Listing\n3. Edit Movie Listing\n4. Delete Movie Listing");
+			System.out.println("1. Create Movie Listing\n2. Display Movie Listing\n3. Edit Movie Listing\n4. Delete Movie Listing\n5. Return");
 			choice = sc.nextInt();
 			sc.nextLine();	//Scanner buffer not cleared i dk how to get ard it except reading it agn
 			switch(choice) {
@@ -132,7 +139,7 @@ public class StaffUse {
 		String director = sc.nextLine();
 		System.out.println("BlockBuster movie(Y/N)?");
 		String ans = sc.next();
-		if(ans.toLowerCase() == "y") {
+		if(ans.toLowerCase().matches("y")) { //doesnt seem to be working
 			BlockBuster = true;
 		}
 		else {
@@ -140,7 +147,7 @@ public class StaffUse {
 		}
 		System.out.println("Sneak Preview (Y/N)?");
 		ans = sc.next();
-		if(ans.toLowerCase() == "y") {
+		if(ans.toLowerCase().matches("y")) { //doesnt seem to be working
 			Sneakpreview = true;
 		}
 		else {
@@ -171,11 +178,11 @@ public class StaffUse {
 			if(movieIndex == -1) { 
 				String movieTitle = timeSlot.get(i).getMovie().getMovieTitle();
 				order.add(movieTitle);
-				movie.add(movieTitle + ": " + timeSlot.get(i).getStartTime() + " - " + timeSlot.get(i).getEndTime());
+				movie.add(movieTitle + ": " + timeSlot.get(i).getStartTime().getTime() + " - " + timeSlot.get(i).getEndTime().getTime());
 			}
 			else {
 				String temp = movie.get(movieIndex);
-				temp = temp + ", " + timeSlot.get(i).getStartTime() + " - " + timeSlot.get(i).getEndTime();
+				temp = temp + ", " + timeSlot.get(i).getStartTime().getTime() + " - " + timeSlot.get(i).getEndTime().getTime();
 				movie.set(movieIndex, temp);
 			}
 		}
@@ -193,7 +200,7 @@ public class StaffUse {
 	private static void showTimeslotIndex(Theatre theatre) {
 		for(int i=0; i<theatre.getTimeslot().size(); i++) {
 			System.out.println((i+1) + ". " + theatre.getTimeslot().get(i).getMovie().getMovieTitle() + " " + 
-					theatre.getTimeslot().get(i).getStartTime() + " - " + theatre.getTimeslot().get(i).getEndTime());
+					theatre.getTimeslot().get(i).getStartTime().getTime() + " - " + theatre.getTimeslot().get(i).getEndTime().getTime());
 		}
 	}
 	
@@ -298,7 +305,11 @@ public class StaffUse {
 	}
 	
 	private static TimeSlot changeMovie(TimeSlot timeslot) {
-		
+		Scanner sc = new Scanner(System.in);
+		System.out.println("New movie Name: ");
+		String newMovie = sc.nextLine();
+		timeslot.getMovie().setMovieTitle(newMovie);
+		return timeslot;
 	}
 	
 	private static Cinema removeShowtimes(Cinema cinema) {
@@ -316,9 +327,9 @@ public class StaffUse {
 	private static Cinema cinemaShowtimes(Cinema cinema) throws ParseException {
 		Scanner sc = new Scanner(System.in);
 		int option = 0;
-		System.out.println("1. Display Showtimes\n2. Add Showtimes\n3. Edit Showtimes\n4. Remove Showtime");
+		System.out.println("1. Display Showtimes\n2. Add Showtimes\n3. Edit Showtimes\n4. Remove Showtime\n5. Return");
 		option = sc.nextInt();
-		while(option < 1 || option > 4) {
+		while(option < 1 || option > 5) {
 			System.out.println("Invalid input. Please try again");
 			option = sc.nextInt();
 		}
@@ -331,8 +342,14 @@ public class StaffUse {
 			break;
 		case 3:
 			cinema = editShowtimes(cinema);
+			break;
 		case 4:
 			cinema = removeShowtimes(cinema);
+			break;
+		case 5:
+			break;
+		default:
+			break;
 		}
 		return cinema;
 	}
@@ -341,7 +358,7 @@ public class StaffUse {
 		System.out.println("Lists of Movies:");
 		for(int i=0;i<cinema.getListOfMovie().size();i++) {
 			int ind = i+1;
-			System.out.println(ind + ". " + cinema.getListOfMovie().get(i));
+			System.out.println(ind + ". " + cinema.getListOfMovie().get(i).getMovieTitle());
 		}
 	}
 	
@@ -367,12 +384,13 @@ public class StaffUse {
 		int choice = 1;
 		do {
 			System.out.println("Select movie details to adjust");
-			System.out.println("1. Movie Title\n2. Movie Status\n3. Movie Rating\n4. Synopsis\n5. Director\n6. Blockbuster Status\n7. Sneak Preview Status\n 8. Cast\n9. Exit");
+			System.out.println("1. Movie Title\n2. Movie Status\n3. Movie Rating\n4. Synopsis\n5. Director\n6. Blockbuster Status\n7. Sneak Preview Status\n8. Cast\n9. Exit");
 			choice = sc.nextInt();
 			switch(choice) {
 			case(1):
 				System.out.println("Current Movie Title: "+movieChange.getMovieTitle());
 				System.out.println("Enter new movie title:");
+				String mT = sc.nextLine();
 				String movieTitle = sc.nextLine();
 				movieChange.setMovieTitle(movieTitle);
 				break;

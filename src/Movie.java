@@ -11,8 +11,8 @@ public class Movie implements Serializable{
 	private float overallRating;
 	private ArrayList<String> nameofPastReviewers = new ArrayList<String>();
 	private ArrayList<Review> pastReview = new ArrayList<Review>();
-	private boolean BlockBuster;
-	private boolean Sneakpreview;
+	private boolean BlockBuster = false;
+	private boolean Sneakpreview = false;
 	private double Sales = 0.00;
 	public Movie(String movieTitle, int showStatus, int movieRating, String synopsis, String director, boolean BlockBuster, boolean Sneakpreview) {
 		setMovieTitle(movieTitle);

@@ -514,6 +514,7 @@ public class MovieGoerUse {
 		System.out.println("  Director: " + cinema.getMovie(movieChoice-1).getDirector());
 		System.out.println("  Synopsis: " + cinema.getMovie(movieChoice-1).getSynopsis());
 		System.out.println("  BlockBuster: "+ cinema.getMovie(movieChoice-1).getBlockBuster());
+		System.out.println("  Sneak Preview: "+ cinema.getMovie(movieChoice-1).getSneakpreview());
 		if(cinema.getMovie(movieChoice-1).getBlockBuster() == true) {
 			System.out.println("BlockBuster Movie" + ": ");
 		}

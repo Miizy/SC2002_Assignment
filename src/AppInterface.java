@@ -30,7 +30,7 @@ public class AppInterface {
         
 		int choice;
 		do {
-			System.out.println("Type of User: \n1. Staff\n2. Movie Goer");
+			System.out.println("Type of User: \n1. Staff\n2. Movie Goer\n3. Exit");
 			choice = sc.nextInt();
 			switch(choice) {
 			case 1:
@@ -39,10 +39,13 @@ public class AppInterface {
 			case 2:
 				cineplex = MovieGoerUse.MovieGoerChoice(cineplex);
 				break;
+			case 3:
+				System.out.println("Exiting program...");
+				break;
 			default:
 				System.out.println("Invalid input. Please Try Again");
 			}
-		} while(choice >2);
+		} while(choice != 3);
 		sc.close();
 		
 		//save the cineplex object as a serialized file for future use
