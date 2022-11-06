@@ -258,9 +258,16 @@ public class MovieGoerUse {
 			while(true) {
 				System.out.print("Select Row: ");
 				int Row = sc.nextInt();
-				System.out.print("Select Col: ");
+				while(Row>6||Row<1) {
+					System.out.println("Invalid Input, please select Row(1-6): ");
+					Row = sc.nextInt();
+				}
+				System.out.print("Select Column: ");
 				int Col = sc.nextInt();
-
+				while(Col>8||Col<1) {
+					System.out.println("Invalid Input, please select Column(1-8): ");
+					Col = sc.nextInt();
+				}
 				SS = theatre.getTimeslot().get(TS).getSeatTing().getSeatAt(Col, Row).getSeatType();
 
 				if (SS != SeatStatus.ap) {
