@@ -443,7 +443,7 @@ public class StaffUse {
 				System.out.println("Current Blockbuster Status: "+block);
 				System.out.println("Change blockbuster status (Y/N)?");
 				String ans = sc.next();
-				if(ans.toLowerCase() == "y") {
+				if(ans.toLowerCase().matches("y")) {
 					buster = true;
 				}
 				else {
@@ -462,7 +462,7 @@ public class StaffUse {
 				System.out.println("Current Sneak Preview Status: "+sneak);
 				System.out.println("Change sneak preview status (Y/N)?");
 				String sneakStatus = sc.next();
-				if(sneakStatus.toLowerCase() == "y") {
+				if(sneakStatus.toLowerCase().matches("y")) {
 					previewStatus = true;
 				}
 				else {
@@ -551,7 +551,7 @@ public class StaffUse {
 					int movieIndex = (int)movieSales[0][j];
 					double sales = movieSales[1][j];
 					int ind = j+1;
-					System.out.println(ind + ". "+cinema.getMovie(movieIndex)+"  $"+sales);
+					System.out.println(ind + ". "+cinema.getMovie(movieIndex).getMovieTitle()+"  $"+sales);
 					if(j==4) {
 						break;
 					}
@@ -583,7 +583,7 @@ public class StaffUse {
 					int movieIndex = (int)movieRatings[0][j];
 					float rating = movieRatings[1][j];
 					int ind = j+1;
-					System.out.println(ind + ". "+cinema.getMovie(movieIndex)+"  "+rating);
+					System.out.println(ind + ". "+cinema.getMovie(movieIndex).getMovieTitle()+"  "+rating);
 					if(j==4) {
 						break;
 					}
