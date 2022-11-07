@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
 
 public class StaffUse {
 	public static Cineplex StaffChoice(Cineplex cineplex) throws ParseException {
@@ -377,9 +378,12 @@ public class StaffUse {
 	
 	private static void displayMovie(Cinema cinema) {
 		System.out.println("Lists of Movies:");
+		int ind = 0;
 		for(int i=0;i<cinema.getListOfMovie().size();i++) {
-			int ind = i+1;
-			System.out.println(ind + ". " + cinema.getListOfMovie().get(i).getMovieTitle());
+			if(!cinema.getListOfMovie().get(i).getShowStatus().getStatus().equals("End Of Showing")) {
+				ind+=1;
+				System.out.println(ind + ". " + cinema.getListOfMovie().get(i).getMovieTitle());
+			}
 		}
 	}
 	
@@ -543,20 +547,50 @@ public class StaffUse {
 		return cinema;
 	}
 	
-	private static Cinema deleteMovie(Cinema cinema) { //not working
+	private static Cinema deleteMovie(Cinema cinema) {
 		Scanner sc = new Scanner(System.in);
 		int movieIndex = selectMovie(cinema);
 		Movie movieChange = cinema.getMovie(movieIndex);
 
 		movieChange.setShowStatus(4);
+		String movieTitle = movieChange.getMovieTitle();
 		cinema.replaceMovie(movieIndex, movieChange);
-		//TODO: check all theatre in cinema and remove from timeslotarr all timeslot with same movie title 
+		for(int i=0;i<cinema.getListOfTheatre().size();i++) {
+			Theatre theatre = cinema.getListOfTheatre().get(i);
+			Iterator<TimeSlot> movieSlots = theatre.getTimeslot().iterator();
+			while(movieSlots.hasNext()) {
+				TimeSlot movieSegment = movieSlots.next();
+				if(movieSegment.getMovie().getMovieTitle().equals(movieTitle)) {
+					movieSlots.remove();
+				}
+			}
+		}
 		return cinema;
 	}
 	
 	private static Cinema staffConfig(Cinema cinema) {
-		//adjust ticket prices
-		//holidays?
+		Scanner sc = new Scanner(System.in);
+		int choice;
+		do {
+			System.out.println("Select an Option:\n1. Edit Theatre Type\n2. Return");
+			choice = sc.nextInt();
+			switch(choice) {
+			case 1:
+				showTheatreIndex(cinema);
+				int theatre = sc.nextInt()-1;
+				System.out.println("Current Theatre Type:");
+				System.out.println(cinema.getListOfTheatre().get(theatre).getTheatreClass().getTheatreClass());
+				System.out.println("Choose a Theatre Type:\n1. Platinum Movie Suites\n2. Elite Club");
+				int suite = sc.nextInt();
+				cinema.getListOfTheatre().get(theatre).setTheatreClass(suite);
+				System.out.println("Theatre Type successfully updated");
+				break;
+			case 2:
+				break;
+			default:
+				System.out.println("Invalid input. Please try again.");
+			}
+		} while(choice!=2);
 		return cinema;
 	}
 	
@@ -591,10 +625,13 @@ public class StaffUse {
 				for(int j=0;j<cinema.getListOfMovie().size();j++) {
 					int movieIndex = (int)movieSales[0][j];
 					double sales = movieSales[1][j];
-					int ind = j+1;
-					System.out.println(ind + ". "+cinema.getMovie(movieIndex).getMovieTitle()+"  $"+sales);
-					if(j==4) {
-						break;
+					int ind = 0;
+					if(!cinema.getMovie(movieIndex).getShowStatus().getStatus().equals("End Of Showing")) {
+						ind+=1;
+						System.out.println(ind + ". "+cinema.getMovie(movieIndex).getMovieTitle()+"  $"+sales);
+						if(j==5) {
+							break;
+						}
 					}
 				}
 				break;
@@ -623,10 +660,13 @@ public class StaffUse {
 				for(int j=0;j<cinema.getListOfMovie().size();j++) {
 					int movieIndex = (int)movieRatings[0][j];
 					float rating = movieRatings[1][j];
-					int ind = j+1;
-					System.out.println(ind + ". "+cinema.getMovie(movieIndex).getMovieTitle()+"  "+rating);
-					if(j==4) {
-						break;
+					int ind = 0;
+					if(!cinema.getMovie(movieIndex).getShowStatus().getStatus().equals("End Of Showing")) {
+						ind+=1;
+						System.out.println(ind + ". "+cinema.getMovie(movieIndex).getMovieTitle()+"  "+rating);
+						if(ind==5) {
+							break;
+						}
 					}
 				}
 				break;
