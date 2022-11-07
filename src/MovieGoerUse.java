@@ -525,7 +525,11 @@ public class MovieGoerUse {
 	}
 
 	private static void printPastReviews(Cinema cinema, int movieChoice){
-		System.out.println("Rating: " + cinema.getMovie(movieChoice-1).getOverallRating() + "* ");
+		if(cinema.getMovie(movieChoice-1).getNamesOfPastReviewers().size()<2){
+			System.out.println("Overall Rating: NA");
+		}else{
+			System.out.println("Overall Rating: " + cinema.getMovie(movieChoice-1).getOverallRating() + "* ");
+		}
 		System.out.println("-------------------------------------------------------------");
 		for(int i = 0; i<cinema.getMovie(movieChoice-1).getNamesOfPastReviewers().size();i++){
 			System.out.println(cinema.getMovie(movieChoice-1).getNameofReviewer(i));
@@ -538,10 +542,19 @@ public class MovieGoerUse {
 	private static Cinema printDetailsofMovie(Cinema cinema, int movieChoice){
 		System.out.println("*************************");
 		System.out.println(cinema.getMovie(movieChoice-1).getMovieTitle() + ": ");
-		System.out.println("  Director: " + cinema.getMovie(movieChoice-1).getDirector());
+		System.out.println("  Show Status: " + cinema.getMovie(movieChoice-1).getShowStatus().getStatus());
 		System.out.println("  Synopsis: " + cinema.getMovie(movieChoice-1).getSynopsis());
-		System.out.println("  BlockBuster: "+ cinema.getMovie(movieChoice-1).getBlockBuster());
-		System.out.println("  Sneak Preview: "+ cinema.getMovie(movieChoice-1).getSneakpreview());
+		System.out.println("  Director: " + cinema.getMovie(movieChoice-1).getDirector());
+		System.out.println("  Cast: ");
+		for(int i=0; i<cinema.getMovie(movieChoice-1).getCast().size();i++){
+			System.out.println("    "+ cinema.getMovie(movieChoice-1).getCast().get(i));
+		}
+		if(cinema.getMovie(movieChoice-1).getBlockBuster()){
+			System.out.println("  BlockBuster: Yes" );
+		}else{ System.out.println("  BlockBuster: No" ); }
+		if(cinema.getMovie(movieChoice-1).getSneakpreview()){
+			System.out.println("  Sneak Preview: Yes");
+		}else{System.out.println("  Sneak Preview: No" );}
 		printPastReviews(cinema, movieChoice);
 		System.out.println("*************************");
 		return cinema;
