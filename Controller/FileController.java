@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-public class FileReader {
+public class FileController {
 	
 	public static Cineplex readFile() throws IOException, ClassNotFoundException {
 		Cineplex cineplex = null;

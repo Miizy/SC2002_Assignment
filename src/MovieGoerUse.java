@@ -43,7 +43,7 @@ public class MovieGoerUse {
 		System.out.println("Enter Your Email Address: ");
 		String emailAddr = enterEmail();
 		if(!cineplex.getListofGoers().isEmpty()){
-			GoerID = cineplex.getListofGoers().size() + 1;
+			GoerID = cineplex.getListofGoers().size();
 		}else{
 			GoerID = 0;
 		}
@@ -226,7 +226,7 @@ public class MovieGoerUse {
 		Theatre theatre = cinema.getTheatre(id - 1);
 		System.out.println("Select Timeslot: ");
 		int TS = (sc.nextInt() - 1);	
-		theatre.getTimeslot().get(TS).getSeatTing().showSeats();
+		System.out.println(theatre.getTimeslot().get(TS).getSeating().showSeats());
 	}
 
 	public static void paymentSeats(Cinema cinema, MovieGoer goer){
@@ -256,7 +256,7 @@ public class MovieGoerUse {
 		for(int a = 0; a<noTick;a++) {
 			/*Select & Book Seats Code here*/
 			//show seat
-			theatre.getTimeslot().get(TS).getSeatTing().showSeats();
+			System.out.println(theatre.getTimeslot().get(TS).getSeating().showSeats());
 			TicketType TT = Price.chooseTicketType();//choose student etc.
 			while(true) {
 				System.out.print("Select Row: ");
@@ -271,11 +271,11 @@ public class MovieGoerUse {
 					System.out.println("Invalid Input, please select Column(1-8): ");
 					Col = sc.nextInt();
 				}
-				SS = theatre.getTimeslot().get(TS).getSeatTing().getSeatAt(Col, Row).getSeatType();
+				SS = theatre.getTimeslot().get(TS).getSeating().getSeatAt(Col, Row).getSeatType();
 
 				if (SS != SeatStatus.ap) {
-					if(theatre.getTimeslot().get(TS).getSeatTing().getSeatAt(Col, Row).getbook() == false) { //empty seat
-						theatre.getTimeslot().get(TS).getSeatTing().getSeatAt(Col, Row).bookseat(); //book seat}
+					if(theatre.getTimeslot().get(TS).getSeating().getSeatAt(Col, Row).getbook() == false) { //empty seat
+						theatre.getTimeslot().get(TS).getSeating().getSeatAt(Col, Row).bookseat(); //book seat}
 						if(SS == SeatStatus.ac) {
 							noTick = noTick - 1;
 						}

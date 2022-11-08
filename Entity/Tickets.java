@@ -1,6 +1,5 @@
 
 public class Tickets {
-	private int noTickets;
 	private MovieType MT;
 	private TicketType TT;
 	private boolean BB;

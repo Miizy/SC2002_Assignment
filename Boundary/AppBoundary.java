@@ -6,7 +6,7 @@ import java.text.ParseException;
 public class AppBoundary {
 	public static void main(String args[]) throws IOException, ClassNotFoundException, InvalidClassException, ParseException {
 		Scanner sc = new Scanner(System.in);
-		Cineplex cineplex = FileReader.readFile();
+		Cineplex cineplex = FileController.readFile();
         
 		int choice;
 		do {
@@ -14,7 +14,7 @@ public class AppBoundary {
 			choice = sc.nextInt();
 			switch(choice) {
 			case 1:
-				cineplex = StaffUse.StaffChoice(cineplex);
+				cineplex = StaffUseBoundary.StaffChoice(cineplex);
 				break;
 			case 2:
 				cineplex = MovieGoerUse.MovieGoerChoice(cineplex);
@@ -29,7 +29,7 @@ public class AppBoundary {
 		sc.close();
 		
 		//save the cineplex object as a serialized file for future use
-		FileReader.writeFile(cineplex);
+		FileController.writeFile(cineplex);
 	}
 	
 }

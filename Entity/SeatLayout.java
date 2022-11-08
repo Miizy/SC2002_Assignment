@@ -85,7 +85,6 @@ public class SeatLayout implements Serializable{
 			}
 		}
 
-
 		//making the normal seats full length
 		for(int col=0; col<NCOLS; col++){
 			//gap for mid entry
@@ -153,35 +152,35 @@ public class SeatLayout implements Serializable{
 
 	}
 
-	public void showSeats(){
+	public String showSeats(){
 		int fcol= NCOLS;
 		int frow= NROWS;
 
+		String seatString = "";
 		if(this.theatreClass== TheatreClass.elit){
 			fcol= SCOLS;
 			frow= SROWS;
-			System.out.println("      1  2  3  4     5  6  7  8 ");
+			seatString += "      1  2  3  4     5  6  7  8 \n";
 		}
 		else{
-			System.out.println("      1  2  3  4  5  6     7  8  9 10 11 12 ");
-
+			seatString += "      1  2  3  4  5  6     7  8  9 10 11 12 \n";
 		}
 
 		//print the header display for columns
 		for(int rows=0; rows<frow; rows++){
 			String sf=String.format("%4d ",rows+1);
-			System.out.print(sf);
+			seatString += sf;
 			for(int col=0; col<fcol; col++){
 				//not initialized therefore creates a space for passage
 				if(allseats[rows][col]==null){
 					continue;
 				}
-
 				else{
-					allseats[rows][col].display();
+					seatString += allseats[rows][col].display();
 				}
 			}
-			System.out.print("\n");
+			seatString += "\n";
 		}
+		return seatString;
 	}
 }
