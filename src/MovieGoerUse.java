@@ -39,7 +39,7 @@ public class MovieGoerUse {
 		System.out.println("Enter Your name: ");
 		String name = enterName(cineplex);
 		System.out.println("Enter Your Phone number: ");
-		int hpNumber = enterNumber();
+		String hpNumber = enterNumber();
 		System.out.println("Enter Your Email Address: ");
 		String emailAddr = enterEmail();
 		if(!cineplex.getListofGoers().isEmpty()){
@@ -53,7 +53,6 @@ public class MovieGoerUse {
 		GoerName = name;
 		return cineplex;
 	}
-
 
 	public static Cineplex MovieGoerLogin(Cineplex cineplex) {
 		if(cineplex.getListofGoers().isEmpty()){
@@ -76,7 +75,7 @@ public class MovieGoerUse {
 			}
 			if(goerExists==true){
 				System.out.println("Enter your phone Number: ");
-				int number = enterNumber();
+				String number = enterNumber();
 				if(number==cineplex.getGoer(GoerID).getMobileNumber()){
 					loginSuccess = true;
 					System.out.println("Welcome, " + cineplex.getGoer(GoerID).getName());
@@ -213,13 +212,11 @@ public class MovieGoerUse {
 			System.out.println("User has no booking history available.");
 		}else{
 			for(int i=0;i<cineplex.getGoer(GoerID).getpastBooking().size();i++){
-				System.out.println(i+1 + ".   " + cineplex.getGoer(GoerID).getpastBooking().get(i).getTransactionID());
+				System.out.println(i+1 + ".   " + cineplex.getGoer(GoerID).getpastBooking().get(i));
 			}
 		}
 		System.out.println("---------------------------");
 	}
-
-	
 
 	public static void getSeatAvailability(Cinema cinema){
 		Scanner sc = new Scanner(System.in);
@@ -399,7 +396,7 @@ public class MovieGoerUse {
 		return name;
 	}
 
-	public static int enterNumber(){
+	public static String enterNumber(){
 		Scanner sc = new Scanner(System.in);
 		int number;
 		while(true){
@@ -411,7 +408,7 @@ public class MovieGoerUse {
 				System.out.println("Invalid input. Please enter a vaild number. Make sure number starts with 8 or 9 and has 8 digits."); 
 			}
 		}
-		return number;
+		return String.valueOf(number);
 	}
 
 	public static String enterEmail(){
@@ -451,7 +448,6 @@ public class MovieGoerUse {
 		return availArr;
 	}
 	
-
 	private static void printListofMovies(Cinema cinema){
 		for(int i=0; i<cinema.getListOfMovie().size();i++){
 			System.out.println(" " + (i+1)+ ". " + cinema.getMovie(i).getMovieTitle());
