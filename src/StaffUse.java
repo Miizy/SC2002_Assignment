@@ -200,11 +200,11 @@ public class StaffUse {
 			if(movieIndex == -1) { 
 				String movieTitle = timeSlot.get(i).getMovie().getMovieTitle();
 				order.add(movieTitle);
-				movie.add(movieTitle + ": " + timeSlot.get(i).getStartTime().getTime() + " - " + timeSlot.get(i).getEndTime().getTime());
+				movie.add("\n" + movieTitle + ": \n" + timeSlot.get(i).getStartTime().getTime() + " - " + timeSlot.get(i).getEndTime().getTime());
 			}
 			else {
 				String temp = movie.get(movieIndex);
-				temp = temp + ", " + timeSlot.get(i).getStartTime().getTime() + " - " + timeSlot.get(i).getEndTime().getTime();
+				temp = temp + "\n" + timeSlot.get(i).getStartTime().getTime() + " - " + timeSlot.get(i).getEndTime().getTime();
 				movie.set(movieIndex, temp);
 			}
 		}
