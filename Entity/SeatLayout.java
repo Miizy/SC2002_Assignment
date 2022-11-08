@@ -1,14 +1,38 @@
 import java.io.Serializable;
-
+/**
+ * Represents the Seat Layout of the Seats.
+ * @author Viral Mehta
+ */
 public class SeatLayout implements Serializable{
     
+    /**
+     * 13 columns in a 2D matrix of seats for the normal theatre layout
+     */
     private final static int NCOLS = 13;
-	private final static int NROWS = 10;
-	private final static int SCOLS = 9;
-	private final static int SROWS = 6;
-	private Seats [][] allseats= new Seats[NROWS][NCOLS];
+    /**
+     * 10 rows in a 2D matrix of seats for the normal theatre layout
+     */
+    private final static int NROWS = 10;
+    /**
+     * 9 columns in a 2D matrix of seats for the elite theatre layout
+     */
+    private final static int SCOLS = 9;
+    /**
+     * 6 rows in a 2D matrix of seats for the elite theatre layout
+     */
+    private final static int SROWS = 6;
+	/**
+     * A 2D Matrix of seats with default being normal size
+     */
+    private Seats [][] allseats= new Seats[NROWS][NCOLS];
+    /**
+     * The Theater type 
+     */
     private TheatreClass theatreClass;
-
+	/**
+     * Creates the SeatLayout with the given Theatre Type through initialization of the seats.
+     * @param type Theatre Type could be Platinum which is normal or Elite.
+     */
     public SeatLayout(TheatreClass type){
         if(type==TheatreClass.plat){
             this.theatreClass= TheatreClass.plat;
@@ -20,11 +44,19 @@ public class SeatLayout implements Serializable{
         }
 
     }
-
+	/**
+     * Gets the Theatre Type
+     * @return SeatLayout's theatre type.
+     */
     public TheatreClass getTheatreClass() {
 		return this.theatreClass;
 	}
-
+	/**
+     * Allows the user to access a particular seat from the all seats available.
+     * @param col Column number of the seat to access
+     * @param row Row number of the seat to access
+     * @return Seat class in the all seats.
+     */
     public Seats getSeatAt(int col, int row){
 
 		int midcol=6;
@@ -58,7 +90,10 @@ public class SeatLayout implements Serializable{
 		}
 		return allseats[row-1][col];
 	}
-
+	/**
+     * Initializes the 2D array by filling it up with Normal and Couple types of seats 
+     * and have a Platinum Theatre class layout.
+     */
 	public void initializeSeats(){
 
 		//more normal theater
@@ -110,7 +145,10 @@ public class SeatLayout implements Serializable{
 			}
 		}
 	}
-
+	/**
+     * Initializes the 2D array by filling it up with Elite and Couple types of seats 
+     * and have an Elite Theatre class layout.
+     */
 	public void initializeEliteSeats(){
 		//making the couple seats
 
@@ -151,7 +189,10 @@ public class SeatLayout implements Serializable{
 
 
 	}
-
+	/**
+	 * The Seat Layout showing booked and free seats in string format to output in Command Line
+	 * @return	string which has the seat layout format
+	 */
 	public String showSeats(){
 		int fcol= NCOLS;
 		int frow= NROWS;
