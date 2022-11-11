@@ -250,6 +250,8 @@ public class MovieGoerUse {
 			System.out.println("Movie Type: 3D Movies");
 		}
 		System.out.println("TheatreType: "+ theatre.getTheatreClass());
+		System.out.println("BlockBuster: "+ theatre.getTimeslot().get(TS).getMovie().getBlockBuster());
+		System.out.println("SneakPreview: "+ theatre.getTimeslot().get(TS).getMovie().getSneakpreview());
 		System.out.println("Select Number of Tickets:");
 		int noTick = sc.nextInt();
 		Tickets[] Ticketarray = new Tickets[noTick];

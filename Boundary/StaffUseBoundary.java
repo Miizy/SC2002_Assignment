@@ -506,7 +506,7 @@ public class StaffUseBoundary {
 		Scanner sc = new Scanner(System.in);
 		int choice;
 		do {
-			System.out.println("Select an Option:\n1. Edit Theatre Type\n2. Return");
+			System.out.println("Select an Option:\n1. Edit Theatre Type\n2. Edit Price List\n3. Return");
 			choice = sc.nextInt();
 			switch(choice) {
 			case 1:
@@ -520,11 +520,153 @@ public class StaffUseBoundary {
 				System.out.println("Theatre Type successfully updated");
 				break;
 			case 2:
+				int tixchoice, ifelse;
+				Payment PriceList = new Payment();
+				do {
+					System.out.println("Choose Ticket Type: ");
+					System.out.println("1. Senior\n2. Student\n3. Mon - Wed\n4. Thurs\n5. Friday(before 6pm)\n6. Friday(After 6pm)\n7. Sat & Sun\n8. Sneakpreview\n9. Blockbuster");
+					System.out.println("10. Couple Seats\n11. Elite Seats\n12. Elite Theatre\n13. Return");
+					tixchoice = sc.nextInt();
+					switch (tixchoice) {
+					case 1:
+						System.out.println("Current Price: " + PriceList.getSenior());
+						System.out.println("New Price:");
+						PriceList.setSenior(sc.nextDouble());
+						System.out.println("Price Changed Successfully");
+						break;
+					case 2:
+						System.out.println("1. Regular and Digital Movies\n2. 3D Movies");
+						ifelse = sc.nextInt();
+						if(ifelse == 1){
+							System.out.println("Current Price: " + PriceList.getStudent());
+							System.out.println("New Price:");
+							PriceList.setStudent(sc.nextDouble());
+						}
+						else {
+							System.out.println("Current Price: " + PriceList.getStudent3D());
+							System.out.println("New Price:");
+							PriceList.setStudent3D(sc.nextDouble());
+						}
+						System.out.println("Price Changed Successfully");
+						break;
+					case 3:
+						System.out.println("1. Regular and Digital Movies\n2. 3D Movies");
+						ifelse = sc.nextInt();
+						if(ifelse == 1){
+							System.out.println("Current Price: " + PriceList.getMonWed());
+							System.out.println("New Price:");
+							PriceList.setMonWed(sc.nextDouble());
+						}
+						else {
+							System.out.println("Current Price: " + PriceList.getMonWed3D());
+							System.out.println("New Price:");
+							PriceList.setMonWed3D(sc.nextDouble());
+						}
+						System.out.println("Price Changed Successfully");
+						break;
+					case 4:
+						System.out.println("1. Regular and Digital Movies\n2. 3D Movies");
+						ifelse = sc.nextInt();
+						if(ifelse == 1){
+							System.out.println("Current Price: " + PriceList.getThur());
+							System.out.println("New Price:");
+							PriceList.setThur(sc.nextDouble());
+						}
+						else {
+							System.out.println("Current Price: " + PriceList.getThur3D());
+							System.out.println("New Price:");
+							PriceList.setThur3D(sc.nextDouble());
+						}
+						System.out.println("Price Changed Successfully");
+						break;	
+					case 5:
+						System.out.println("1. Regular and Digital Movies\n2. 3D Movies");
+						ifelse = sc.nextInt();
+						if(ifelse == 1){
+							System.out.println("Current Price: " + PriceList.getFriB());
+							System.out.println("New Price:");
+							PriceList.setFriB(sc.nextDouble());
+						}
+						else {
+							System.out.println("Current Price: " + PriceList.getFriB3D());
+							System.out.println("New Price:");
+							PriceList.setFriB3D(sc.nextDouble());
+						}
+						System.out.println("Price Changed Successfully");
+						break;
+					case 6:
+						System.out.println("1. Regular and Digital Movies\n2. 3D Movies");
+						ifelse = sc.nextInt();
+						if(ifelse == 1){
+							System.out.println("Current Price: " + PriceList.getFriA());
+							System.out.println("New Price:");
+							PriceList.setFriA(sc.nextDouble());
+						}
+						else {
+							System.out.println("Current Price: " + PriceList.getFriA3D());
+							System.out.println("New Price:");
+							PriceList.setFriA3D(sc.nextDouble());
+						}
+						System.out.println("Price Changed Successfully");
+						break;	
+					case 7:
+						System.out.println("1. Regular and Digital Movies\n2. 3D Movies");
+						ifelse = sc.nextInt();
+						if(ifelse == 1){
+							System.out.println("Current Price: " + PriceList.getSS());
+							System.out.println("New Price:");
+							PriceList.setSS(sc.nextDouble());
+						}
+						else {
+							System.out.println("Current Price: " + PriceList.getSS3D());
+							System.out.println("New Price:");
+							PriceList.setSS3D(sc.nextDouble());
+						}
+						System.out.println("Price Changed Successfully");
+						break;
+					case 8:
+						System.out.println("Current Price: " + PriceList.getSneakpreview());
+						System.out.println("New Price:");
+						PriceList.setSneakpreview(sc.nextDouble());
+						System.out.println("Price Changed Successfully");
+						break;
+					case 9: 
+						System.out.println("Current Additional Price: " + PriceList.getBlockBusterPrice());
+						System.out.println("New Price:");
+						PriceList.setBlockBusterPrice(sc.nextDouble());
+						System.out.println("Price Changed Successfully");
+						break;
+					case 10: //couple
+						System.out.println("Current Additional Price: " + PriceList.getCouplePrice());
+						System.out.println("New Price:");
+						PriceList.setCouplePrice(sc.nextDouble());
+						System.out.println("Price Changed Successfully");
+						break;
+					case 11: //Elite Seats
+						System.out.println("Current Additional Price: " + PriceList.getEliteSeat());
+						System.out.println("New Price:");
+						PriceList.setEliteSeat(sc.nextDouble());
+						System.out.println("Price Changed Successfully");
+						break;
+					case 12: //Elite Theatre
+						System.out.println("Current Additional Price: " + PriceList.getEliteTheatrePrice());
+						System.out.println("New Price:");
+						PriceList.setEliteTheatrePrice(sc.nextDouble());
+						System.out.println("Price Changed Successfully");
+						break;
+					case 13:
+						break;
+					default:
+						System.out.println("Invalid input. Please try again.");
+					}
+				} while(tixchoice != 13);
+				break;
+			case 3:
 				break;
 			default:
 				System.out.println("Invalid input. Please try again.");
 			}
-		} while(choice!=2);
+		} while(choice!=3);
 		return cinema;
 	}
 	

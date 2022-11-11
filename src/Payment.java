@@ -52,8 +52,6 @@ public class Payment extends PricingList{
 		TicketType TickType = TicketType.EM;
 		int hr = theatre.getTimeslot().get(index).getStartTime().getTime().getHours();
 		int day = theatre.getTimeslot().get(index).getStartTime().getTime().getDay();
-		System.out.println("HR "+hr);
-		System.out.println("Day " + day);
 		switch (day) {
 		case 1/*Monday*/:
 		case 2/*Tuesday*/:
@@ -158,5 +156,136 @@ public class Payment extends PricingList{
 			break;
 		}
 		return TickType;
+	}
+	public void PriceList() {
+		System.out.println("Ticket Type                     Regular & Digital Movies                     3D Movies");
+		System.out.println("===================================================================================================");
+		System.out.printf("Senior Citizens*                $%.2f                                        N.A      \n", getSenior());
+		System.out.println("Mon - Fri, before 6pm");
+		System.out.println("---------------------------------------------------------------------------------------------------");
+		System.out.printf("Students**                      $%.2f                                        $%.2f    \n", getStudent(), getStudent3D());
+		System.out.println("Mon - Fri before 6pm");
+		System.out.println("---------------------------------------------------------------------------------------------------");		
+		System.out.printf("Mon - Wed#                      $%.2f                                        $%.2f   \n", getMonWed(), getMonWed3D());
+		System.out.println("All sessions");
+		System.out.println("---------------------------------------------------------------------------------------------------");
+		System.out.printf("Thu                             $%.2f                                        $%.2f   \n", getThur(), getThur3D());
+		System.out.println("All sessions");
+		System.out.println("---------------------------------------------------------------------------------------------------");
+		System.out.printf("Fri                             $%.2f                                        $%.2f   \n", getFriB(), getFriB3D());
+		System.out.println("Sessions before 6pm");
+		System.out.println("---------------------------------------------------------------------------------------------------");
+		System.out.printf("Fri                             $%.2f                                       $%.2f   \n", getFriA(), getFriA3D());
+		System.out.println("Sessions after 6pm");
+		System.out.println("---------------------------------------------------------------------------------------------------");
+		System.out.printf("Sat & Sun^                      $%.2f                                       $%.2f  \n", getSS(), getSS3D());
+		System.out.println("All Sessions");
+		System.out.println("---------------------------------------------------------------------------------------------------");
+		System.out.println("Preferred Credit &             N.A		                                   N.A      ");
+		System.out.println("Loyalty Cards");
+		System.out.println("---------------------------------------------------------------------------------------------------");
+		System.out.println("\n* For Patreons 55 years & older. Not valid on PH/eve of PH");
+		System.out.println("**Not valid on PH/eve of PH");
+		System.out.println("^Include PH/eve of PH and weekend sneaks");	
+		System.out.printf("#Sneak preview at $%.2f between Mon to Wed, excluding PH/eve of PH\n", getSneakpreview());
+		System.out.printf("\n\nTickets for movies denoted as 'BlockBuster' will be charged at $%.2f more than the prevailing rate\n", getBlockBusterPrice());
+		System.out.println("---------------------------------------------------------------------------------------------------");
+	}
+	public double getPrice(Tickets ticket) {
+		double price = 0.00;
+		boolean BlockBuster = ticket.getBB();
+		boolean Sneakpreview = ticket.getSneak();
+		SeatStatus Seat = ticket.getSeatStatus();
+		MovieType Type = ticket.getMovieType();
+		TheatreClass TC = ticket.getTheatreClass();
+		switch(ticket.getTicketType()) {
+		case SC:
+			price = getSenior();
+			break;
+		case ST:
+			if(Type == MovieType.RD) {
+				price = getStudent();
+			}
+			else {
+				price = getStudent3D();
+			}
+			break;
+		case MW:
+			if(Type == MovieType.RD) {
+				if(Sneakpreview) {
+					price = getSneakpreview();
+				}
+				else{
+					price = getMonWed();
+				}
+			}
+			else {
+				price = getMonWed3D();
+			}
+			break;
+		case TH:
+			if(Type == MovieType.RD) {
+				price = getThur();
+			}
+			else {
+				price = getThur3D();
+			}
+			break;
+		case FB:
+			if(Type == MovieType.RD) {
+				price = getFriB();
+			}
+			else {
+				price = getFriB3D();
+			}
+			break;
+		case FA:
+			if(Type == MovieType.RD) {
+				price = getFriA();
+			}
+			else {
+				price = getFriA3D();
+			}
+			break;
+		case SS:
+			if(Type == MovieType.RD) {
+				price = getSS();
+			}
+			else {
+				price = getSS3D();
+			}
+			break;
+		case CL:
+			//price =not implemented; 
+			break;
+		default:
+			break;
+		}
+		
+		if(BlockBuster) { //if blockbuster
+			price += getBlockBusterPrice();
+		}
+		switch(TC) {
+		case plat:
+			break;
+		case elit:
+			price+=getEliteTheatrePrice();
+			break;
+		default:
+			break;
+		}
+		switch(Seat) {
+		case ac: //couple seat
+			price = price*2 + getCouplePrice();
+			break;
+		case ae: //elite seat
+			price += getEliteSeat();
+			break;
+		case an:
+			break;
+		default:
+			break;
+		}
+		return price;
 	}
 }
