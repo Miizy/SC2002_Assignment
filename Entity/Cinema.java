@@ -1,7 +1,6 @@
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 /**
  * Cinema is the outlet of the company, e.g. Nex, AMK Hub
  *
@@ -23,10 +22,6 @@ public class Cinema implements Serializable{
 	 * List of movie that has been aired or will air
 	 */
 	private ArrayList<Movie> listOfMovie = new ArrayList<Movie>();
-	/**
-	 * List of holiday dates
-	 */
-	private ArrayList<GregorianCalendar> holidayList = new ArrayList<GregorianCalendar>();
 	
 	/**
 	 * Constructs the Cinema object
@@ -141,19 +136,4 @@ public class Cinema implements Serializable{
 		this.cinemaName = cinemaName;
 	}
 	
-	/**
-	 * Get list of holiday dates
-	 * @return list of holiday dates
-	 */
-	public ArrayList<GregorianCalendar> getHolidayList(){
-		return holidayList;
-	}
-	
-	/**
-	 * Set the list of holidays
-	 * @param holidayList List of holidays to replace current list of holidays
-	 */
-	public void setHolidayList(ArrayList<GregorianCalendar> holidayList) {
-		this.holidayList = holidayList;
-	}
 }

@@ -171,7 +171,7 @@ public class Movie implements Serializable{
 
 	/**
 	 * Set the rating of the movie
-	 * @param movieRating Rating of the movie, 1 PG, 2 PG13, 3 R, 4 NC17, 5 G
+	 * @param movieRating Rating of the movie, 1 PG, 2 PG13, 3 R21, 4 NC16, 5 G
 	 */
 	public void setMovieRating(int movieRating) {
 		if(movieRating == 1) {

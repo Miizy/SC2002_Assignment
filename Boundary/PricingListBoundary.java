@@ -39,19 +39,19 @@ public class PricingListBoundary{
 		System.out.printf("\n\nTickets for movies denoted as 'BlockBuster' will be charged at $%.2f more than the prevailing rate\n", Pricelist.getBlockBusterPrice());
 		System.out.println("---------------------------------------------------------------------------------------------------");
 	}
-	public TicketType chooseTicketType(Cinema cinema,Theatre theatre, int index) { //to implement loyalty cards
+	public TicketType chooseTicketType(Cineplex cineplex,Theatre theatre, int index) { //to implement loyalty cards
 		Scanner scan = new Scanner(System.in);
 		TicketType TickType = TicketType.EM;
 		int hr = theatre.getTimeslot().get(index).getStartTime().getTime().getHours();
 		int day = theatre.getTimeslot().get(index).getStartTime().getTime().getDay();
 		
-		ArrayList<GregorianCalendar> holidayList = cinema.getHolidayList();
+		ArrayList<GregorianCalendar> holidayList = cineplex.getHolidayList();
 		boolean holidayCheck=false;
 		int bookedMonth = theatre.getTimeslot().get(index).getStartTime().get(Calendar.MONTH);
 		int bookedDate = theatre.getTimeslot().get(index).getStartTime().get(Calendar.DATE);
 		int bookedYear = theatre.getTimeslot().get(index).getStartTime().get(Calendar.YEAR);
-		for(int i=0;i<cinema.getHolidayList().size();i++) {
-			if((bookedMonth==cinema.getHolidayList().get(i).get(Calendar.MONTH))&&(bookedDate==cinema.getHolidayList().get(i).get(Calendar.DATE))&&(bookedYear==cinema.getHolidayList().get(i).get(Calendar.YEAR))){
+		for(int i=0;i<cineplex.getHolidayList().size();i++) {
+			if((bookedMonth==cineplex.getHolidayList().get(i).get(Calendar.MONTH))&&(bookedDate==cineplex.getHolidayList().get(i).get(Calendar.DATE))&&(bookedYear==cineplex.getHolidayList().get(i).get(Calendar.YEAR))){
 				holidayCheck = true;
 				break;
 			}

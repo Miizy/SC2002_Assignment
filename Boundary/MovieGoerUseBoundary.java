@@ -259,7 +259,7 @@ public class MovieGoerUseBoundary {
 			/*Select & Book Seats Code here*/
 			//show seat
 			System.out.println(theatre.getTimeslot().get(TS).getSeating().showSeats());
-			TicketType TT = Price.chooseTicketType(cinema, theatre, TS);//choose student etc.
+			TicketType TT = Price.chooseTicketType(cineplex, theatre, TS);//choose student etc.
 			while(true) {
 				System.out.print("Select Row: ");
 				int Row = sc.nextInt();

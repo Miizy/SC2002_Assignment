@@ -6,13 +6,29 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
 
+/**
+ * A boundary class used by Staff as an interface
+ * between the User and controller class
+ *
+ */
 public class StaffUseBoundary {
+	
+	/**
+	 * Calls the staff login for authentication
+	 * and choose cinema function to update the current cineplex
+	 * @param cineplex The specified cineplex to be updated
+	 * @return An updated cineplex containing any updates done during the choose cinema function
+	 * @throws ParseException If the format used in cinema show time and staff config function within staff options, within choose cinema was correct
+	 */
 	public static Cineplex StaffChoice(Cineplex cineplex) throws ParseException {
 		staffLogin();
 		cineplex = chooseCinema(cineplex);
 		return cineplex;
 	}
 	
+	/**
+	 * Authenticates the staff by checking the username and password of user
+	 */
 	private static void staffLogin(){
 		Scanner sc = new Scanner(System.in);
 		String username = null;
@@ -33,6 +49,12 @@ public class StaffUseBoundary {
 		} while(!username.toLowerCase().contains("staff"));
 	}
 	
+	/**
+	 * Specifies the cinema to be used and calls the staff options functions to edit the cinema
+	 * @param cineplex The cineplex to retrieve cinema from
+	 * @return An updated cineplex containing updates from the staff options function
+	 * @throws ParseException If the format used in cinema show time and staff config function within the staff options was correct
+	 */
 	private static Cineplex chooseCinema(Cineplex cineplex) throws ParseException{
 		Scanner sc = new Scanner(System.in);
 		while(true) {
@@ -62,6 +84,13 @@ public class StaffUseBoundary {
 		}
 	}
 	
+	/**
+	 * Gives the staff the option to display and adjust movies, showtimes, rankings and system settings
+	 * @param cinema The specified cinema to adjust
+	 * @param cineplex The current cineplex
+	 * @return An updated cinema containing updated movies, showtimes, rankings and system settings
+	 * @throws ParseException If the format used in the cinema showtimes and staff confic function was correct
+	 */
 	private static Cinema staffOptions(Cinema cinema, Cineplex cineplex) throws ParseException {
 		Scanner sc = new Scanner(System.in);
 		int choice;
@@ -76,7 +105,7 @@ public class StaffUseBoundary {
 				cinema = cinemaShowtimes(cinema);
 				break;
 			case 3:
-				cinema = displayTopGrossing(cinema);
+				displayTopGrossing(cinema);
 				break;
 			case 4:
 				cinema = staffConfig(cinema, cineplex);
@@ -92,13 +121,18 @@ public class StaffUseBoundary {
 		return cinema;
 	}
 
-	private static Cinema movieListing(Cinema cinema){ //Movie listing is a list of movies showing now and coming soon
+	/**
+	 * Gives the staff the option to create, display, edit and delete movies for a specific cinema
+	 * @param cinema The specified cinema to retrieve movies from
+	 * @return An updated cinema containing updated movies
+	 */
+	private static Cinema movieListing(Cinema cinema){
 		Scanner sc = new Scanner(System.in);
 		int choice;
 		do {
 			System.out.println("1. Create Movie Listing\n2. Display Movie Listing\n3. Edit Movie Listing\n4. Delete Movie Listing\n5. Return");
 			choice = sc.nextInt();
-			sc.nextLine();	//Scanner buffer not cleared i dk how to get ard it except reading it agn
+			sc.nextLine();
 			switch(choice) {
 			case 1:
 				cinema = createMovieListing(cinema);
@@ -123,6 +157,11 @@ public class StaffUseBoundary {
 		return cinema;
 	}
 	
+	/**
+	 * Creates a new movie to be added to a cinema
+	 * @param cinema The specified cinema to add a new movie
+	 * @return An updated cinema containing the new movie
+	 */
 	private static Cinema createMovieListing(Cinema cinema) {
 		Scanner sc = new Scanner(System.in);
 		boolean BlockBuster, Sneakpreview;
@@ -130,7 +169,7 @@ public class StaffUseBoundary {
 		System.out.println("Enter movie title: ");
 		String movieTitle = sc.nextLine();
 		System.out.println("Enter show status:\n1. Coming Soon\n2. Preview\n3. Now Showing");
-		int showStatus = sc.nextInt(); //Scanner buffer not cleared i dk how to get ard it except reading it agn
+		int showStatus = sc.nextInt();
 		sc.nextLine();
 		while(showStatus > 3 || showStatus <1) {
 			System.out.println("Error Invalid input!\nPlease select the following options only: ");
@@ -138,7 +177,7 @@ public class StaffUseBoundary {
 			showStatus = sc.nextInt(); 
 			sc.nextLine();
 		}
-		System.out.println("Enter movie rating:\n1. PG\n2. PG-13\n3. R\n4. NC-17\n5. G");
+		System.out.println("Enter movie rating:\n1. PG\n2. PG13\n3. R21\n4. NC16\n5. G");
 		int movieRating = sc.nextInt();
 		sc.nextLine();
 		while(movieRating>5 || movieRating<1) {
@@ -177,7 +216,7 @@ public class StaffUseBoundary {
 		}
 		System.out.println("Enter number of cast: ");
 		int numOfCast = sc.nextInt();
-		sc.nextLine(); //Scanner buffer not cleared i dk how to get ard it except reading it agn
+		sc.nextLine();
 		Movie movie = new Movie(movieTitle, showStatus, movieRating,synopsis, director, BlockBuster, Sneakpreview, Movietype);
 		for(int i=0; i<numOfCast; i++) {
 			System.out.println("Enter name of cast " + (i+1) + ": ");
@@ -188,6 +227,11 @@ public class StaffUseBoundary {
 		return cinema;
 	}
 
+	/**
+	 * Inputs and returns a date object after checking the dates time format
+	 * @return A date object
+	 * @throws ParseException If the input date is of the wrong format
+	 */
 	private static GregorianCalendar enterTime() throws ParseException{
 		Scanner sc = new Scanner(System.in).useDelimiter("\\n");
 		boolean isValid = false;
@@ -202,6 +246,12 @@ public class StaffUseBoundary {
 		return cal;
 	}
 	
+	/**
+	 * Create a new show time for the current cinema
+	 * @param cinema The specified cinema to add the new show time
+	 * @return An updated cinema containing the new show time
+	 * @throws ParseException If the start and end time are of the correct format
+	 */
 	private static Cinema addShowtimes(Cinema cinema) throws ParseException {
 		Scanner sc = new Scanner(System.in);
 		System.out.println(StaffUseController.getTheatreIndex(cinema));
@@ -234,6 +284,12 @@ public class StaffUseBoundary {
 		return cinema;
 	}
 	
+	/**
+	 * Edit the show time by changing the start, end times or movies shown during the show time
+	 * @param cinema The specified cinema to retrieve show time from
+	 * @return An updated cinema containing the the updated show time
+	 * @throws ParseException If the start and end time is of the correct format
+	 */
 	private static Cinema editShowtimes(Cinema cinema) throws ParseException {
 		Scanner sc = new Scanner(System.in);
 		System.out.println(StaffUseController.getTheatreIndex(cinema));
@@ -270,6 +326,12 @@ public class StaffUseBoundary {
 		return cinema;
 	}
 	
+	/**
+	 * Adjust the start and end time of a specific timeslot
+	 * @param timeslot The specified timeslot to change
+	 * @return A new timeslot containing the new start and end times
+	 * @throws ParseException If the start and end times are of the correct format
+	 */
 	private static TimeSlot changeTime(TimeSlot timeslot) throws ParseException {
 		System.out.println("Start time in dd-MM-yyyy HHmm (24hr):");
 		GregorianCalendar start = enterTime();
@@ -279,6 +341,12 @@ public class StaffUseBoundary {
 		return returnTimeslot;
 	}
 	
+	/**
+	 * Change the movie in a specific timeslot
+	 * @param cinema The specified cinema to retrieve movies from
+	 * @param timeslot The timeslot to adjust
+	 * @return The updated timeslot containing the new movie
+	 */
 	private static TimeSlot changeMovie(Cinema cinema, TimeSlot timeslot) {
 		Scanner sc = new Scanner(System.in);
 		int counter = 0;
@@ -294,6 +362,11 @@ public class StaffUseBoundary {
 		return returnTimeslot;
 	}
 	
+	/**
+	 * Remove a specific show time from cinema
+	 * @param cinema The specified cinema to retrieve a show time frome
+	 * @return An updated cinema without the specific show time which was removed
+	 */
 	private static Cinema removeShowtimes(Cinema cinema) {
 		Scanner sc = new Scanner(System.in);
 		System.out.println(StaffUseController.getTheatreIndex(cinema));
@@ -306,6 +379,12 @@ public class StaffUseBoundary {
 		return cinema;
 	}
 	
+	/**
+	 * Gives the staff the option to display, add, edit or remove show times from a specific cinema
+	 * @param cinema The specifiec cinema to retrieve, add or delete show time
+	 * @return An updated cinema containing the updated list of show times
+	 * @throws ParseException If the start and end time within addshowtime and editshowtime function are of the correct format
+	 */
 	private static Cinema cinemaShowtimes(Cinema cinema) throws ParseException {
 		Scanner sc = new Scanner(System.in);
 		int option = 0;
@@ -336,6 +415,11 @@ public class StaffUseBoundary {
 		return cinema;
 	}
 	
+	/**
+	 * Selects a movie from a specific cinema
+	 * @param cinema The specified cinema to retrieve movies from
+	 * @return The unique movie index
+	 */
 	private static int selectMovie(Cinema cinema) {
 		int movieSelect = -1;
 		Scanner sc = new Scanner(System.in);
@@ -349,6 +433,11 @@ public class StaffUseBoundary {
 		return movieSelect;
 	}
 	
+	/**
+	 * Edit a movies details
+	 * @param cinema The specified cinema to retrieve the movie from
+	 * @return An updated cinema containing the updated movie
+	 */
 	private static Cinema editMovie(Cinema cinema) {
 		Scanner sc = new Scanner(System.in);
 		int movieIndex = selectMovie(cinema);
@@ -384,7 +473,7 @@ public class StaffUseBoundary {
 			case(3):
 				System.out.println("Current Movie Rating:");
 				movieChange.getMovieRating();
-				System.out.println("Enter movie rating:\n1. PG\n2. PG-13\n3. R\n4. NC-17\n5. G\n6. Return");
+				System.out.println("Enter movie rating:\n1. PG\n2. PG13\n3. R21\n4. NC16\n5. G\n6. Return");
 				int movieRating = sc.nextInt();
 				while( movieRating<1|| movieRating>6) {
 					System.out.println("Invalid input:\nEnter movie rating:\n1. PG\n2. PG-13\n3. R\n4. NC-17\n5. G\n6. Return");
@@ -495,6 +584,11 @@ public class StaffUseBoundary {
 		return cinema;
 	}
 	
+	/**
+	 * Delete a movie by calling the delete movie function from the staff controller class 
+	 * @param cinema The specified cinema to retrieve movies from
+	 * @return An updated cinema containing the updated timeslots and movie details
+	 */
 	private static Cinema deleteMovie(Cinema cinema) {
 		Scanner sc = new Scanner(System.in);
 		int movieIndex = selectMovie(cinema);
@@ -502,6 +596,13 @@ public class StaffUseBoundary {
 		return cinema;
 	}
 	
+	/**
+	 * Gives the staff the option to edit theatre, price or list of holidays
+	 * @param cinema The specified cinema to retrieve theatre from
+	 * @param cineplex The current cineplex
+	 * @return An updated cinema containing the updated theatre, price and holidays
+	 * @throws ParseException If the holiday date within the add holiday function is of the correct format
+	 */
 	private static Cinema staffConfig(Cinema cinema, Cineplex cineplex)throws ParseException{
 		Scanner sc = new Scanner(System.in);
 		PricingList PriceList = cineplex.getPriceList();
@@ -672,17 +773,17 @@ public class StaffUseBoundary {
 				}
 				switch(holChoice) {
 					case 1:
-						System.out.println(StaffUseController.displayHolidayList(cinema));
+						System.out.println(StaffUseController.displayHolidayList(cineplex));
 						break;
 					case 2:
-						cinema = StaffUseController.addHoliday(cinema);
+						cineplex = StaffUseController.addHoliday(cineplex);
 						break;
 					case 3:
-						if(cinema.getHolidayList().size()==0) {
+						if(cineplex.getHolidayList().size()==0) {
 							System.out.println("No holidays to delete");
 						} else {
-							System.out.println(StaffUseController.displayHolidayList(cinema));
-							cinema = StaffUseController.delHoliday(cinema);
+							System.out.println(StaffUseController.displayHolidayList(cineplex));
+							cineplex = StaffUseController.delHoliday(cineplex);
 						}
 						break;
 					default:
@@ -698,7 +799,11 @@ public class StaffUseBoundary {
 		return cinema;
 	}
 	
-	private static Cinema displayTopGrossing(Cinema cinema) {
+	/**
+	 * Displays the top 5 current movies by sale or overall ratings
+	 * @param cinema The specified cinema to retrieve sales or ratings from
+	 */
+	private static void displayTopGrossing(Cinema cinema) {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("1. Display Top 5 by Ticket Sales\n2. Display Top 5 by Ratings");
 		int choice = sc.nextInt();
@@ -715,7 +820,6 @@ public class StaffUseBoundary {
 				choice = sc.nextInt();
 			}
 		} while(choice < 1 || choice > 2);
-		return cinema;
 	}
 	
 }

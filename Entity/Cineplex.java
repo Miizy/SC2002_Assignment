@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 /**
  * Cineplex is the company of the movie industry, e.g. Shaw, Cathay
  */
@@ -17,6 +18,10 @@ public class Cineplex implements Serializable {
 	 * List of prices for the different tickets
 	 */
 	private PricingList PriceList = new PricingList();
+	/**
+	 * List of holiday dates
+	 */
+	private ArrayList<GregorianCalendar> holidayList = new ArrayList<GregorianCalendar>();
 	
 	public Cineplex() {}
 
@@ -94,5 +99,20 @@ public class Cineplex implements Serializable {
 	 */
 	public PricingList getPriceList(){
 		return PriceList;
+	}
+	/**
+	 * Get list of holiday dates
+	 * @return list of holiday dates
+	 */
+	public ArrayList<GregorianCalendar> getHolidayList(){
+		return holidayList;
+	}
+	
+	/**
+	 * Set the list of holidays
+	 * @param holidayList List of holidays to replace current list of holidays
+	 */
+	public void setHolidayList(ArrayList<GregorianCalendar> holidayList) {
+		this.holidayList = holidayList;
 	}
 }

@@ -219,16 +219,16 @@ public class StaffUseController {
 	}
 	
 	/**
-	 * Displays the list of holidays for a specific cinema
-	 * @param cinema The specified cinema to retrieve the list of holidays from
+	 * Displays the list of holidays
+	 * @param cineplex The current cineplex
 	 * @return A list of holidays
 	 */
-	public static String displayHolidayList(Cinema cinema) {
+	public static String displayHolidayList(Cineplex cineplex) {
 		String month[] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
 						  "Aug", "Sep", "Oct", "Nov", "Dec"};
 		String holidaylist = "Current holiday list:\n";
-		for(int i=0;i<cinema.getHolidayList().size();i++) {
-			holidaylist += (i+1) + ". "+cinema.getHolidayList().get(i).get(Calendar.DATE)+" "+month[cinema.getHolidayList().get(i).get(Calendar.MONTH)]+" "+cinema.getHolidayList().get(i).get(Calendar.YEAR)+"\n";
+		for(int i=0;i<cineplex.getHolidayList().size();i++) {
+			holidaylist += (i+1) + ". "+cineplex.getHolidayList().get(i).get(Calendar.DATE)+" "+month[cineplex.getHolidayList().get(i).get(Calendar.MONTH)]+" "+cineplex.getHolidayList().get(i).get(Calendar.YEAR)+"\n";
 		}
 		return holidaylist;
 	}
@@ -251,11 +251,11 @@ public class StaffUseController {
 	
 	/**
 	 * Creates a new GregorianCalendar object to be added to the holiday list
-	 * @param cinema The specified cinema to retrieve the list of holidays from
-	 * @return An updated cinema containing the new list of holidays
+	 * @param cineplex The current cineplex
+	 * @return An updated cineplex containing the new list of holidays
 	 * @throws ParseException If inputed holiday date is not of the correct format
 	 */
-	public static Cinema addHoliday(Cinema cinema) throws ParseException {
+	public static Cineplex addHoliday(Cineplex cineplex) throws ParseException {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter holiday date in dd-MM-yyyy");
 		String holidayStr = sc.next();
@@ -265,30 +265,30 @@ public class StaffUseController {
 			int month = Integer.parseInt(holidayArr[1]);
 			int year = Integer.parseInt(holidayArr[2]);
 			GregorianCalendar holiday = new GregorianCalendar(year, month-1, day);
-			cinema.getHolidayList().add(holiday);
+			cineplex.getHolidayList().add(holiday);
 			System.out.println("Holiday date added.");
 		} else {
 			System.out.println("Invalid date");
 		}
-		return cinema;
+		return cineplex;
 	}
 	
 	/**
 	 * Removes a specific holiday from the list of holidays
-	 * @param cinema The specified cinema to retrieve the list of holidays from
-	 * @return An updated cinema containing the new list of holidays
+	 * @param cineplex The current cineplex
+	 * @return An updated cineplex containing the new list of holidays
 	 */
-	public static Cinema delHoliday(Cinema cinema) {
+	public static Cineplex delHoliday(Cineplex cineplex) {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Select holiday to delete:");
 		int choice = sc.nextInt()-1;
-		if(choice<0 || choice > cinema.getHolidayList().size()) {
+		if(choice<0 || choice > cineplex.getHolidayList().size()) {
 			System.out.println("Invalid input. Please try again");
 		} else {
-			cinema.getHolidayList().remove(choice);
+			cineplex.getHolidayList().remove(choice);
 			System.out.println("Successfully removed");
 		}
-		return cinema;
+		return cineplex;
 	}
 	
 }
