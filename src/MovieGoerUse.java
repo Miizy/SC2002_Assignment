@@ -160,7 +160,7 @@ public class MovieGoerUse {
 					break;
 				case 4://Book and purchase tickets
 					if(!cinema.getListOfMovie().isEmpty()){
-						paymentSeats(cinema,cineplex.getGoer(GoerID));
+						paymentSeats(cinema,cineplex.getGoer(GoerID), cineplex);
 					}else{
 						System.out.println("No Movies Available. Sorry.");
 					}
@@ -228,7 +228,7 @@ public class MovieGoerUse {
 		System.out.println(theatre.getTimeslot().get(TS).getSeating().showSeats());
 	}
 
-	public static void paymentSeats(Cinema cinema, MovieGoer goer){
+	public static void paymentSeats(Cinema cinema, MovieGoer goer, Cineplex cineplex){
 		Scanner sc = new Scanner(System.in);
 		Payment Price = new Payment();
 		double total = 0;
@@ -241,7 +241,7 @@ public class MovieGoerUse {
 		TheatreClass TC = theatre.getTheatreClass(); //theatreclass
 		System.out.println("Select Timeslot: ");
 		int TS = sc.nextInt() - 1;					//TS index
-		Price.PriceList(); //listing out pricing list
+		Price.PriceList(cineplex.getPriceList()); //listing out pricing list
 		MovieType MT = theatre.getTimeslot().get(TS).getMovie().getMovieType();//choose MovieType
 		if(MT == MovieType.RD) {
 			System.out.println("Movie Type: Regular & Digital Movies");
@@ -297,7 +297,7 @@ public class MovieGoerUse {
 			//======================
 			Ticketarray[a] = new Tickets(MT, TT, cinema.getMovie(mc-1).getBlockBuster(), cinema.getMovie(mc-1).getSneakpreview(), TC, SS);
 		}
-		double sum = Price.totalPrice(Ticketarray, noTick);
+		double sum = Price.totalPrice(Ticketarray, noTick, cineplex.getPriceList());
 		System.out.println("Total Price = " + sum);
 		cinema.getListOfMovie().get(mc-1).addSales(sum);
 		double payment = 0;
@@ -311,6 +311,7 @@ public class MovieGoerUse {
 		System.out.println("Change Given: " + Price.getchange());
 		String tID = Price.GetTID(ID, Calendar.getInstance());
 		System.out.println("Transaction ID: " + tID);
+		Price.Reset();
 		goer.addBooking(tID);
 	}
 

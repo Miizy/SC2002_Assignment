@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class Tickets {
+public class Tickets implements Serializable{
 	private MovieType MT;
 	private TicketType TT;
 	private boolean BB;

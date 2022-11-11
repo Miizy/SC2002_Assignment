@@ -1,25 +1,47 @@
 import java.io.Serializable;
 
 public class PricingList implements Serializable{
-	private double Senior = 4;
-	private double Student = 7;
-	private double Thur = 8.50;
-	private double MonWed = 9.50;
-	private double FriB = 9.50;
-	private double FriA = 11;
-	private double SS = 11;
-	private double Student3D = 9;
-	private double Thur3D = 11;
-	private double MonWed3D = 11;
-	private double FriB3D = 15;
-	private double FriA3D = 15;
-	private double SS3D = 15;
-	private double Sneakpreview = 9.50;
-	private double BlockBuster = 1;
-	private double EliteTheatre = 2;
-	private double CouplePrice = 3;
-	private double EliteSeat = 3;
-	private double EliteTheatrePrice = 1.50;
+	private double Senior;
+	private double Student;
+	private double Thur;
+	private double MonWed;
+	private double FriB;
+	private double FriA;
+	private double SS;
+	private double Student3D;
+	private double Thur3D;
+	private double MonWed3D;
+	private double FriB3D;
+	private double FriA3D;
+	private double SS3D;
+	private double Sneakpreview;
+	private double BlockBuster;
+	private double EliteTheatre;
+	private double CouplePrice;
+	private double EliteSeat;
+	private double EliteTheatrePrice;
+	public PricingList(){
+		setSenior(4);
+		setStudent(7);
+		setThur(8.50);
+		setMonWed(9.50);
+		setFriB(9.50);
+		setFriA(11);
+		setSS(11);
+		setStudent3D(9);
+		setThur3D(11);
+		setMonWed3D(11);
+		setFriB3D(15);
+		setFriA3D(15);
+		setSS3D(15);
+		setSneakpreview(9.50);
+		setBlockBusterPrice(1);
+		setEliteTheatrePrice(2);
+		setCouplePrice(3);
+		setEliteSeat(3);
+		setEliteTheatrePrice(1.50);
+	}
+	
 	public double getSenior() {
 		return Senior;
 	}
@@ -133,5 +155,8 @@ public class PricingList implements Serializable{
 	}
 	public void setEliteTheatrePrice(double price) {
 		EliteTheatrePrice = price;
+	}
+	public void getPriceList() {
+		
 	}
 }

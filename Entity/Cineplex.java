@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Cineplex implements Serializable {
 	private ArrayList<MovieGoer> listOfGoers = new ArrayList<MovieGoer>();
 	private ArrayList<Cinema> listOfCinema = new ArrayList<Cinema>();
+	private PricingList PriceList = new PricingList();
 	
 	public Cineplex() {}
 
@@ -39,5 +40,7 @@ public class Cineplex implements Serializable {
 			}
 		}
 	}
-
+	public PricingList getPriceList(){
+		return PriceList;
+	}
 }

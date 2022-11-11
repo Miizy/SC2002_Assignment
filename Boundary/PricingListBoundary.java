@@ -1,38 +1,39 @@
+import java.io.Serializable;
 import java.util.Scanner;
 
-public class PricingListBoundary extends PricingList {
-	public void PriceList() {
+public class PricingListBoundary{
+	public void PriceList(PricingList Pricelist) {
 		System.out.println("Ticket Type                     Regular & Digital Movies                     3D Movies");
 		System.out.println("===================================================================================================");
-		System.out.printf("Senior Citizens*                $%.2f                                        N.A      \n", getSenior());
+		System.out.printf("Senior Citizens*                $%.2f                                        N.A      \n", Pricelist.getSenior());
 		System.out.println("Mon - Fri, before 6pm");
 		System.out.println("---------------------------------------------------------------------------------------------------");
-		System.out.printf("Students**                      $%.2f                                        $%.2f    \n", getStudent(), getStudent3D());
+		System.out.printf("Students**                      $%.2f                                        $%.2f    \n", Pricelist.getStudent(), Pricelist.getStudent3D());
 		System.out.println("Mon - Fri before 6pm");
 		System.out.println("---------------------------------------------------------------------------------------------------");		
-		System.out.printf("Mon - Wed#                      $%.2f                                        $%.2f   \n", getMonWed(), getMonWed3D());
+		System.out.printf("Mon - Wed#                      $%.2f                                        $%.2f   \n", Pricelist.getMonWed(), Pricelist.getMonWed3D());
 		System.out.println("All sessions");
 		System.out.println("---------------------------------------------------------------------------------------------------");
-		System.out.printf("Thu                             $%.2f                                        $%.2f   \n", getThur(), getThur3D());
+		System.out.printf("Thu                             $%.2f                                        $%.2f   \n", Pricelist.getThur(), Pricelist.getThur3D());
 		System.out.println("All sessions");
 		System.out.println("---------------------------------------------------------------------------------------------------");
-		System.out.printf("Fri                             $%.2f                                        $%.2f   \n", getFriB(), getFriB3D());
+		System.out.printf("Fri                             $%.2f                                        $%.2f   \n", Pricelist.getFriB(), Pricelist.getFriB3D());
 		System.out.println("Sessions before 6pm");
 		System.out.println("---------------------------------------------------------------------------------------------------");
-		System.out.printf("Fri                             $%.2f                                       $%.2f   \n", getFriA(), getFriA3D());
+		System.out.printf("Fri                             $%.2f                                       $%.2f   \n", Pricelist.getFriA(), Pricelist.getFriA3D());
 		System.out.println("Sessions after 6pm");
 		System.out.println("---------------------------------------------------------------------------------------------------");
-		System.out.printf("Sat & Sun^                      $%.2f                                       $%.2f  \n", getSS(), getSS3D());
+		System.out.printf("Sat & Sun^                      $%.2f                                       $%.2f  \n", Pricelist.getSS(), Pricelist.getSS3D());
 		System.out.println("All Sessions");
 		System.out.println("---------------------------------------------------------------------------------------------------");
-		System.out.println("Preferred Credit &             N.A		                                   N.A      ");
+		System.out.println("Preferred Credit &              N.A		                               N.A      ");
 		System.out.println("Loyalty Cards");
 		System.out.println("---------------------------------------------------------------------------------------------------");
 		System.out.println("\n* For Patreons 55 years & older. Not valid on PH/eve of PH");
 		System.out.println("**Not valid on PH/eve of PH");
 		System.out.println("^Include PH/eve of PH and weekend sneaks");	
-		System.out.printf("#Sneak preview at $%.2f between Mon to Wed, excluding PH/eve of PH\n", getSneakpreview());
-		System.out.printf("\n\nTickets for movies denoted as 'BlockBuster' will be charged at $%.2f more than the prevailing rate\n", getBlockBusterPrice());
+		System.out.printf("#Sneak preview at $%.2f between Mon to Wed, excluding PH/eve of PH\n", Pricelist.getSneakpreview());
+		System.out.printf("\n\nTickets for movies denoted as 'BlockBuster' will be charged at $%.2f more than the prevailing rate\n", Pricelist.getBlockBusterPrice());
 		System.out.println("---------------------------------------------------------------------------------------------------");
 	}
 	public TicketType chooseTicketType(Theatre theatre, int index) { //to implement holiday checking && loyalty cards

@@ -1,14 +1,20 @@
 import java.util.Scanner;
 import java.util.Calendar;
 import java.util.Date;
+import java.io.Serializable;
 import java.text.DecimalFormat;
 
-public class Payment extends PricingListBoundary{
+public class Payment extends PricingListBoundary implements Serializable{
 	private double price = 0.00;
 	private boolean paid = false;
 	private double change = 0.00;
 	private String TID;
 	Scanner scan = new Scanner(System.in);
+	public void Reset() {
+		price = 0;
+		paid = false;
+		change = 0;
+	}
 	public String GetTID(String theatreID, Calendar time) {
 		DecimalFormat dateFormat = new DecimalFormat("00");
 		TID = theatreID + String.valueOf(time.get(Calendar.YEAR)) + dateFormat.format(Double.valueOf(time.get(Calendar.MONTH))) + 
@@ -16,10 +22,10 @@ public class Payment extends PricingListBoundary{
 				dateFormat.format(Double.valueOf(time.get(Calendar.MINUTE)));
 		return TID;
 	}
-	public double totalPrice(Tickets[] Ticketarray, int noTicks) {
+	public double totalPrice(Tickets[] Ticketarray, int noTicks, PricingList Pricelist) {
 		price = 0.00;
 		for(int a = 0; a < noTicks; a++) {
-			price += getPrice(Ticketarray[a]);
+			price += getPrice(Ticketarray[a], Pricelist);
 		}
 		return price;
 	}
@@ -49,7 +55,7 @@ public class Payment extends PricingListBoundary{
 		return change;
 	}
 
-	public double getPrice(Tickets ticket) {
+	public double getPrice(Tickets ticket, PricingList Pricelist) {
 		double price = 0.00;
 		boolean BlockBuster = ticket.getBB();
 		boolean Sneakpreview = ticket.getSneak();
@@ -58,59 +64,59 @@ public class Payment extends PricingListBoundary{
 		TheatreClass TC = ticket.getTheatreClass();
 		switch(ticket.getTicketType()) {
 		case SC:
-			price = getSenior();
+			price = Pricelist.getSenior();
 			break;
 		case ST:
 			if(Type == MovieType.RD) {
-				price = getStudent();
+				price = Pricelist.getStudent();
 			}
 			else {
-				price = getStudent3D();
+				price = Pricelist.getStudent3D();
 			}
 			break;
 		case MW:
 			if(Type == MovieType.RD) {
 				if(Sneakpreview) {
-					price = getSneakpreview();
+					price = Pricelist.getSneakpreview();
 				}
 				else{
-					price = getMonWed();
+					price = Pricelist.getMonWed();
 				}
 			}
 			else {
-				price = getMonWed3D();
+				price = Pricelist.getMonWed3D();
 			}
 			break;
 		case TH:
 			if(Type == MovieType.RD) {
-				price = getThur();
+				price = Pricelist.getThur();
 			}
 			else {
-				price = getThur3D();
+				price = Pricelist.getThur3D();
 			}
 			break;
 		case FB:
 			if(Type == MovieType.RD) {
-				price = getFriB();
+				price = Pricelist.getFriB();
 			}
 			else {
-				price = getFriB3D();
+				price = Pricelist.getFriB3D();
 			}
 			break;
 		case FA:
 			if(Type == MovieType.RD) {
-				price = getFriA();
+				price = Pricelist.getFriA();
 			}
 			else {
-				price = getFriA3D();
+				price = Pricelist.getFriA3D();
 			}
 			break;
 		case SS:
 			if(Type == MovieType.RD) {
-				price = getSS();
+				price = Pricelist.getSS();
 			}
 			else {
-				price = getSS3D();
+				price = Pricelist.getSS3D();
 			}
 			break;
 		case CL:
@@ -121,23 +127,23 @@ public class Payment extends PricingListBoundary{
 		}
 		
 		if(BlockBuster) { //if blockbuster
-			price += getBlockBusterPrice();
+			price += Pricelist.getBlockBusterPrice();
 		}
 		switch(TC) {
 		case plat:
 			break;
 		case elit:
-			price+=getEliteTheatrePrice();
+			price += Pricelist.getEliteTheatrePrice();
 			break;
 		default:
 			break;
 		}
 		switch(Seat) {
 		case ac: //couple seat
-			price = price*2 + getCouplePrice();
+			price = price*2 + Pricelist.getCouplePrice();
 			break;
 		case ae: //elite seat
-			price += getEliteSeat();
+			price += Pricelist.getEliteSeat();
 			break;
 		case an:
 			break;

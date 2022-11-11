@@ -57,12 +57,12 @@ public class StaffUseBoundary {
 				System.out.println("Logging out...");
 				return cineplex;
 			}
-			Cinema cinema = staffOptions(cineplex.getCinema(choice-1));
+			Cinema cinema = staffOptions(cineplex.getCinema(choice-1), cineplex);
 			cineplex.setCinema(cinema.getCinemaID(), cinema);
 		}
 	}
 	
-	private static Cinema staffOptions(Cinema cinema) throws ParseException {
+	private static Cinema staffOptions(Cinema cinema, Cineplex cineplex) throws ParseException {
 		Scanner sc = new Scanner(System.in);
 		int choice;
 		do {
@@ -79,7 +79,7 @@ public class StaffUseBoundary {
 				cinema = displayTopGrossing(cinema);
 				break;
 			case 4:
-				cinema = staffConfig(cinema);
+				cinema = staffConfig(cinema, cineplex);
 				break;
 			case 5:
 				//stop the program
@@ -502,8 +502,9 @@ public class StaffUseBoundary {
 		return cinema;
 	}
 	
-	private static Cinema staffConfig(Cinema cinema) {
+	private static Cinema staffConfig(Cinema cinema, Cineplex cineplex) {
 		Scanner sc = new Scanner(System.in);
+		PricingList PriceList = cineplex.getPriceList();
 		int choice;
 		do {
 			System.out.println("Select an Option:\n1. Edit Theatre Type\n2. Edit Price List\n3. Return");
@@ -521,7 +522,6 @@ public class StaffUseBoundary {
 				break;
 			case 2:
 				int tixchoice, ifelse;
-				Payment PriceList = new Payment();
 				do {
 					System.out.println("Choose Ticket Type: ");
 					System.out.println("1. Senior\n2. Student\n3. Mon - Wed\n4. Thurs\n5. Friday(before 6pm)\n6. Friday(After 6pm)\n7. Sat & Sun\n8. Sneakpreview\n9. Blockbuster");
