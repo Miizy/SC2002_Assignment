@@ -24,9 +24,8 @@ public class Theatre implements Serializable{
      * @param theatreID The Number ID of the theatre
      * @param theatreClass The type of theatre
      * @param cinemaID The Number ID of the Cinema
-     * @throws IOException If there is input error
      */
-	Theatre(int theatreID, int theatreClass, int cinemaID) throws IOException{
+	Theatre(int theatreID, int theatreClass, int cinemaID){
 		this.setTheatreID(theatreID, cinemaID);
 		this.setTheatreClass(theatreClass);
 	}
