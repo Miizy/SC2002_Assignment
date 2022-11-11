@@ -5,12 +5,17 @@ import java.util.Iterator;
 import java.util.Scanner;
 import java.util.GregorianCalendar;
 import java.util.Calendar;
-
+/**
+ * A controller class used by Staff to coordinate
+ * with the Staff boundary class and the entity classes
+ *
+ */
 public class StaffUseController {
+	
 	/**
-	 * Gets the various show times for the specified cinema
-	 * @param cinema Specific cinema to retrieve its show times
-	 * @return A string of show times
+	 * Gets the all movie show times for the specified cinema
+	 * @param cinema The specified cinema to retrive all the movie time slots from
+	 * @return A string of movie show times
 	 */
 	public static String getShowtimes(Cinema cinema) {
 		ArrayList<String> order = new ArrayList<String>();
@@ -35,6 +40,11 @@ public class StaffUseController {
 		return String.join("\n", movie);
 	}
 	
+	/**
+	 * Checks the if the input date is of the format DD-MM-YYYY HHmm
+	 * @param dateStr A date formatted as a string to be checked
+	 * @return True if date is formatted properly, False if date is of the wrong format
+	 */
 	public static boolean isValidTime(String dateStr) {
 		try {
 			new SimpleDateFormat("dd-MM-yyyy HHmm").parse(dateStr);
@@ -44,6 +54,11 @@ public class StaffUseController {
 		}
     }
 	
+	/**
+	 * Get the list of movies in a specific cinema
+	 * @param cinema The specified cinema to retrieve movies from
+	 * @return A list of movies
+	 */
 	public static String getMovies(Cinema cinema) {
 		String listOfMovies = "Lists of Movies:\n";
 		int ind = 0;
@@ -58,6 +73,13 @@ public class StaffUseController {
 		return listOfMovies;
 	}
 	
+	/**
+	 * Changes a movie's show status to End Of Showing
+	 * Removes the movie from all the cinema's schedule
+	 * @param cinema The specified cinema to retrieve the movie and time slots from
+	 * @param movieIndex Index of the movie in the movie list
+	 * @return An updated cinema containing the updated movie and schedules
+	 */
 	public static Cinema deleteMovie(Cinema cinema, int movieIndex) {
 		Movie movieChange = cinema.getMovie(movieIndex);
 
@@ -84,6 +106,11 @@ public class StaffUseController {
 		return cinema;
 	}
 	
+	/**
+	 * Displays only the current top 5 movies sorted by sales
+	 * @param cinema The specified cinema to retrieve movies from
+	 * @return A string of the top 5 movies sorted by sales
+	 */
 	public static String displayTop5BySale(Cinema cinema) {
 		double[][] movieSales = new double[2][cinema.getListOfMovie().size()];
 		for(int i=0;i<cinema.getListOfMovie().size();i++) {
@@ -121,6 +148,11 @@ public class StaffUseController {
 		return top5;
 	}
 	
+	/**
+	 * Displays only the current top 5 movies sorted by ratings
+	 * @param cinema The specified cinema to retrieve movies from
+	 * @return A string of the top 5 movies sorted by sales
+	 */
 	public static String displayTop5ByRating(Cinema cinema) {
 		float[][] movieRatings = new float[2][cinema.getListOfMovie().size()];
 		for(int i=0;i<cinema.getListOfMovie().size();i++) {
@@ -158,6 +190,11 @@ public class StaffUseController {
 		return top5;
 	}
 	
+	/**
+	 * Gets a list of theaters from a specific cinema
+	 * @param cinema The specified cinema to retrieve theatres from
+	 * @return A list of theater indexes
+	 */
 	public static String getTheatreIndex(Cinema cinema) {
 		String listOfTheatre = "Select Theatre index:\n";
 		for(int i=0;i<cinema.getListOfTheatre().size();i++) {
@@ -167,6 +204,11 @@ public class StaffUseController {
 		return listOfTheatre;
 	}
 	
+	/**
+	 * Gets a list of time slots from a specific cinema
+	 * @param theatre The specified theatre to retrieve time slots from
+	 * @return A list of time slots
+	 */
 	public static String getTimeslotIndex(Theatre theatre) {
 		String timeslots = "";
 		for(int i=0; i<theatre.getTimeslot().size(); i++) {
@@ -176,6 +218,11 @@ public class StaffUseController {
 		return timeslots; 
 	}
 	
+	/**
+	 * Displays the list of holidays for a specific cinema
+	 * @param cinema The specified cinema to retrieve the list of holidays from
+	 * @return A list of holidays
+	 */
 	public static String displayHolidayList(Cinema cinema) {
 		String month[] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
 						  "Aug", "Sep", "Oct", "Nov", "Dec"};
@@ -186,6 +233,11 @@ public class StaffUseController {
 		return holidaylist;
 	}
 	
+	/**
+	 * Checks if the input string date array can be converted to an integer array
+	 * @param date A date array containing integers represented as string
+	 * @return True if conversion to integer is possible, False if conversion to integer is not possible
+	 */
 	public static boolean isValidDate(String[] date) {
 		try {
 			int day = Integer.parseInt(date[0]);
@@ -197,6 +249,12 @@ public class StaffUseController {
 		}
 	}
 	
+	/**
+	 * Creates a new GregorianCalendar object to be added to the holiday list
+	 * @param cinema The specified cinema to retrieve the list of holidays from
+	 * @return An updated cinema containing the new list of holidays
+	 * @throws ParseException If inputed holiday date is not of the correct format
+	 */
 	public static Cinema addHoliday(Cinema cinema) throws ParseException {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter holiday date in dd-MM-yyyy");
@@ -215,6 +273,11 @@ public class StaffUseController {
 		return cinema;
 	}
 	
+	/**
+	 * Removes a specific holiday from the list of holidays
+	 * @param cinema The specified cinema to retrieve the list of holidays from
+	 * @return An updated cinema containing the new list of holidays
+	 */
 	public static Cinema delHoliday(Cinema cinema) {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Select holiday to delete:");
