@@ -4,7 +4,7 @@ import java.util.Date;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 
-public class Payment extends PricingListBoundary implements Serializable{
+public class PaymentController extends PricingListBoundary implements Serializable{
 	private double price = 0.00;
 	private boolean paid = false;
 	private double change = 0.00;

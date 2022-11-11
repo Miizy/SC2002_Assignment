@@ -2,7 +2,7 @@ import java.util.Scanner;
 import java.util.Calendar;
 import java.util.Objects;
 
-public class MovieGoerUse {
+public class MovieGoerUseBoundary {
 
 	public static int GoerID;
 	public static String GoerName;
@@ -230,7 +230,7 @@ public class MovieGoerUse {
 
 	public static void paymentSeats(Cinema cinema, MovieGoer goer, Cineplex cineplex){
 		Scanner sc = new Scanner(System.in);
-		Payment Price = new Payment();
+		PaymentController Price = new PaymentController();
 		double total = 0;
 		SeatStatus SS = SeatStatus.ap;
 		int selection[] = selectMovieAndTheatre(cinema);

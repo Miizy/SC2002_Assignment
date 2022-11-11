@@ -17,7 +17,7 @@ public class AppBoundary {
 				cineplex = StaffUseBoundary.StaffChoice(cineplex);
 				break;
 			case 2:
-				cineplex = MovieGoerUse.MovieGoerChoice(cineplex);
+				cineplex = MovieGoerUseBoundary.MovieGoerChoice(cineplex);
 				break;
 			case 3:
 				System.out.println("Exiting program...");
