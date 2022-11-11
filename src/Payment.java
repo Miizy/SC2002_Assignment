@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.util.Calendar;
+import java.util.Date;
 import java.text.DecimalFormat;
 
 public class Payment extends PricingList{
@@ -47,10 +48,12 @@ public class Payment extends PricingList{
 	public double getchange() {
 		return change;
 	}
-	public TicketType chooseTicketType() { //to implement holiday checking && loyalty cards
+	public TicketType chooseTicketType(Theatre theatre, int index) { //to implement holiday checking && loyalty cards
 		TicketType TickType = TicketType.EM;
-		int hr = Calendar.HOUR_OF_DAY;
-		int day = Calendar.DAY_OF_WEEK;
+		int hr = theatre.getTimeslot().get(index).getStartTime().getTime().getHours();
+		int day = theatre.getTimeslot().get(index).getStartTime().getTime().getDay();
+		System.out.println("HR "+hr);
+		System.out.println("Day " + day);
 		switch (day) {
 		case 1/*Monday*/:
 		case 2/*Tuesday*/:

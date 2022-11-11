@@ -220,7 +220,6 @@ public class MovieGoerUse {
 
 	public static void getSeatAvailability(Cinema cinema){
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Select Movie: ");
 		int selection[] = selectMovieAndTheatre(cinema);
 		int id = selection[0];
 		Theatre theatre = cinema.getTheatre(id - 1);
@@ -243,13 +242,14 @@ public class MovieGoerUse {
 		System.out.println("Select Timeslot: ");
 		int TS = sc.nextInt() - 1;					//TS index
 		Price.PriceList(); //listing out pricing list
-		MovieType MT = theatre.getTimeslot().get(TS).getMovie().getMovieType();//choose MovieType//replace in future
+		MovieType MT = theatre.getTimeslot().get(TS).getMovie().getMovieType();//choose MovieType
 		if(MT == MovieType.RD) {
 			System.out.println("Movie Type: Regular & Digital Movies");
 		}
 		else {
 			System.out.println("Movie Type: 3D Movies");
 		}
+		System.out.println("TheatreType: "+ theatre.getTheatreClass());
 		System.out.println("Select Number of Tickets:");
 		int noTick = sc.nextInt();
 		Tickets[] Ticketarray = new Tickets[noTick];
@@ -257,15 +257,15 @@ public class MovieGoerUse {
 			/*Select & Book Seats Code here*/
 			//show seat
 			System.out.println(theatre.getTimeslot().get(TS).getSeating().showSeats());
-			TicketType TT = Price.chooseTicketType();//choose student etc.
+			TicketType TT = Price.chooseTicketType(theatre, TS);//choose student etc.
 			while(true) {
 				System.out.print("Select Row: ");
 				int Row = sc.nextInt();
-				while(Row>6||Row<1) {
+				while(Row>6||Row<1) {				//i hardcoded coz idk the size for theatre
 					System.out.println("Invalid Input, please select Row(1-6): ");
 					Row = sc.nextInt();
 				}
-				System.out.print("Select Column: ");
+				System.out.print("Select Column: "); //i hardcoded coz i dk the size for theatre
 				int Col = sc.nextInt();
 				while(Col>8||Col<1) {
 					System.out.println("Invalid Input, please select Column(1-8): ");
@@ -277,7 +277,9 @@ public class MovieGoerUse {
 					if(theatre.getTimeslot().get(TS).getSeating().getSeatAt(Col, Row).getbook() == false) { //empty seat
 						theatre.getTimeslot().get(TS).getSeating().getSeatAt(Col, Row).bookseat(); //book seat}
 						if(SS == SeatStatus.ac) {
-							noTick = noTick - 1;
+							if(noTick != 1) {
+								noTick = noTick - 1;
+							}
 						}
 						break;
 					}
