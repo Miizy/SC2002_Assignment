@@ -3,6 +3,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
+import java.util.GregorianCalendar;
+import java.util.Calendar;
 
 public class StaffUseController {
 	
@@ -42,8 +44,10 @@ public class StaffUseController {
 		String listOfMovies = "Lists of Movies:\n";
 		int ind = 0;
 		for(int i=0;i<cinema.getListOfMovie().size();i++) {
-			if(!cinema.getListOfMovie().get(i).getShowStatus().getStatus().equals("End Of Showing")) {
-				ind+=1;
+			ind+=1;
+			if(cinema.getListOfMovie().get(i).getShowStatus().getStatus().equals("End Of Showing")) {
+				listOfMovies += (ind + ". " + cinema.getListOfMovie().get(i).getMovieTitle() + " (Fin)\n");
+			} else {
 				listOfMovies += (ind + ". " + cinema.getListOfMovie().get(i).getMovieTitle() + "\n");
 			}
 		}
@@ -55,7 +59,14 @@ public class StaffUseController {
 
 		movieChange.setShowStatus(4);
 		String movieTitle = movieChange.getMovieTitle();
-		cinema.replaceMovie(movieIndex, movieChange);
+		int finIndex = cinema.getListOfMovie().size()-1;
+		while(cinema.getListOfMovie().get(finIndex).getShowStatus().getStatus().equals("End Of Showing")){
+			finIndex--;
+			System.out.println("finIndex is "+finIndex);
+		};
+		Movie temp = cinema.getMovie(finIndex);
+		cinema.replaceMovie(movieIndex, temp);
+		cinema.replaceMovie(finIndex, movieChange);
 		for(int i=0;i<cinema.getListOfTheatre().size();i++) {
 			Theatre theatre = cinema.getListOfTheatre().get(i);
 			Iterator<TimeSlot> movieSlots = theatre.getTimeslot().iterator();
@@ -161,4 +172,24 @@ public class StaffUseController {
 		return timeslots; 
 	}
 	
+	public static String displayHolidayList(Cinema cinema) {
+		String month[] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
+						  "Aug", "Sep", "Oct", "Nov", "Dec"};
+		String holidaylist = "Current holiday list:\n";
+		for(int i=0;i<cinema.getHolidayList().size();i++) {
+			holidaylist += (i+1) + ". "+cinema.getHolidayList().get(i).get(Calendar.DATE)+" "+month[cinema.getHolidayList().get(i).get(Calendar.MONTH)]+" "+cinema.getHolidayList().get(i).get(Calendar.YEAR)+"\n";
+		}
+		return holidaylist;
+	}
+	
+	public static boolean isValidDate(String[] date) {
+		try {
+			int day = Integer.parseInt(date[0]);
+			int month = Integer.parseInt(date[1]);
+			int year = Integer.parseInt(date[2]);
+			return true;
+		} catch (NumberFormatException ex) {
+			return false;
+		}
+	}
 }

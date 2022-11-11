@@ -490,7 +490,7 @@ public class StaffUseBoundary {
 				choice = 1;
 				break;
 			}
-		}while(choice != 9);
+		}while(choice != 10);
 		cinema.replaceMovie(movieIndex, movieChange);
 		return cinema;
 	}
@@ -502,12 +502,12 @@ public class StaffUseBoundary {
 		return cinema;
 	}
 	
-	private static Cinema staffConfig(Cinema cinema, Cineplex cineplex) {
+	private static Cinema staffConfig(Cinema cinema, Cineplex cineplex)throws ParseException{
 		Scanner sc = new Scanner(System.in);
 		PricingList PriceList = cineplex.getPriceList();
 		int choice;
 		do {
-			System.out.println("Select an Option:\n1. Edit Theatre Type\n2. Edit Price List\n3. Return");
+			System.out.println("Select an Option:\n1. Edit Theatre Type\n2. Edit Price List\n3. Holiday List\n4. Return");
 			choice = sc.nextInt();
 			switch(choice) {
 			case 1:
@@ -662,11 +662,39 @@ public class StaffUseBoundary {
 				} while(tixchoice != 13);
 				break;
 			case 3:
+				int holChoice=0;
+				System.out.println("1. Display Holiday List\n2. Add Holiday\n3. Delete Holiday\n4. Return");
+				holChoice = sc.nextInt();
+				while(holChoice>4 || holChoice<1) {
+					System.out.println("Invalid input. Please try again");
+					System.out.println("1. Display Holiday List\n2. Add Holiday\n3. Delete Holiday\n4. Return");
+					holChoice = sc.nextInt();
+				}
+				switch(holChoice) {
+					case 1:
+						System.out.println(StaffUseController.displayHolidayList(cinema));
+						break;
+					case 2:
+						cinema = addHoliday(cinema);
+						break;
+					case 3:
+						if(cinema.getHolidayList().size()==0) {
+							System.out.println("No holidays to delete");
+						} else {
+							System.out.println(StaffUseController.displayHolidayList(cinema));
+							cinema = delHoliday(cinema);
+						}
+						break;
+					default:
+						System.out.println("Invalid input. Please try again.");
+					}
+				break;
+			case 4:
 				break;
 			default:
 				System.out.println("Invalid input. Please try again.");
 			}
-		} while(choice!=3);
+		} while(choice!=4);
 		return cinema;
 	}
 	
@@ -690,4 +718,34 @@ public class StaffUseBoundary {
 		return cinema;
 	}
 	
+	private static Cinema addHoliday(Cinema cinema) throws ParseException {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter holiday date in dd-MM-yyyy");
+		String holidayStr = sc.next();
+		String[] holidayArr = holidayStr.split("-");
+		if(StaffUseController.isValidDate(holidayArr)) {
+			int day = Integer.parseInt(holidayArr[0]);
+			int month = Integer.parseInt(holidayArr[1]);
+			int year = Integer.parseInt(holidayArr[2]);
+			GregorianCalendar holiday = new GregorianCalendar(year, month-1, day);
+			cinema.getHolidayList().add(holiday);
+			System.out.println("Holiday date added.");
+		} else {
+			System.out.println("Invalid date");
+		}
+		return cinema;
+	}
+	
+	private static Cinema delHoliday(Cinema cinema) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Select holiday to delete:");
+		int choice = sc.nextInt()-1;
+		if(choice<0 || choice > cinema.getHolidayList().size()) {
+			System.out.println("Invalid input. Please try again");
+		} else {
+			cinema.getHolidayList().remove(choice);
+			System.out.println("Successfully removed");
+		}
+		return cinema;
+	}
 }

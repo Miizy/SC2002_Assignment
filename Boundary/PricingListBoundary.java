@@ -1,5 +1,8 @@
 import java.io.Serializable;
 import java.util.Scanner;
+import java.util.GregorianCalendar;
+import java.util.ArrayList;
+import java.util.Calendar;
 
 public class PricingListBoundary{
 	public void PriceList(PricingList Pricelist) {
@@ -36,16 +39,28 @@ public class PricingListBoundary{
 		System.out.printf("\n\nTickets for movies denoted as 'BlockBuster' will be charged at $%.2f more than the prevailing rate\n", Pricelist.getBlockBusterPrice());
 		System.out.println("---------------------------------------------------------------------------------------------------");
 	}
-	public TicketType chooseTicketType(Theatre theatre, int index) { //to implement holiday checking && loyalty cards
+	public TicketType chooseTicketType(Cinema cinema,Theatre theatre, int index) { //to implement loyalty cards
 		Scanner scan = new Scanner(System.in);
 		TicketType TickType = TicketType.EM;
 		int hr = theatre.getTimeslot().get(index).getStartTime().getTime().getHours();
 		int day = theatre.getTimeslot().get(index).getStartTime().getTime().getDay();
+		
+		ArrayList<GregorianCalendar> holidayList = cinema.getHolidayList();
+		boolean holidayCheck=false;
+		int bookedMonth = theatre.getTimeslot().get(index).getStartTime().get(Calendar.MONTH);
+		int bookedDate = theatre.getTimeslot().get(index).getStartTime().get(Calendar.DATE);
+		int bookedYear = theatre.getTimeslot().get(index).getStartTime().get(Calendar.YEAR);
+		for(int i=0;i<cinema.getHolidayList().size();i++) {
+			if((bookedMonth==cinema.getHolidayList().get(i).get(Calendar.MONTH))&&(bookedDate==cinema.getHolidayList().get(i).get(Calendar.DATE))&&(bookedYear==cinema.getHolidayList().get(i).get(Calendar.YEAR))){
+				holidayCheck = true;
+				break;
+			}
+		}
 		switch (day) {
 		case 1/*Monday*/:
 		case 2/*Tuesday*/:
 		case 3/*Wednesday*/:
-			if(hr < 18) {//if before 6pm
+			if(hr < 18 && !holidayCheck) {//if before 6pm
 				System.out.println("Select TicketType: ");
 				System.out.println("=======================");
 				System.out.println("1. Senior Citizens");
@@ -76,7 +91,7 @@ public class PricingListBoundary{
 			}
 			break;
 		case 4/*Thursday*/:
-			if(hr < 18) {//if before 6pm
+			if(hr < 18 && !holidayCheck) {//if before 6pm
 				System.out.println("Select TicketType: ");
 				System.out.println("=======================");
 				System.out.println("1. Senior Citizens");
@@ -107,7 +122,7 @@ public class PricingListBoundary{
 				}
 			break;
 		case 5/*Friday*/:
-			if(hr < 18) {//if before 6pm
+			if(hr < 18 && !holidayCheck) {//if before 6pm
 				System.out.println("Select TicketType: ");
 				System.out.println("=======================");
 				System.out.println("1. Senior Citizens");
