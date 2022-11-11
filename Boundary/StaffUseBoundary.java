@@ -675,14 +675,14 @@ public class StaffUseBoundary {
 						System.out.println(StaffUseController.displayHolidayList(cinema));
 						break;
 					case 2:
-						cinema = addHoliday(cinema);
+						cinema = StaffUseController.addHoliday(cinema);
 						break;
 					case 3:
 						if(cinema.getHolidayList().size()==0) {
 							System.out.println("No holidays to delete");
 						} else {
 							System.out.println(StaffUseController.displayHolidayList(cinema));
-							cinema = delHoliday(cinema);
+							cinema = StaffUseController.delHoliday(cinema);
 						}
 						break;
 					default:
@@ -718,34 +718,4 @@ public class StaffUseBoundary {
 		return cinema;
 	}
 	
-	private static Cinema addHoliday(Cinema cinema) throws ParseException {
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter holiday date in dd-MM-yyyy");
-		String holidayStr = sc.next();
-		String[] holidayArr = holidayStr.split("-");
-		if(StaffUseController.isValidDate(holidayArr)) {
-			int day = Integer.parseInt(holidayArr[0]);
-			int month = Integer.parseInt(holidayArr[1]);
-			int year = Integer.parseInt(holidayArr[2]);
-			GregorianCalendar holiday = new GregorianCalendar(year, month-1, day);
-			cinema.getHolidayList().add(holiday);
-			System.out.println("Holiday date added.");
-		} else {
-			System.out.println("Invalid date");
-		}
-		return cinema;
-	}
-	
-	private static Cinema delHoliday(Cinema cinema) {
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Select holiday to delete:");
-		int choice = sc.nextInt()-1;
-		if(choice<0 || choice > cinema.getHolidayList().size()) {
-			System.out.println("Invalid input. Please try again");
-		} else {
-			cinema.getHolidayList().remove(choice);
-			System.out.println("Successfully removed");
-		}
-		return cinema;
-	}
 }

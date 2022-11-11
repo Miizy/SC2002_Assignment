@@ -7,7 +7,11 @@ import java.util.GregorianCalendar;
 import java.util.Calendar;
 
 public class StaffUseController {
-	
+	/**
+	 * Gets the various show times for the specified cinema
+	 * @param cinema Specific cinema to retrieve its show times
+	 * @return A string of show times
+	 */
 	public static String getShowtimes(Cinema cinema) {
 		ArrayList<String> order = new ArrayList<String>();
 		ArrayList<String> movie = new ArrayList<String>();
@@ -192,4 +196,36 @@ public class StaffUseController {
 			return false;
 		}
 	}
+	
+	public static Cinema addHoliday(Cinema cinema) throws ParseException {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter holiday date in dd-MM-yyyy");
+		String holidayStr = sc.next();
+		String[] holidayArr = holidayStr.split("-");
+		if(StaffUseController.isValidDate(holidayArr)) {
+			int day = Integer.parseInt(holidayArr[0]);
+			int month = Integer.parseInt(holidayArr[1]);
+			int year = Integer.parseInt(holidayArr[2]);
+			GregorianCalendar holiday = new GregorianCalendar(year, month-1, day);
+			cinema.getHolidayList().add(holiday);
+			System.out.println("Holiday date added.");
+		} else {
+			System.out.println("Invalid date");
+		}
+		return cinema;
+	}
+	
+	public static Cinema delHoliday(Cinema cinema) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Select holiday to delete:");
+		int choice = sc.nextInt()-1;
+		if(choice<0 || choice > cinema.getHolidayList().size()) {
+			System.out.println("Invalid input. Please try again");
+		} else {
+			cinema.getHolidayList().remove(choice);
+			System.out.println("Successfully removed");
+		}
+		return cinema;
+	}
+	
 }
