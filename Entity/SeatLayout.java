@@ -22,9 +22,9 @@ public class SeatLayout implements Serializable{
      */
     private final static int SROWS = 6;
 	/**
-     * A 2D Matrix of seats with default being normal size
+     * A 2D Matrix of seats
      */
-    private Seats [][] allseats= new Seats[NROWS][NCOLS];
+    private Seats [][] allseats;
     /**
      * The Theater type 
      */
@@ -35,10 +35,12 @@ public class SeatLayout implements Serializable{
      */
     public SeatLayout(TheatreClass type){
         if(type==TheatreClass.plat){
+			allseats= new Seats[NROWS][NCOLS];
             this.theatreClass= TheatreClass.plat;
             initializeSeats();
         }
         else{
+			allseats= new Seats[SROWS][SCOLS];
             this.theatreClass= TheatreClass.elit;
             initializeEliteSeats();
         }
@@ -58,8 +60,8 @@ public class SeatLayout implements Serializable{
      * @return Seat class in the all seats.
      */
     public Seats getSeatAt(int col, int row){
-
-		int midcol=6;
+		try {
+			int midcol=6;
 		if(this.theatreClass==TheatreClass.elit){
 			midcol=4;
 		}
@@ -89,6 +91,11 @@ public class SeatLayout implements Serializable{
 			return allseats[row-1][col-1];
 		}
 		return allseats[row-1][col];
+		} catch (ArrayIndexOutOfBoundsException e) {
+			// TODO: handle exception
+			System.out.println("Wrong Row and Column number! Enter in range please.");
+		}
+		return null;
 	}
 	/**
      * Initializes the 2D array by filling it up with Normal and Couple types of seats 
