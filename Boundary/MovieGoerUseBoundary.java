@@ -363,7 +363,6 @@ public class MovieGoerUseBoundary {
 		System.out.println("Change Given: " + Price.getchange());
 		String tID = Price.GetTID(ID, Calendar.getInstance());
 		System.out.println("Transaction ID: " + tID);
-		Price.Reset();
 		goer.addBooking(tID);
 	}
 

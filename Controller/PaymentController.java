@@ -11,24 +11,24 @@ public class PaymentController extends PricingListBoundary implements Serializab
 	/**
 	 * price of ticket
 	 */
-	private double price = 0.00;
+	private double price;
 	/**
 	 * whether the movie goer has paid for the ticket
 	 */
-	private boolean paid = false;
+	private boolean paid;
 	/**
 	 * change to return to the movie goer
 	 */
-	private double change = 0.00;
+	private double change;
 	/**
 	 * unique transaction ID for the booking
 	 */
 	private String TID;
 	Scanner scan = new Scanner(System.in);
 	/**
-	 * reset the ticket cost after purchase is completed
+	 *Constructor with initial values
 	 */
-	public void Reset() {
+	public PaymentController() {
 		price = 0;
 		paid = false;
 		change = 0;
