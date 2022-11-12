@@ -1,13 +1,23 @@
 import java.util.Scanner;
 import java.util.Calendar;
 import java.util.Objects;
+/**
+ * A boundary class used by Movie Goers as an interface
+ */
 
 public class MovieGoerUseBoundary {
-
 	public static int GoerID;
 	public static String GoerName;
 
+	/**
+	 * Calls the User login if existing user else call user sign up if new user for user authentication
+	 * User to log in using Email and Phone number used to sign up
+	 * Thereafter choose cinema function to update the current cineplex
+	 * @param cineplex to be updated
+	 * @return An updated cineplex containing any updates done during the choose cinema function
+	 */
 	public static Cineplex MovieGoerChoice(Cineplex cineplex) {
+
 		Scanner sc = new Scanner (System.in);
 		boolean loginSuccess = false;
 		System.out.println("Select 1 if you are a new User.");
@@ -33,6 +43,13 @@ public class MovieGoerUseBoundary {
 		return cineplex;
 	}
 
+	/**
+	 * Creates and authenticates the new user by checking user details
+	 * User details contains of unique username, email and phone number
+	 * Calls enter name, enter number and enter email
+	 * @param cineplex to be updated with user details
+	 * @return An updadated cineplex with user details
+	 */
 	public static Cineplex MovieGoerSignup(Cineplex cineplex){
 		Scanner sc = new Scanner(System.in);
 		System.out.println("---------Sign Up-------------");
@@ -54,6 +71,14 @@ public class MovieGoerUseBoundary {
 		return cineplex;
 	}
 
+	/**
+	 * Authenticates existing users by checking user details
+	 * Checks if there are exisiting users else call user signup
+	 * User details contains of unique username, email and phone number
+	 * Calls enter name, enter number and enter email
+	 * @param cineplex to be updated with user details
+	 * @return An updadated cineplex with user details
+	 */
 	public static Cineplex MovieGoerLogin(Cineplex cineplex) {
 		if(cineplex.getListofGoers().isEmpty()){
 			System.out.println("No users registered");
@@ -93,6 +118,11 @@ public class MovieGoerUseBoundary {
 		return cineplex;
 	}
 
+	/**
+	 * Specifies the cinema to be used and calls the user options functions to edit the cinema
+	 * @param cineplex to retrieve cinema from
+	 * @return An updated cineplex containing updates from the user option functions
+	 */
 	private static Cineplex GoerCinema(Cineplex cineplex){
 		Scanner sc = new Scanner(System.in);
 		while(true) {
@@ -120,7 +150,14 @@ public class MovieGoerUseBoundary {
 			cineplex.setCinema(cinema.getCinemaID(), cinema);
 		}
 	}
-
+	
+	/**
+	 * Gives the MovieGoer the option to list movies, movie details, check seat availability, book/purchase tickets, 
+	 * view booking history, list top 5 movies based on ratings and add/view reviews
+	 * @param cinema The specified cinema to adjust
+	 * @param cineplex The current cineplex
+	 * @return An updated cinema containing updated movie reviews, ratings and users' booking history
+	 */
 	private static Cinema GoerOptions(Cinema cinema, Cineplex cineplex){
 		Scanner sc = new Scanner(System.in);
 		int choice;
@@ -202,6 +239,10 @@ public class MovieGoerUseBoundary {
 		return cinema;
 	}
 
+	/**
+	 * Prints User's booking history, including their name, email, phone no. and transactionID.
+	 * @param cineplex to get the specfic moviegoer from
+	 */
 	public static void getBookingHistory(Cineplex cineplex){
 		System.out.println("===== Booking History =====");
 		System.out.println("Name: " + cineplex.getGoer(GoerID).getName());
@@ -218,6 +259,10 @@ public class MovieGoerUseBoundary {
 		System.out.println("---------------------------");
 	}
 
+	/**
+	 * Prints seat layout including seat availablity of a specific cinema and a speciic theatre
+	 * @param cinema to get the specific theatre and timeslot of a movie 
+	 */
 	public static void getSeatAvailability(Cinema cinema){
 		Scanner sc = new Scanner(System.in);
 		int selection[] = selectMovieAndTheatre(cinema);
@@ -228,6 +273,13 @@ public class MovieGoerUseBoundary {
 		System.out.println(theatre.getTimeslot().get(TS).getSeating().showSeats());
 	}
 
+	/**
+	 * Method for purchasing of tickets
+	 * Allows for selecting of movies, theatre showtimes, seats and puchasing of tickets
+	 * @param cinema to get the specific theatre and timeslot of a movie
+	 * @param goer to save the transaction ID generated to the user
+	 * @param cineplex to choose ticket types available
+	 */
 	public static void paymentSeats(Cinema cinema, MovieGoer goer, Cineplex cineplex){
 		Scanner sc = new Scanner(System.in);
 		PaymentController Price = new PaymentController();
@@ -315,6 +367,11 @@ public class MovieGoerUseBoundary {
 		goer.addBooking(tID);
 	}
 
+	/**
+	 * Method to setect a specific movie and theatre and showtimes
+	 * @param cinema to get the specific theatre and timeslot of a movie 
+	 * @return movie choice and theatre id in an array
+	 */
 	private static int []selectMovieAndTheatre(Cinema cinema){
 		int numOfMovies = cinema.getListOfMovie().size();
 		int numOfTheaters = cinema.getListOfTheatre().size();
@@ -350,6 +407,13 @@ public class MovieGoerUseBoundary {
 		return new int[] {id, mc};
 	}
 
+	/**
+	 * Creates an array that indicates if theatre has specific movieshowtimes is available or not
+	 * If an array element is 0, indicates that the theater does not show the specfic movie
+	 * @param cinema to get the specific theatre and timeslot of a movie 
+	 * @param movieChoice to get the specific movie
+	 * @return an array indicating if the theatre is showing the movie or not
+	 */
 	private static int[] listofAvaliableTheater(Cinema cinema, int movieChoice){
 		int numOfTheaters = cinema.getListOfTheatre().size();
 		int[] availArr = new int[numOfTheaters];
@@ -374,6 +438,13 @@ public class MovieGoerUseBoundary {
 		return availArr;
 	}
 
+	/**
+	 * Method to check username entered during user signup is unique
+	 * Searches through the entire list of exisitng username and compares
+	 * Promts user to enter vaid username
+	 * @param cineplex to get usernames of other users for comaparison
+	 * @return a valid username string
+	 */
 	public static String enterName(Cineplex cineplex){
 		boolean nameExists = false;
 		String name;
@@ -401,6 +472,12 @@ public class MovieGoerUseBoundary {
 		return name;
 	}
 
+	/**
+	 * Method to check if entered phone number is valid 
+	 * Checks if number has 8 digits and starts with 8 or a 9
+	 * Prompts user to enter vaid phone number
+	 * @return a valid phone number string
+	 */
 	public static String enterNumber(){
 		Scanner sc = new Scanner(System.in);
 		int number;
@@ -416,6 +493,12 @@ public class MovieGoerUseBoundary {
 		return String.valueOf(number);
 	}
 
+	/**
+	 * Method to check if entered user email is valid 
+	 * Checks if email has characters '@' and '.com'
+	 * Promts uset to enter valid email address
+	 * @return a valid email address string
+	 */
 	public static String enterEmail(){
 		Scanner sc = new Scanner(System.in);
 		String email;
@@ -430,6 +513,12 @@ public class MovieGoerUseBoundary {
 		return email;
 	}
 
+	/**
+	 * Creates an array that indicates if a movie is showing or not
+	 * If an array element is 0, indicates that the movie has no showtimes
+	 * @param cinema to get the movies
+	 * @return an array indicating if a movie is showing or not
+	 */
 	private static int[] listofMoviesWithShowtimes(Cinema cinema){
 		int numOfMovies = cinema.getListOfMovie().size();
 		int[] availArr = new int[numOfMovies];
@@ -453,6 +542,10 @@ public class MovieGoerUseBoundary {
 		return availArr;
 	}
 	
+	/**
+	 * Prints the list of movies in a cinema
+	 * @param cinema to get the movies
+	 */
 	private static void printListofMovies(Cinema cinema){
 		for(int i=0; i<cinema.getListOfMovie().size();i++){
 			System.out.println(" " + (i+1)+ ". " + cinema.getMovie(i).getMovieTitle());
@@ -460,6 +553,10 @@ public class MovieGoerUseBoundary {
 		System.out.println();
 	}
 	
+	/**
+	 * Prints the list of top 5 movies in a cinema based on user ratings 
+	 * @param cinema to get the movies
+	 */
 	private static void printListofTopMovies(Cinema cinema){
 		int numOfMovies = cinema.getListOfMovie().size();
 		int[] movieIndex = new int[numOfMovies];
@@ -495,6 +592,14 @@ public class MovieGoerUseBoundary {
 		}
 	}
 	
+	/**
+	 * Method for moviegoer to write review on a specific movie
+	 * One review per user 
+	 * @param cinema to get the movies
+	 * @param movieChoice to select a specific movie
+	 * @param name of the user to write the review
+	 * @returns cinema holding movie review and ratings by a user
+	 */
 	private static Cinema writeReview(Cinema cinema, int movieChoice, String name){
 		Scanner sc = new Scanner(System.in);
 		int rating;
@@ -525,6 +630,12 @@ public class MovieGoerUseBoundary {
 		return cinema;
 	}
 
+	/**
+	 * Prints past review of a specific movie
+	 * Printing will include overall ratings and individal ratings and review by users
+	 * @param cinema to get the movies
+	 * @param movieChoice to select a specific movie
+	 */
 	private static void printPastReviews(Cinema cinema, int movieChoice){
 		if(cinema.getMovie(movieChoice-1).getNamesOfPastReviewers().size()<2){
 			System.out.println("Overall Rating: NA");
@@ -540,7 +651,13 @@ public class MovieGoerUseBoundary {
 		}
 	}
 
-	private static Cinema printDetailsofMovie(Cinema cinema, int movieChoice){
+	/**
+	 * Prints details of a specific movie
+	 * Printing will include secified movie's title, status, synopsis, director, casts, blockbuster, sneak preivew
+	 * @param cinema to get the movies
+	 * @param movieChoice to select a specific movie
+	 */
+	private static void printDetailsofMovie(Cinema cinema, int movieChoice){
 		System.out.println("*************************");
 		System.out.println(cinema.getMovie(movieChoice-1).getMovieTitle() + ": ");
 		System.out.println("  Show Status: " + cinema.getMovie(movieChoice-1).getShowStatus().getStatus());
@@ -558,9 +675,11 @@ public class MovieGoerUseBoundary {
 		}else{System.out.println("  Sneak Preview: No" );}
 		printPastReviews(cinema, movieChoice);
 		System.out.println("*************************");
-		return cinema;
 	}
 	
+	/**
+	 * Prints user interface used when users are selecting their choice
+	 */
 	public static void printUIChoice(){
 		System.out.println("==============================");
 		System.out.println("1. Search/List Movies");
