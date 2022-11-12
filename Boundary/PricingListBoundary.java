@@ -4,7 +4,13 @@ import java.util.GregorianCalendar;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+/**
+ *Class to display Prices in table and choose ticket type 
+ */
 public class PricingListBoundary{
+	/**
+	 * Display Prices in table format
+	 */
 	public void PriceList(PricingList Pricelist) {
 		System.out.println("Ticket Type                     Regular & Digital Movies                     3D Movies");
 		System.out.println("===================================================================================================");
@@ -39,6 +45,14 @@ public class PricingListBoundary{
 		System.out.printf("\n\nTickets for movies denoted as 'BlockBuster' will be charged at $%.2f more than the prevailing rate\n", Pricelist.getBlockBusterPrice());
 		System.out.println("---------------------------------------------------------------------------------------------------");
 	}
+	
+	/**
+	 * to assign a ticket type to the ticket purchased
+	 * @param cineplex To retrieve the holidays from
+	 * @param theatre The specific Theatre to get the timeslot from
+	 * @param index The specific timeslot selected
+	 * @return TickType The assigned ticket type
+	 */
 	public TicketType chooseTicketType(Cineplex cineplex,Theatre theatre, int index) { //to implement loyalty cards
 		Scanner scan = new Scanner(System.in);
 		TicketType TickType = TicketType.EM;
