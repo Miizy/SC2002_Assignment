@@ -605,7 +605,7 @@ public class StaffUseBoundary {
 	 */
 	private static Cinema staffConfig(Cinema cinema, Cineplex cineplex)throws ParseException{
 		Scanner sc = new Scanner(System.in);
-		PricingList PriceList = cineplex.getPriceList();
+		PricingList priceList = cineplex.getPriceList();
 		int choice;
 		do {
 			System.out.println("Select an Option:\n1. Edit Theatre Type\n2. Edit Price List\n3. Holiday List\n4. Return");
@@ -630,23 +630,23 @@ public class StaffUseBoundary {
 					tixchoice = sc.nextInt();
 					switch (tixchoice) {
 					case 1:
-						System.out.println("Current Price: " + PriceList.getSenior());
+						System.out.println("Current Price: " + priceList.getSenior());
 						System.out.println("New Price:");
-						PriceList.setSenior(sc.nextDouble());
+						priceList.setSenior(sc.nextDouble());
 						System.out.println("Price Changed Successfully");
 						break;
 					case 2:
 						System.out.println("1. Regular and Digital Movies\n2. 3D Movies");
 						ifelse = sc.nextInt();
 						if(ifelse == 1){
-							System.out.println("Current Price: " + PriceList.getStudent());
+							System.out.println("Current Price: " + priceList.getStudent());
 							System.out.println("New Price:");
-							PriceList.setStudent(sc.nextDouble());
+							priceList.setStudent(sc.nextDouble());
 						}
 						else {
-							System.out.println("Current Price: " + PriceList.getStudent3D());
+							System.out.println("Current Price: " + priceList.getStudent3D());
 							System.out.println("New Price:");
-							PriceList.setStudent3D(sc.nextDouble());
+							priceList.setStudent3D(sc.nextDouble());
 						}
 						System.out.println("Price Changed Successfully");
 						break;
@@ -654,14 +654,14 @@ public class StaffUseBoundary {
 						System.out.println("1. Regular and Digital Movies\n2. 3D Movies");
 						ifelse = sc.nextInt();
 						if(ifelse == 1){
-							System.out.println("Current Price: " + PriceList.getMonWed());
+							System.out.println("Current Price: " + priceList.getMonWed());
 							System.out.println("New Price:");
-							PriceList.setMonWed(sc.nextDouble());
+							priceList.setMonWed(sc.nextDouble());
 						}
 						else {
-							System.out.println("Current Price: " + PriceList.getMonWed3D());
+							System.out.println("Current Price: " + priceList.getMonWed3D());
 							System.out.println("New Price:");
-							PriceList.setMonWed3D(sc.nextDouble());
+							priceList.setMonWed3D(sc.nextDouble());
 						}
 						System.out.println("Price Changed Successfully");
 						break;
@@ -669,14 +669,14 @@ public class StaffUseBoundary {
 						System.out.println("1. Regular and Digital Movies\n2. 3D Movies");
 						ifelse = sc.nextInt();
 						if(ifelse == 1){
-							System.out.println("Current Price: " + PriceList.getThur());
+							System.out.println("Current Price: " + priceList.getThur());
 							System.out.println("New Price:");
-							PriceList.setThur(sc.nextDouble());
+							priceList.setThur(sc.nextDouble());
 						}
 						else {
-							System.out.println("Current Price: " + PriceList.getThur3D());
+							System.out.println("Current Price: " + priceList.getThur3D());
 							System.out.println("New Price:");
-							PriceList.setThur3D(sc.nextDouble());
+							priceList.setThur3D(sc.nextDouble());
 						}
 						System.out.println("Price Changed Successfully");
 						break;	
@@ -684,14 +684,14 @@ public class StaffUseBoundary {
 						System.out.println("1. Regular and Digital Movies\n2. 3D Movies");
 						ifelse = sc.nextInt();
 						if(ifelse == 1){
-							System.out.println("Current Price: " + PriceList.getFriB());
+							System.out.println("Current Price: " + priceList.getFriB());
 							System.out.println("New Price:");
-							PriceList.setFriB(sc.nextDouble());
+							priceList.setFriB(sc.nextDouble());
 						}
 						else {
-							System.out.println("Current Price: " + PriceList.getFriB3D());
+							System.out.println("Current Price: " + priceList.getFriB3D());
 							System.out.println("New Price:");
-							PriceList.setFriB3D(sc.nextDouble());
+							priceList.setFriB3D(sc.nextDouble());
 						}
 						System.out.println("Price Changed Successfully");
 						break;
@@ -699,14 +699,14 @@ public class StaffUseBoundary {
 						System.out.println("1. Regular and Digital Movies\n2. 3D Movies");
 						ifelse = sc.nextInt();
 						if(ifelse == 1){
-							System.out.println("Current Price: " + PriceList.getFriA());
+							System.out.println("Current Price: " + priceList.getFriA());
 							System.out.println("New Price:");
-							PriceList.setFriA(sc.nextDouble());
+							priceList.setFriA(sc.nextDouble());
 						}
 						else {
-							System.out.println("Current Price: " + PriceList.getFriA3D());
+							System.out.println("Current Price: " + priceList.getFriA3D());
 							System.out.println("New Price:");
-							PriceList.setFriA3D(sc.nextDouble());
+							priceList.setFriA3D(sc.nextDouble());
 						}
 						System.out.println("Price Changed Successfully");
 						break;	
@@ -714,45 +714,45 @@ public class StaffUseBoundary {
 						System.out.println("1. Regular and Digital Movies\n2. 3D Movies");
 						ifelse = sc.nextInt();
 						if(ifelse == 1){
-							System.out.println("Current Price: " + PriceList.getSS());
+							System.out.println("Current Price: " + priceList.getSS());
 							System.out.println("New Price:");
-							PriceList.setSS(sc.nextDouble());
+							priceList.setSS(sc.nextDouble());
 						}
 						else {
-							System.out.println("Current Price: " + PriceList.getSS3D());
+							System.out.println("Current Price: " + priceList.getSS3D());
 							System.out.println("New Price:");
-							PriceList.setSS3D(sc.nextDouble());
+							priceList.setSS3D(sc.nextDouble());
 						}
 						System.out.println("Price Changed Successfully");
 						break;
 					case 8:
-						System.out.println("Current Price: " + PriceList.getSneakpreview());
+						System.out.println("Current Price: " + priceList.getSneakpreview());
 						System.out.println("New Price:");
-						PriceList.setSneakpreview(sc.nextDouble());
+						priceList.setSneakpreview(sc.nextDouble());
 						System.out.println("Price Changed Successfully");
 						break;
 					case 9: 
-						System.out.println("Current Additional Price: " + PriceList.getBlockBusterPrice());
+						System.out.println("Current Additional Price: " + priceList.getBlockBusterPrice());
 						System.out.println("New Price:");
-						PriceList.setBlockBusterPrice(sc.nextDouble());
+						priceList.setBlockBusterPrice(sc.nextDouble());
 						System.out.println("Price Changed Successfully");
 						break;
 					case 10: //couple
-						System.out.println("Current Additional Price: " + PriceList.getCouplePrice());
+						System.out.println("Current Additional Price: " + priceList.getCouplePrice());
 						System.out.println("New Price:");
-						PriceList.setCouplePrice(sc.nextDouble());
+						priceList.setCouplePrice(sc.nextDouble());
 						System.out.println("Price Changed Successfully");
 						break;
 					case 11: //Elite Seats
-						System.out.println("Current Additional Price: " + PriceList.getEliteSeat());
+						System.out.println("Current Additional Price: " + priceList.getEliteSeat());
 						System.out.println("New Price:");
-						PriceList.setEliteSeat(sc.nextDouble());
+						priceList.setEliteSeat(sc.nextDouble());
 						System.out.println("Price Changed Successfully");
 						break;
 					case 12: //Elite Theatre
-						System.out.println("Current Additional Price: " + PriceList.getEliteTheatrePrice());
+						System.out.println("Current Additional Price: " + priceList.getEliteTheatrePrice());
 						System.out.println("New Price:");
-						PriceList.setEliteTheatrePrice(sc.nextDouble());
+						priceList.setEliteTheatrePrice(sc.nextDouble());
 						System.out.println("Price Changed Successfully");
 						break;
 					case 13:
@@ -776,14 +776,29 @@ public class StaffUseBoundary {
 						System.out.println(StaffUseController.displayHolidayList(cineplex));
 						break;
 					case 2:
-						cineplex = StaffUseController.addHoliday(cineplex);
+						System.out.println("Enter holiday date in dd-MM-yyyy");
+						String holidayStr = sc.next();
+						if(StaffUseController.isValidDate(holidayStr)) {
+							StaffUseController.addHoliday(cineplex, holidayStr);
+							System.out.println("Holiday date added.");
+						}
+						else
+							System.out.println("Invalid date");
 						break;
 					case 3:
 						if(cineplex.getHolidayList().size()==0) {
 							System.out.println("No holidays to delete");
 						} else {
 							System.out.println(StaffUseController.displayHolidayList(cineplex));
-							cineplex = StaffUseController.delHoliday(cineplex);
+							System.out.println("Select holiday to delete:");
+							int holidayChoice = sc.nextInt();
+							if(holidayChoice<0 || holidayChoice > cineplex.getHolidayList().size()) {
+								System.out.println("Invalid input. Please try again");
+							} else {
+								cineplex = StaffUseController.delHoliday(cineplex, holidayChoice);
+								System.out.println("Successfully removed");
+							}
+							
 						}
 						break;
 					default:

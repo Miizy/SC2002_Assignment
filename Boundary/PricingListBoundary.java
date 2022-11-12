@@ -55,7 +55,7 @@ public class PricingListBoundary{
 	 */
 	public TicketType chooseTicketType(Cineplex cineplex,Theatre theatre, int index) { //to implement loyalty cards
 		Scanner scan = new Scanner(System.in);
-		TicketType TickType = TicketType.EM;
+		TicketType TickType = null;
 		int hr = theatre.getTimeslot().get(index).getStartTime().getTime().getHours();
 		int day = theatre.getTimeslot().get(index).getStartTime().getTime().getDay();
 		
