@@ -1,8 +1,19 @@
 import java.io.Serializable;
-
+/**
+ * PricingList is the list of prices for different context
+ */
 public class PricingList implements Serializable{
+	/**
+	 * Regular ticket price for seniors
+	 */
 	private double Senior;
+	/**
+	 * Regular ticket price for students
+	 */
 	private double Student;
+	/**
+	 * Regular ticket price on Thursday
+	 */
 	private double Thur;
 	private double MonWed;
 	private double FriB;

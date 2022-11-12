@@ -4,9 +4,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
+/**
+ * FileController is the controller that reads and writes to the cineplex.ser file
+ */
 public class FileController {
-	
+	/**
+	 * Checks if the cineplex serializable file exist and reads and return the cineplex as an object
+	 * @return cineplex object read from the cineplex serializable file
+	 */
 	public static Cineplex readFile() throws IOException, ClassNotFoundException {
 		Cineplex cineplex = null;
 		String fileName = "Cineplex.ser";
@@ -27,6 +32,10 @@ public class FileController {
 		return cineplex;
 	}
 	
+	/**
+	 * writes the cineplex object as a serializable file
+	 * @param cineplex 
+	 */
 	public static void writeFile(Cineplex cineplex) throws IOException {
 		String fileName = "Cineplex.ser";
 		FileOutputStream file = new FileOutputStream(fileName);
