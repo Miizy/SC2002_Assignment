@@ -59,7 +59,7 @@ public class StaffUseBoundary {
 		Scanner sc = new Scanner(System.in);
 		while(true) {
 			int choice = Integer.MAX_VALUE;
-			System.out.println("Select Cinema");
+			System.out.println("Select Cinema/option");
 			System.out.println("=================");
 			for(int i=0; i<cineplex.getListOfCinema().size(); i++) {
 				System.out.print((i+1) + ". Cinema ID " + cineplex.getCinema(i).getCinemaID());
@@ -68,14 +68,19 @@ public class StaffUseBoundary {
 				}
 				System.out.println();
 			}
-			System.out.println((cineplex.getListOfCinema().size()+1) + ". Logout");
-			while(choice > (cineplex.getListOfCinema().size()+1) || choice <= 0) {
+			System.out.println((cineplex.getListOfCinema().size()+1) + ". System Configuration ");
+			System.out.println((cineplex.getListOfCinema().size()+2) + ". Logout");
+			while(choice > (cineplex.getListOfCinema().size()+2) || choice <= 0) {
 				if(choice != Integer.MAX_VALUE) {
 					System.out.println("Invalid choice, please try again.");
 				}
 				choice = sc.nextInt();
 			}
 			if(choice == cineplex.getListOfCinema().size()+1) {
+				cineplex = staffConfigCineplex(cineplex);
+				return cineplex;
+			}
+			if(choice == cineplex.getListOfCinema().size()+2) {
 				System.out.println("Logging out...");
 				return cineplex;
 			}
@@ -95,7 +100,7 @@ public class StaffUseBoundary {
 		Scanner sc = new Scanner(System.in);
 		int choice;
 		do {
-			System.out.println("1. Movie Listing\n2. Cinema Showtimes\n3. Current Top 5 Ranking Movies\n4. Configure System Settings\n5. Return");
+			System.out.println("1. Movie Listing\n2. Cinema Showtimes\n3. Current Top 5 Ranking Movies\n4. Edit Theatre Type\n5. Return");
 			choice = sc.nextInt();
 			switch(choice) {
 			case 1:
@@ -108,7 +113,7 @@ public class StaffUseBoundary {
 				displayTopGrossing(cinema);
 				break;
 			case 4:
-				cinema = staffConfig(cinema, cineplex);
+				cinema = EditTheatreType(cinema);
 				break;
 			case 5:
 				//stop the program
@@ -603,25 +608,15 @@ public class StaffUseBoundary {
 	 * @return An updated cinema containing the updated theatre, price and holidays
 	 * @throws ParseException If the holiday date within the add holiday function is of the correct format
 	 */
-	private static Cinema staffConfig(Cinema cinema, Cineplex cineplex)throws ParseException{
+	private static Cineplex staffConfigCineplex(Cineplex cineplex)throws ParseException{
 		Scanner sc = new Scanner(System.in);
 		PricingList priceList = cineplex.getPriceList();
 		int choice;
 		do {
-			System.out.println("Select an Option:\n1. Edit Theatre Type\n2. Edit Price List\n3. Holiday List\n4. Return");
+			System.out.println("Select an Option:\n1. Edit Price List\n2. Holiday List\n3. Return");
 			choice = sc.nextInt();
 			switch(choice) {
 			case 1:
-				System.out.println(StaffUseController.getTheatreIndex(cinema));
-				int theatre = sc.nextInt()-1;
-				System.out.println("Current Theatre Type:");
-				System.out.println(cinema.getListOfTheatre().get(theatre).getTheatreClass().getTheatreClass());
-				System.out.println("Choose a Theatre Type:\n1. Platinum Movie Suites\n2. Elite Club");
-				int suite = sc.nextInt();
-				cinema.getListOfTheatre().get(theatre).setTheatreClass(suite);
-				System.out.println("Theatre Type successfully updated");
-				break;
-			case 2:
 				int tixchoice, ifelse;
 				do {
 					System.out.println("Choose Ticket Type: ");
@@ -762,7 +757,7 @@ public class StaffUseBoundary {
 					}
 				} while(tixchoice != 13);
 				break;
-			case 3:
+			case 2:
 				int holChoice=0;
 				System.out.println("1. Display Holiday List\n2. Add Holiday\n3. Delete Holiday\n4. Return");
 				holChoice = sc.nextInt();
@@ -805,12 +800,26 @@ public class StaffUseBoundary {
 						System.out.println("Invalid input. Please try again.");
 					}
 				break;
-			case 4:
+			case 3:
 				break;
 			default:
 				System.out.println("Invalid input. Please try again.");
 			}
-		} while(choice!=4);
+		} while(choice!=3);
+		return cineplex;
+	}
+	
+	
+	private static Cinema EditTheatreType(Cinema cinema)throws ParseException{
+		Scanner sc = new Scanner(System.in);
+		System.out.println(StaffUseController.getTheatreIndex(cinema));
+		int theatre = sc.nextInt()-1;
+		System.out.println("Current Theatre Type:");
+		System.out.println(cinema.getListOfTheatre().get(theatre).getTheatreClass().getTheatreClass());
+		System.out.println("Choose a Theatre Type:\n1. Platinum Movie Suites\n2. Elite Club");
+		int suite = sc.nextInt();
+		cinema.getListOfTheatre().get(theatre).setTheatreClass(suite);
+		System.out.println("Theatre Type successfully updated");
 		return cinema;
 	}
 	

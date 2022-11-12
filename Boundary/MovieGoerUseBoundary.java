@@ -89,7 +89,6 @@ public class MovieGoerUseBoundary {
 		boolean goerExists = false;
 		System.out.println("---------Log in-------------");
 		System.out.println("Enter Your Email Address: ");
-		
 		do{
 			String email = enterEmail();
 			for(int i=0;i<cineplex.getListofGoers().size();i++){
@@ -101,7 +100,7 @@ public class MovieGoerUseBoundary {
 			if(goerExists==true){
 				System.out.println("Enter your phone Number: ");
 				String number = enterNumber();
-				if(number==cineplex.getGoer(GoerID).getMobileNumber()){
+				if(number.equals(cineplex.getGoer(GoerID).getMobileNumber())){
 					loginSuccess = true;
 					System.out.println("Welcome, " + cineplex.getGoer(GoerID).getName());
 					GoerName = cineplex.getGoer(GoerID).getName();
