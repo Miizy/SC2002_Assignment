@@ -15,17 +15,53 @@ public class PricingList implements Serializable{
 	 * Regular ticket price on Thursday
 	 */
 	private double Thur;
+	/**
+	 * Regular ticket price from Monday to Wednesday
+	 */
 	private double MonWed;
+	/**
+	 * Regular ticket price on Friday before 6pm
+	 */
 	private double FriB;
+	/**
+	 * Regular ticket price on Friday after 6pm
+	 */
 	private double FriA;
+	/**
+	 * Regular ticket price on Saturday and Sunday
+	 */
 	private double SS;
+	/**
+	 * 3D movie ticket price for students
+	 */
 	private double Student3D;
+	/**
+	 * 3D movie ticket price on Thursday
+	 */
 	private double Thur3D;
+	/**
+	 * 3D movie ticket price from Monday to Wednesday
+	 */
 	private double MonWed3D;
+	/**
+	 * 3D movie ticket price on Friday before 6pm
+	 */
 	private double FriB3D;
+	/**
+	 * 3D movie ticket price on Friday after 6pm
+	 */
 	private double FriA3D;
+	/**
+	 * 3D movie ticket price on Saturday and Sunday
+	 */
 	private double SS3D;
+	/**
+	 * Sneak Preview ticket price
+	 */
 	private double Sneakpreview;
+	/**
+	 * Additional charge for blockbuster films
+	 */
 	private double BlockBuster;
 	private double EliteTheatre;
 	private double CouplePrice;

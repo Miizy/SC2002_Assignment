@@ -4,17 +4,41 @@ import java.util.Date;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 
+/**
+ * PaymentController handles the payment base on what ticket is being booked
+ */
 public class PaymentController extends PricingListBoundary implements Serializable{
+	/**
+	 * price of ticket
+	 */
 	private double price = 0.00;
+	/**
+	 * whether the movie goer has paid for the ticket
+	 */
 	private boolean paid = false;
+	/**
+	 * change to return to the movie goer
+	 */
 	private double change = 0.00;
+	/**
+	 * unique transaction ID for the booking
+	 */
 	private String TID;
 	Scanner scan = new Scanner(System.in);
+	/**
+	 * reset the ticket cost after purchase is completed
+	 */
 	public void Reset() {
 		price = 0;
 		paid = false;
 		change = 0;
 	}
+	/**
+	 * Generate the transaction ID based on the time and theatreID
+	 * @param theatreID unique theatreID
+	 * @param time current time
+	 * @return unique transaction ID
+	 */
 	public String GetTID(String theatreID, Calendar time) {
 		DecimalFormat dateFormat = new DecimalFormat("00");
 		TID = theatreID + String.valueOf(time.get(Calendar.YEAR)) + dateFormat.format(Double.valueOf(time.get(Calendar.MONTH))) + 
@@ -22,16 +46,32 @@ public class PaymentController extends PricingListBoundary implements Serializab
 				dateFormat.format(Double.valueOf(time.get(Calendar.MINUTE)));
 		return TID;
 	}
-	public double totalPrice(Tickets[] Ticketarray, int noTicks, PricingList Pricelist) {
+	/**
+	 * calculate the total price for the transaction
+	 * @param ticketArray Array for all tickets selected
+	 * @param noTicks Number of tickets in ticketArray
+	 * @param priceList list of prices for the different type of tickets
+	 * @return the total price for the transaction
+	 */
+	public double totalPrice(Tickets[] ticketArray, int noTicks, PricingList priceList) {
 		price = 0.00;
 		for(int a = 0; a < noTicks; a++) {
-			price += getPrice(Ticketarray[a], Pricelist);
+			price += getPrice(ticketArray[a], priceList);
 		}
 		return price;
 	}
+	/**
+	 * Get the total price for the transaction
+	 * @return the total price for the transaction
+	 */
 	public double getPayment() {
 		return price;
 	}
+	/**
+	 * Check if the amount paid is sufficient, return true if fully paid for
+	 * @param pay Amount paid for the transaction
+	 * @return true if amount is fully paid
+	 */
 	public boolean checkPayment(double pay) {
 		if (pay == price) {
 			paid = true;
@@ -45,16 +85,36 @@ public class PaymentController extends PricingListBoundary implements Serializab
 		}
 		return paid;
 	}
+	
+	/**
+	 * Check if the transaction has been paid
+	 * @return true if the transaction has been paid
+	 */
 	public boolean checkPaid() {
 		return paid;
 	}
+	
+	/**
+	 * Calculate the change to return
+	 * @param pay Amount paid for the transaction
+	 */
 	public void setchange(double pay) {
 		change = pay - price;
 	}
+	/**
+	 * Get the change to return
+	 * @return change for transaction
+	 */
 	public double getchange() {
 		return change;
 	}
 
+	/**
+	 * get the price for the ticket
+	 * @param ticket Ticket type, e.g Monday, Tuesday, Senior, Student
+	 * @param Pricelist List of prices for the different ticket types
+	 * @return the price of the ticket
+	 */
 	public double getPrice(Tickets ticket, PricingList Pricelist) {
 		double price = 0.00;
 		boolean BlockBuster = ticket.getBB();
