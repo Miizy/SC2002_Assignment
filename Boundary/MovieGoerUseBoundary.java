@@ -384,11 +384,11 @@ public class MovieGoerUseBoundary {
 			}
 			//type of seat //save under SS
 			//======================
-			Ticketarray[a] = new Tickets(MT, TT, cinema.getMovie(mc-1).getBlockBuster(), cinema.getMovie(mc-1).getSneakpreview(), TC, SS);
+			Ticketarray[a] = new Tickets(MT, TT, cinema.getMovie(mc).getBlockBuster(), cinema.getMovie(mc).getSneakpreview(), TC, SS);
 		}
 		double sum = Price.totalPrice(Ticketarray, noTick, cineplex.getPriceList());
 		System.out.printf("Total Price = $%.2f\n", sum);
-		cinema.getListOfMovie().get(mc-1).addSales(sum);
+		cinema.getListOfMovie().get(mc).addSales(sum);
 		double payment = 0;
 			while(!Price.checkPaid()) {
 				System.out.printf("Total paid: $%.2f\n", payment);
