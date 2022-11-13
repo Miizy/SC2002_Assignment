@@ -6,7 +6,13 @@ import java.util.Objects;
  */
 
 public class MovieGoerUseBoundary {
+	/**
+ 	* user id of moviegoer
+ 	*/
 	public static int GoerID;
+	/**
+ 	* user name of moviegoer
+ 	*/
 	public static String GoerName;
 
 	/**
@@ -265,6 +271,10 @@ public class MovieGoerUseBoundary {
 	public static void getSeatAvailability(Cinema cinema){
 		Scanner sc = new Scanner(System.in);
 		int selection[] = selectMovieAndTheatre(cinema);
+		if(selection[0]==-1&&selection[1]==-1){
+			System.out.println("No Movies or theatre slots available. Try again next Time!");
+			return;
+		}
 		int id = selection[0];
 		Theatre theatre = cinema.getTheatre(id - 1);
 		System.out.println("Select Timeslot: ");
@@ -285,6 +295,10 @@ public class MovieGoerUseBoundary {
 		double total = 0;
 		SeatStatus SS = SeatStatus.ap;
 		int selection[] = selectMovieAndTheatre(cinema);
+		if(selection[0]==-1&&selection[1]==-1){
+			System.out.println("No Movies or theatre slots available. Try again next Time!");
+			return;
+		}
 		int id = selection[0];
 		int mc = selection[1];
 		Theatre theatre = cinema.getTheatre(id - 1);
@@ -402,8 +416,18 @@ public class MovieGoerUseBoundary {
 		int[] theatreAvail = new int[numOfTheaters];
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Select Movie: ");
-		movieAvail = listofMoviesWithShowtimes(cinema);
+	    int [] showAvail = listofMoviesNowShowingandPreview(cinema);
+		movieAvail = listofMoviesWithShowtimes(cinema, showAvail);
 		int mc;
+		int availcount = 0;
+		for(int i=0; i<movieAvail.length; i++){
+			if(movieAvail[i]==1){
+				availcount++;
+			}
+		}
+		if(availcount==0){
+			return new int[] {-1,-1};
+		}
 		while(true){
 			mc = sc.nextInt(); //selected the movie
 			if(movieAvail[mc-1]==1){
@@ -413,11 +437,21 @@ public class MovieGoerUseBoundary {
 			}
 
 		}
+		mc = showAvail[mc-1];
 		System.out.println();
 		//check which theatre has the movie //
 		System.out.println("Select Theatre ID: ");
 		theatreAvail = listofAvaliableTheater(cinema, mc);
 		int id;
+		availcount = 0;
+		for(int i=0; i<theatreAvail.length; i++){
+			if(theatreAvail[i]>0){
+				availcount++;
+			}
+		}
+		if(availcount==0){
+			return new int[] {-1,-1};
+		}
 		while(true){
 			id = sc.nextInt(); //selected the movie
 			if(theatreAvail[id-1]>0){
@@ -446,7 +480,7 @@ public class MovieGoerUseBoundary {
 			if(timeslotCount>0){
 				System.out.println((t+1)+". Theatre:"+ cinema.getListOfTheatre().get(t).getTheatreID());
 				for(int tslot=0; tslot<timeslotCount; tslot++) {
-					if(Objects.equals(cinema.getListOfTheatre().get(t).getTimeslot().get(tslot).getMovie().getMovieTitle(), cinema.getMovie(movieChoice-1).getMovieTitle())) {
+					if(Objects.equals(cinema.getListOfTheatre().get(t).getTimeslot().get(tslot).getMovie().getMovieTitle(), cinema.getMovie(movieChoice).getMovieTitle())) {
 						System.out.println("	"+(tslot+1)+". Timeslot: " + cinema.getListOfTheatre().get(t).getTimeslot().get(tslot).getStartTime().getTime());					
 					}
 				}
@@ -485,7 +519,6 @@ public class MovieGoerUseBoundary {
 					break;
 				}else{
 					System.out.println("Name already exists, try another name!");
-					name = sc.nextLine();
 				}
 			}else{
 				break;
@@ -537,31 +570,56 @@ public class MovieGoerUseBoundary {
 	}
 
 	/**
+	 * Creates an array that indicates if a movie is now showing or in preview
+	 * If an array element contains the actual movie ID
+	 * @param cinema to get the movies
+	 * @return an array indicating if a movie is showing or in preview
+	 */
+	private static int[] listofMoviesNowShowingandPreview(Cinema cinema){
+		int countofNowShowingorPreviewMovies = 0;
+		for(int i=0; i<cinema.getListOfMovie().size(); i++){
+			if(("Now Showing".equals(cinema.getMovie(i).getShowStatus().getStatus())) || ("Preview".equals(cinema.getMovie(i).getShowStatus().getStatus()))){
+				countofNowShowingorPreviewMovies++;
+			}
+		}
+		int[] showArr = new int[countofNowShowingorPreviewMovies];
+		int i = 0;
+		for(int j=0; j<cinema.getListOfMovie().size();j++){
+			if(("Now Showing".equals(cinema.getMovie(j).getShowStatus().getStatus())) || ("Preview".equals(cinema.getMovie(i).getShowStatus().getStatus()))){
+				showArr[i] = j;
+				i++;
+			}
+		}
+
+		return showArr;
+	}
+
+	/**
 	 * Creates an array that indicates if a movie is showing or not
 	 * If an array element is 0, indicates that the movie has no showtimes
 	 * @param cinema to get the movies
 	 * @return an array indicating if a movie is showing or not
 	 */
-	private static int[] listofMoviesWithShowtimes(Cinema cinema){
-		int numOfMovies = cinema.getListOfMovie().size();
-		int[] availArr = new int[numOfMovies];
-		for(int i=0; i<numOfMovies;i++){
+	private static int[] listofMoviesWithShowtimes(Cinema cinema, int[] showArr){
+		int[] availArr = new int[showArr.length];
+		for(int i= 0; i<showArr.length; i++){
 			int timeslotCount = 0;
-			for(int t =0; t<cinema.getListOfTheatre().size(); t++) {
+			for(int t=0; t<cinema.getListOfTheatre().size(); t++){
 				for(int tslot=0; tslot<cinema.getListOfTheatre().get(t).getTimeslot().size(); tslot++) {
-					if(Objects.equals(cinema.getListOfTheatre().get(t).getTimeslot().get(tslot).getMovie().getMovieTitle(), cinema.getMovie(i).getMovieTitle())) {
+					if(Objects.equals(cinema.getListOfTheatre().get(t).getTimeslot().get(tslot).getMovie().getMovieTitle(), cinema.getMovie(showArr[i]).getMovieTitle())) {
 						timeslotCount++;					
 					}
 				}
 			}
 			if (timeslotCount>0){
-				System.out.println(" " + (i+1)+ ". " + cinema.getMovie(i).getMovieTitle());
+				System.out.println(" " + (i+1)+ ". " + cinema.getMovie(showArr[i]).getMovieTitle());
 				availArr[i] = 1;
 			}else{
-				System.out.println(" " + (i+1)+ ". " + cinema.getMovie(i).getMovieTitle() + "   <Time Slots unavailable for this movie>");
+				System.out.println(" " + (i+1)+ ". " + cinema.getMovie(showArr[i]).getMovieTitle() + "   <Time Slots unavailable for this movie>");
 				availArr[i] = 0;
 			}
 		}
+		
 		return availArr;
 	}
 	
