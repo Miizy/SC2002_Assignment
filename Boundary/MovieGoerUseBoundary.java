@@ -374,11 +374,11 @@ public class MovieGoerUseBoundary {
 			Ticketarray[a] = new Tickets(MT, TT, cinema.getMovie(mc-1).getBlockBuster(), cinema.getMovie(mc-1).getSneakpreview(), TC, SS);
 		}
 		double sum = Price.totalPrice(Ticketarray, noTick, cineplex.getPriceList());
-		System.out.println("Total Price = " + sum);
+		System.out.printf("Total Price = $%.2f\n", sum);
 		cinema.getListOfMovie().get(mc-1).addSales(sum);
 		double payment = 0;
 			while(!Price.checkPaid()) {
-				System.out.println("Total paid: " + payment);
+				System.out.printf("Total paid: $%.2f\n", payment);
 				System.out.println("Payment Received: ");
 				payment = sc.nextDouble();
 				total += payment;
