@@ -133,12 +133,12 @@ public class StaffUseController {
 			}
 		}
 		String top5 = "Top 5 Movies by Sales: \n";
+		int ind = 0;
 		for(int j=0;j<cinema.getListOfMovie().size();j++) {
 			int movieIndex = (int)movieSales[0][j];
 			double sales = movieSales[1][j];
-			int ind = 0;
 			if(!cinema.getMovie(movieIndex).getShowStatus().getStatus().equals("End Of Showing")) {
-				ind+=1;
+				ind++;
 				top5 += ind + ". "+cinema.getMovie(movieIndex).getMovieTitle()+"  $"+sales+"\n";
 				if(j==5) {
 					break;
@@ -175,12 +175,12 @@ public class StaffUseController {
 			}
 		}
 		String top5 = "Top 5 Movies by Ratings: \n";
+		int ind = 0;
 		for(int j=0;j<cinema.getListOfMovie().size();j++) {
 			int movieIndex = (int)movieRatings[0][j];
 			float rating = movieRatings[1][j];
-			int ind = 0;
 			if(!cinema.getMovie(movieIndex).getShowStatus().getStatus().equals("End Of Showing")) {
-				ind+=1;
+				ind++;
 				top5 += ind + ". "+cinema.getMovie(movieIndex).getMovieTitle()+"  "+rating+"\n";
 				if(ind==5) {
 					break;
@@ -213,7 +213,7 @@ public class StaffUseController {
 		String timeslots = "";
 		for(int i=0; i<theatre.getTimeslot().size(); i++) {
 			timeslots += (i+1) + ". " + theatre.getTimeslot().get(i).getMovie().getMovieTitle() + " " + 
-					theatre.getTimeslot().get(i).getStartTime().getTime() + " - " + theatre.getTimeslot().get(i).getEndTime().getTime();
+					theatre.getTimeslot().get(i).getStartTime().getTime() + " - " + theatre.getTimeslot().get(i).getEndTime().getTime() + "\n";
 		}
 		return timeslots; 
 	}
@@ -273,7 +273,7 @@ public class StaffUseController {
 	 * @return An updated cineplex containing the new list of holidays
 	 */
 	public static Cineplex delHoliday(Cineplex cineplex, int choice) {
-		cineplex.getHolidayList().remove(choice);
+		cineplex.getHolidayList().remove(choice-1);
 		return cineplex;
 	}
 	

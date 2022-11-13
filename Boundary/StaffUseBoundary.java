@@ -23,6 +23,7 @@ public class StaffUseBoundary {
 	public static Cineplex StaffChoice(Cineplex cineplex) throws ParseException {
 		staffLogin();
 		cineplex = chooseCinema(cineplex);
+		System.out.println("=================");
 		return cineplex;
 	}
 	
@@ -59,8 +60,8 @@ public class StaffUseBoundary {
 		Scanner sc = new Scanner(System.in);
 		while(true) {
 			int choice = Integer.MAX_VALUE;
-			System.out.println("Select Cinema/option");
 			System.out.println("=================");
+			System.out.println("Select Cinema/option");
 			for(int i=0; i<cineplex.getListOfCinema().size(); i++) {
 				System.out.print((i+1) + ". Cinema ID " + cineplex.getCinema(i).getCinemaID());
 				if(cineplex.getCinema(i).getCinemaName() != "") {
@@ -100,6 +101,7 @@ public class StaffUseBoundary {
 		Scanner sc = new Scanner(System.in);
 		int choice;
 		do {
+			System.out.println("=================");
 			System.out.println("1. Movie Listing\n2. Cinema Showtimes\n3. Current Top 5 Ranking Movies\n4. Edit Theatre Type\n5. Return");
 			choice = sc.nextInt();
 			switch(choice) {
@@ -135,6 +137,7 @@ public class StaffUseBoundary {
 		Scanner sc = new Scanner(System.in);
 		int choice;
 		do {
+			System.out.println("=================");
 			System.out.println("1. Create Movie Listing\n2. Display Movie Listing\n3. Edit Movie Listing\n4. Delete Movie Listing\n5. Return");
 			choice = sc.nextInt();
 			sc.nextLine();
@@ -143,6 +146,7 @@ public class StaffUseBoundary {
 				cinema = createMovieListing(cinema);
 				break;
 			case 2:
+				System.out.println("=================");
 				System.out.println(StaffUseController.getMovies(cinema));
 				break;
 			case 3:
@@ -171,6 +175,7 @@ public class StaffUseBoundary {
 		Scanner sc = new Scanner(System.in);
 		boolean BlockBuster, Sneakpreview;
 		MovieType Movietype;
+		System.out.println("=================");
 		System.out.println("Enter movie title: ");
 		String movieTitle = sc.nextLine();
 		System.out.println("Enter show status:\n1. Coming Soon\n2. Preview\n3. Now Showing");
@@ -319,7 +324,6 @@ public class StaffUseBoundary {
 		else if(choice == 2)
 			timeslotSelected = changeMovie(cinema, timeslotSelected);
 		theatreSelected.getTimeslot().add(timeslotSelected);
-		//cinema.replaceTheatre(theatreIndex, theatreSelected);
 		return cinema;
 	}
 	
@@ -385,6 +389,7 @@ public class StaffUseBoundary {
 	private static Cinema cinemaShowtimes(Cinema cinema) throws ParseException {
 		Scanner sc = new Scanner(System.in);
 		int option = 0;
+		System.out.println("=================");
 		System.out.println("1. Display Showtimes\n2. Add Showtimes\n3. Edit Showtimes\n4. Remove Showtime\n5. Return");
 		option = sc.nextInt();
 		while(option < 1 || option > 5) {
@@ -396,12 +401,15 @@ public class StaffUseBoundary {
 			System.out.println(StaffUseController.getShowtimes(cinema));
 			break;
 		case 2:
+			System.out.println("=================");
 			cinema = addShowtimes(cinema);
 			break;
 		case 3:
+			System.out.println("=================");
 			cinema = editShowtimes(cinema);
 			break;
 		case 4:
+			System.out.println("=================");
 			cinema = removeShowtimes(cinema);
 			break;
 		case 5:
@@ -442,6 +450,7 @@ public class StaffUseBoundary {
 		
 		int choice = 1;
 		do {
+			System.out.println("=================");
 			System.out.println("Select movie details to adjust");
 			System.out.println("1. Movie Title\n2. Movie Status\n3. Movie Rating\n4. Synopsis\n5. Director\n6. Blockbuster Status\n7. Sneak Preview Status\n8. Cast\n9. Movie Type\n10. Exit");
 			choice = sc.nextInt();
@@ -455,7 +464,7 @@ public class StaffUseBoundary {
 				break;
 			case(2):
 				System.out.println("Current Movie Status:");
-				movieChange.getShowStatus();
+				System.out.println(movieChange.getShowStatus().getStatus());
 				System.out.println("Enter new movie status:\n1. Coming Soon\n2. Preview\n3. Now Showing\n4. End Of Showing\n5. Return");
 				int showStatus = sc.nextInt();
 				while(showStatus<1||showStatus>5) {
@@ -538,7 +547,7 @@ public class StaffUseBoundary {
 					System.out.println(ind + ". "+movieChange.getCast().get(i));
 				}
 				System.out.println("Select an Option:");
-				System.out.println("1. Delete Cast Member\n2. Add Cast Member\n 3.Return");
+				System.out.println("1. Delete Cast Member\n2. Add Cast Member\n3. Return");
 				int castChoice = sc.nextInt();
 				while (castChoice<1 || castChoice>3) {
 					System.out.println("Invalid Option\n Please Select an Option:\n1. Delete Cast Member\\n2. Add Cast Member\\n 3.Return");
@@ -587,6 +596,7 @@ public class StaffUseBoundary {
 	 * @return An updated cinema containing the updated timeslots and movie details
 	 */
 	private static Cinema deleteMovie(Cinema cinema) {
+		System.out.println("=================");
 		Scanner sc = new Scanner(System.in);
 		int movieIndex = selectMovie(cinema);
 		cinema = StaffUseController.deleteMovie(cinema, movieIndex);
@@ -605,12 +615,14 @@ public class StaffUseBoundary {
 		PricingList priceList = cineplex.getPriceList();
 		int choice;
 		do {
+			System.out.println("=================");
 			System.out.println("Select an Option:\n1. Edit Price List\n2. Holiday List\n3. Return");
 			choice = sc.nextInt();
 			switch(choice) {
 			case 1:
 				int tixchoice, ifelse;
 				do {
+					System.out.println("=================");
 					System.out.println("Choose Ticket Type: ");
 					System.out.println("1. Senior\n2. Student\n3. Mon - Wed\n4. Thurs\n5. Friday(before 6pm)\n6. Friday(After 6pm)\n7. Sat & Sun\n8. Sneakpreview\n9. Blockbuster");
 					System.out.println("10. Couple Seats\n11. Elite Seats\n12. Elite Theatre\n13. Return");
@@ -751,10 +763,12 @@ public class StaffUseBoundary {
 				break;
 			case 2:
 				int holChoice=0;
+				System.out.println("=================");
 				System.out.println("1. Display Holiday List\n2. Add Holiday\n3. Delete Holiday\n4. Return");
 				holChoice = sc.nextInt();
 				while(holChoice>4 || holChoice<1) {
 					System.out.println("Invalid input. Please try again");
+					System.out.println("=================");
 					System.out.println("1. Display Holiday List\n2. Add Holiday\n3. Delete Holiday\n4. Return");
 					holChoice = sc.nextInt();
 				}
@@ -788,6 +802,8 @@ public class StaffUseBoundary {
 							
 						}
 						break;
+					case 4:
+						break;
 					default:
 						System.out.println("Invalid input. Please try again.");
 					}
@@ -804,6 +820,7 @@ public class StaffUseBoundary {
 	
 	private static Cinema EditTheatreType(Cinema cinema)throws ParseException{
 		Scanner sc = new Scanner(System.in);
+		System.out.println("=================");
 		System.out.println(StaffUseController.getTheatreIndex(cinema));
 		int theatre = sc.nextInt()-1;
 		System.out.println("Current Theatre Type:");
@@ -821,14 +838,17 @@ public class StaffUseBoundary {
 	 */
 	private static void displayTopGrossing(Cinema cinema) {
 		Scanner sc = new Scanner(System.in);
+		System.out.println("=================");
 		System.out.println("1. Display Top 5 by Ticket Sales\n2. Display Top 5 by Ratings");
 		int choice = sc.nextInt();
 		do {
 			switch(choice) {
 			case(1):
+				System.out.println("=================");
 				System.out.println(StaffUseController.displayTop5BySale(cinema));
 				break;
 			case(2):
+				System.out.println("=================");
 				System.out.println(StaffUseController.displayTop5ByRating(cinema));
 				break;
 			default:
