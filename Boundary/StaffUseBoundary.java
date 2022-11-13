@@ -319,7 +319,7 @@ public class StaffUseBoundary {
 		else if(choice == 2)
 			timeslotSelected = changeMovie(cinema, timeslotSelected);
 		theatreSelected.getTimeslot().add(timeslotSelected);
-		cinema.replaceTheatre(theatreIndex, theatreSelected);
+		//cinema.replaceTheatre(theatreIndex, theatreSelected);
 		return cinema;
 	}
 	
