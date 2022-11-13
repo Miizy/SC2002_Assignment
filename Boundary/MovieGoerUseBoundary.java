@@ -300,8 +300,16 @@ public class MovieGoerUseBoundary {
 		else {
 			System.out.println("Movie Type: 3D Movies");
 		}
-		System.out.println("TheatreType: "+ theatre.getTheatreClass());
-		System.out.println("BlockBuster: "+ theatre.getTimeslot().get(TS).getMovie().getBlockBuster());
+		System.out.print("TheatreType: "+ theatre.getTheatreClass());
+		if(theatre.getTheatreClass() == TheatreClass.elit) {
+			System.out.printf(", Additional Cost: $%.2f", cineplex.getPriceList().getEliteTheatrePrice());		
+		}
+		System.out.println();
+		System.out.print("BlockBuster: "+ theatre.getTimeslot().get(TS).getMovie().getBlockBuster());
+		if(theatre.getTimeslot().get(TS).getMovie().getBlockBuster() == true) {
+			System.out.printf(", Addtional Cost: $%.2f", cineplex.getPriceList().getBlockBusterPrice());
+		}
+		System.out.println();
 		System.out.println("SneakPreview: "+ theatre.getTimeslot().get(TS).getMovie().getSneakpreview());
 		System.out.println("Select Number of Tickets:");
 		int noTick = sc.nextInt();
@@ -310,7 +318,16 @@ public class MovieGoerUseBoundary {
 			/*Select & Book Seats Code here*/
 			//show seat
 			System.out.println(theatre.getTimeslot().get(TS).getSeating().showSeats());
-			TicketType TT = Price.chooseTicketType(cineplex, theatre, TS);//choose student etc.
+			TicketType TT = TicketType.EM;
+			while(true) {
+				TT = Price.chooseTicketType(cineplex, theatre, TS);//choose student etc.
+				if(TT == TicketType.SC && MT == MovieType.TD) {
+					System.out.println("Senior Tickets are unavailable for 3D Movies");
+				}
+				else {
+					break;
+				}
+			}
 			while(true) {
 				System.out.print("Select Row: ");
 				int Row = sc.nextInt();
@@ -329,12 +346,20 @@ public class MovieGoerUseBoundary {
 				if (SS != SeatStatus.ap) {
 					if(theatre.getTimeslot().get(TS).getSeating().getSeatAt(Col, Row).getbook() == false) { //empty seat
 						theatre.getTimeslot().get(TS).getSeating().getSeatAt(Col, Row).bookseat(); //book seat}
-						if(SS == SeatStatus.ac) {
+						switch(SS) {
+						case ac:
 							if(noTick != 1) {
 								noTick = noTick - 1;
 							}
-						}
+							System.out.printf("Seat Type: Couple Seat, Addtional Cost: $%.2f\n", cineplex.getPriceList().getCouplePrice());
+							break;
+						case ae:
+							System.out.printf("Seat Type: Elite Seat, Addtional Cost: $%.2f\n", cineplex.getPriceList().getEliteSeat());
 						break;
+						case an:
+							System.out.println("Seat Type: Normal Seat");
+						}
+					break;
 					}
 					else {
 						System.out.println("Seat is already Booked!!");
