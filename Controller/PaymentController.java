@@ -182,6 +182,8 @@ public class PaymentController extends PricingListBoundary implements Serializab
 		case CL:
 			//price =not implemented; 
 			break;
+		case EM:
+			return price = 0;
 		default:
 			break;
 		}

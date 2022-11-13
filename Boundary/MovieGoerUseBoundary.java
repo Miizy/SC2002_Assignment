@@ -360,20 +360,19 @@ public class MovieGoerUseBoundary {
 				if (SS != SeatStatus.ap) {
 					if(theatre.getTimeslot().get(TS).getSeating().getSeatAt(Col, Row).getbook() == false) { //empty seat
 						theatre.getTimeslot().get(TS).getSeating().getSeatAt(Col, Row).bookseat(); //book seat}
-						switch(SS) {
-						case ac:
-							if(noTick != 1) {
-								noTick = noTick - 1;
+						if(SS == SeatStatus.ac) {
+							if(noTick - a > 1) {
+								noTick--;
 							}
 							System.out.printf("Seat Type: Couple Seat, Addtional Cost: $%.2f\n", cineplex.getPriceList().getCouplePrice());
-							break;
-						case ae:
+						}
+						else if(SS==SeatStatus.ae) {
 							System.out.printf("Seat Type: Elite Seat, Addtional Cost: $%.2f\n", cineplex.getPriceList().getEliteSeat());
-						break;
-						case an:
+						}
+						else if(SS == SeatStatus.an) {
 							System.out.println("Seat Type: Normal Seat");
 						}
-					break;
+						break;
 					}
 					else {
 						System.out.println("Seat is already Booked!!");
