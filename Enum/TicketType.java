@@ -34,7 +34,11 @@ public enum TicketType {
 	/**
 	 * Credit and Loyalty Cards
 	 */
-	CL("Preferred Credit & Loyalty Card"),;
+	CL("Preferred Credit & Loyalty Card"),
+	/**
+	 * Initialised as empty
+	 */
+	EM("Empty");
 	/**
 	 * A string to hold the type of ticket
 	 */

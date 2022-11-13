@@ -203,14 +203,6 @@ public class StaffUseBoundary {
 		else {
 			BlockBuster = false;
 		}
-		System.out.println("Sneak Preview (Y/N)?");
-		ans = sc.next();
-		if(ans.toLowerCase().matches("y")) {
-			Sneakpreview = true;
-		}
-		else {
-			Sneakpreview = false;
-		}
 		System.out.println("MovieType (R/3D)?");
 		ans = sc.next();
 		if(ans.toLowerCase().matches("r")) {
@@ -222,7 +214,7 @@ public class StaffUseBoundary {
 		System.out.println("Enter number of cast: ");
 		int numOfCast = sc.nextInt();
 		sc.nextLine();
-		Movie movie = new Movie(movieTitle, showStatus, movieRating,synopsis, director, BlockBuster, Sneakpreview, Movietype);
+		Movie movie = new Movie(movieTitle, showStatus, movieRating,synopsis, director, BlockBuster, Movietype);
 		for(int i=0; i<numOfCast; i++) {
 			System.out.println("Enter name of cast " + (i+1) + ": ");
 			String castname = sc.nextLine();
@@ -266,7 +258,7 @@ public class StaffUseBoundary {
 		System.out.println("Choose Movie Title:");
 		ArrayList<Movie> tempMovieList = new ArrayList<Movie>();
 		for(int i=0; i<cinema.getListOfMovie().size(); i++) {
-			if(cinema.getMovie(i).getShowStatus() == ShowStatus.ns) {
+			if(cinema.getMovie(i).getShowStatus() == ShowStatus.ns || cinema.getMovie(i).getShowStatus() == ShowStatus.pr) {
 				System.out.println(++counter + ". " + cinema.getMovie(i).getMovieTitle());
 				tempMovieList.add(cinema.getMovie(i));
 			}

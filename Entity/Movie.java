@@ -67,14 +67,13 @@ public class Movie implements Serializable{
 	 * @param Sneakpreview Whether the movie has sneak previews
 	 * @param Movietype Type of Movie, e.g. Regular/ 3D
 	 */
-	public Movie(String movieTitle, int showStatus, int movieRating, String synopsis, String director, boolean BlockBuster, boolean Sneakpreview, MovieType Movietype) {
+	public Movie(String movieTitle, int showStatus, int movieRating, String synopsis, String director, boolean BlockBuster, MovieType Movietype) {
 		setMovieTitle(movieTitle);
 		setShowStatus(showStatus);
 		setMovieRating(movieRating);
 		setSynopsis(synopsis);
 		setDirector(director);
 		setBlockBuster(BlockBuster);
-		setSneakPreview(Sneakpreview);
 		setMovieType(Movietype);
 	}
 	
@@ -148,15 +147,19 @@ public class Movie implements Serializable{
 	 */
 	public void setShowStatus(int showStatus) {
 		if(showStatus == 1) {
+			setSneakPreview(false);
 			this.showStatus = ShowStatus.cs;
 		}
 		else if(showStatus == 2) {
+			setSneakPreview(true);
 			this.showStatus = ShowStatus.pr;
 		}
 		else if(showStatus == 3) {
+			setSneakPreview(false);
 			this.showStatus = ShowStatus.ns;
 		}
 		else if(showStatus == 4) {
+			setSneakPreview(false);
 			this.showStatus = ShowStatus.na;
 		}
 	}
